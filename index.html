@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>أبطال في الظل | Shadow Heroes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <button class="icon-button" id="backButton" type="button" aria-label="Back">←</button>
+        <div class="brand">
+          <span class="brand-mark">ظ</span>
+          <div>
+            <strong data-i18n="brand">أبطال في الظل</strong>
+            <small data-i18n="tagline">سير الجنود المجهولين من صحابة رسول الله</small>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button class="segmented active" id="arabicButton" type="button">عربي</button>
+          <button class="segmented" id="englishButton" type="button">EN</button>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero" id="homeView">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="eyebrow">مشروع قصصي تفاعلي</p>
+            <h1 data-i18n="headline">أبطال في الظل</h1>
+            <p data-i18n="heroText">
+              رحلة مرئية وصوتية إلى سير صحابة كرام عملوا في صمت، وصنعوا في لحظات خفية أثراً باقياً.
+            </p>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <img src="assets/heroes-desert-collage.png" alt="" />
+          </div>
+        </section>
+
+        <section class="cards-section" id="cardsSection">
+          <div class="section-heading">
+            <h2 data-i18n="browseTitle">اختر قصة</h2>
+            <p data-i18n="browseText">ابدأ بالمقدمة أو افتح كارت أي شخصية لقراءة التعريف والسيناريو.</p>
+          </div>
+          <div class="card-grid" id="cardGrid"></div>
+        </section>
+
+        <section class="story-view" id="storyView" hidden>
+          <div class="story-hero">
+            <div>
+              <p class="eyebrow" id="storyCategory"></p>
+              <h1 id="storyTitle"></h1>
+              <p id="storySummary"></p>
+            </div>
+            <div class="story-portrait" id="storyPortrait"></div>
+          </div>
+
+          <div class="audio-dock">
+            <button class="primary-button" id="listenButton" type="button">▶</button>
+            <div>
+              <strong id="listenTitle"></strong>
+              <small id="listenStatus"></small>
+            </div>
+            <button class="ghost-button" id="stopButton" type="button" data-i18n="stop">إيقاف</button>
+          </div>
+
+          <div class="story-layout">
+            <aside class="chapter-list" id="chapterList"></aside>
+            <article class="story-card">
+              <div class="chapter-image" id="chapterImage"></div>
+              <h2 id="chapterTitle"></h2>
+              <div class="story-content" id="storyContent"></div>
+              <div class="story-nav">
+                <button class="ghost-button" id="prevChapter" type="button" data-i18n="previous">السابق</button>
+                <span id="chapterCounter"></span>
+                <button class="primary-button" id="nextChapter" type="button" data-i18n="next">التالي</button>
+              </div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
