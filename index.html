@@ -40,12 +40,15 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
 .home-tagline{font-family:'Cairo',sans-serif;font-size:clamp(12px,2.4vw,16px);color:rgba(212,232,160,.6);margin-top:8px;font-weight:600;line-height:1.5}
 .home-section-title{font-family:'Cairo',sans-serif;font-weight:800;font-size:clamp(14px,2.6vw,18px);color:var(--accent);padding:22px 20px 10px;letter-spacing:.5px}
 .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,46%),1fr));gap:14px;padding:0 16px 60px}
-.story-card{background:linear-gradient(145deg,rgba(14,30,46,.95),rgba(22,36,64,.9));border:1px solid rgba(168,204,64,.2);border-radius:16px;padding:16px 14px;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;text-align:right;overflow:hidden;position:relative}
-.story-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(145deg,rgba(168,204,64,.04),transparent);opacity:0;transition:opacity .2s}
+.story-card{background:linear-gradient(145deg,rgba(14,30,46,.95),rgba(22,36,64,.9));border:1px solid rgba(168,204,64,.2);border-radius:16px;padding:0;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;text-align:right;overflow:hidden;position:relative}
+.story-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(145deg,rgba(168,204,64,.04),transparent);opacity:0;transition:opacity .2s;z-index:1;pointer-events:none}
 .story-card:hover{transform:translateY(-3px);border-color:rgba(168,204,64,.45);box-shadow:0 8px 24px rgba(0,0,0,.4)}
 .story-card:hover::before{opacity:1}
 .story-card:active{transform:scale(.97)}
-.card-img{width:100%;aspect-ratio:3/2;border-radius:10px;object-fit:cover;margin-bottom:10px;opacity:.85}
+.card-img-wrap{position:relative;width:100%;aspect-ratio:3/2;overflow:hidden;border-radius:10px 10px 0 0}
+.card-img{width:100%;height:100%;object-fit:cover;display:block;opacity:.85}
+.card-img-tint{position:absolute;inset:0;border-radius:10px 10px 0 0}
+.card-body{padding:10px 12px 12px;position:relative;z-index:2}
 .card-badge{display:inline-block;font-size:10px;font-weight:700;color:var(--accent);background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.25);border-radius:20px;padding:2px 10px;margin-bottom:6px}
 .card-title{font-family:'Cairo',sans-serif;font-weight:800;font-size:clamp(14px,2.8vw,18px);color:#E8F0C8;line-height:1.35;margin-bottom:4px}
 .card-subtitle{font-family:'Cairo',sans-serif;font-size:clamp(11px,2vw,13px);color:rgba(212,232,160,.55);line-height:1.4}
@@ -496,12 +499,12 @@ var STORIES = [
 
 /* ─── 6. جليبيب ─── */
 {
-  id:'julaybib', img:'assets/julaybib.png',
+  id:'julaybib', img:'assets/three-heroes.png',
   badge:'رَجُلُ الدَّارَيْنِ', title:'جُلَيْبِيبٌ', en:'Julaybib',
   slides:[
     {type:'cover',icon:'⭐',title:'جُلَيْبِيبٌ',sub:'المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ',subEn:'Lifted on the Arms of Prophethood',scene:'desertNight',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ فَضَائِلِ الصَّحَابَةِ',
      nar:'جُلَيْبِيبٌ. المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ.'},
-    {type:'scene',sceneImg:'assets/julaybib.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/three-heroes.png',sceneIdx:1,
      ar:'كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، وَكَانَ فِي مَظْهَرِهِ دَمَامَةٌ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ ﷺ كَانَ يُحِبُّهُ حُبًّا جَمًّا وَزَوَّجَهُ بِبَرَكَةِ دُعَائِهِ.',
      en:'A poor man of the Suffa, plain in appearance, from whom people kept their distance. Yet the Prophet ﷺ loved him deeply and arranged his marriage through his blessed supplication.',
      nar:'كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، دَمِيمَ الخِلْقَةِ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ كَانَ يُحِبُّهُ حُبًّا جَمًّا، وَزَوَّجَهُ بِبَرَكَةِ دُعَائِهِ الشَّرِيفِ.'},
@@ -530,12 +533,12 @@ var STORIES = [
 
 /* ─── 7. صلة بن الحارث ─── */
 {
-  id:'silah', img:'assets/silah.png',
+  id:'silah', img:'assets/three-heroes.png',
   badge:'إِخْلَاصٌ خَفِيٌّ', title:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ', en:'Silah ibn al-Harith al-Ghifari',
   slides:[
     {type:'cover',icon:'🌊',title:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ',sub:'صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ',subEn:'The Man of the Desert Miracle and Hidden Sincerity',scene:'oasis',src:'دَلَائِلُ النُّبُوَّةِ — التَّارِيخُ الكَبِيرُ لِلْبُخَارِيِّ',
      nar:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ. صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ.'},
-    {type:'scene',sceneImg:'assets/silah.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/three-heroes.png',sceneIdx:1,
      ar:'صَحَابِيٌّ مِنْ قَبِيلَةِ غِفَارَ، كَانَ كَتُومًا عَابِدًا مُجَاهِدًا بِصَمْتٍ فِي جُيُوشِ الفَتْحِ الإِسْلَامِيِّ.',
      en:'A companion from the Ghifar tribe — silent, devout, a quiet fighter in the armies of the Islamic conquests.',
      nar:'صَحَابِيٌّ مِنْ قَبِيلَةِ غِفَارَ، كَانَ كَتُومًا عَابِدًا مُجَاهِدًا بِصَمْتٍ فِي جُيُوشِ الفَتْحِ الإِسْلَامِيِّ.'},
@@ -566,12 +569,12 @@ var STORIES = [
 
 /* ─── 8. أبو الدحداح ─── */
 {
-  id:'abududahdah', img:'assets/dahdah.png',
+  id:'abududahdah', img:'assets/three-heroes.png',
   badge:'تَاجِرُ النَّخِيلِ', title:'أَبُو الدَّحْدَاحِ', en:'Abu al-Dahdah',
   slides:[
     {type:'cover',icon:'🌴',title:'أَبُو الدَّحْدَاحِ',sub:'صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ',subEn:'The Owner of the Most Profitable Sale in Human History',scene:'gardenScene',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ الجَنَائِزِ',
      nar:'أَبُو الدَّحْدَاحِ. صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ.'},
-    {type:'scene',sceneImg:'assets/dahdah.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/three-heroes.png',sceneIdx:1,
      ar:'ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ نَخِيلٌ كَثِيرَةٌ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.',
      en:'Thabit ibn al-Dahdah al-Ansari owned a magnificent garden in Madinah with six hundred palm trees, a water well, and a palace where his family lived.',
      nar:'ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ نَخِيلٌ كَثِيرَةٌ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.'},
@@ -677,6 +680,19 @@ function getSlideNarration(s){
 /* ═══════════════════════════════════════════════
    RENDER HOME
 ═══════════════════════════════════════════════ */
+// Unique tint colours per story so same-image cards look distinct
+var TINTS = [
+  'rgba(200,168,48,.0)',    // 0 intro — gold (has own layout)
+  'rgba(30,100,180,.18)',   // 1 hubab — blue tint (wells/water)
+  'rgba(80,40,120,.22)',    // 2 nuaym — purple (spy/night)
+  'rgba(20,120,80,.20)',    // 3 rabia — green (garden/prayer)
+  'rgba(180,60,20,.22)',    // 4 amr — red/orange (battle)
+  'rgba(20,80,160,.20)',    // 5 dhu — deep blue (desert night)
+  'rgba(100,160,20,.18)',   // 6 julaybib — bright green (honour)
+  'rgba(20,140,120,.22)',   // 7 silah — teal (water miracle)
+  'rgba(180,130,0,.22)',    // 8 dahdah — amber (golden garden)
+];
+
 function renderHome(){
   var g=document.getElementById('cardsGrid');g.innerHTML='';
   STORIES.forEach(function(story,idx){
@@ -697,13 +713,19 @@ function renderHome(){
           +'</div>'
         +'</div>';
     } else {
-      // ── كروت الصحابة العادية ──
+      // ── كروت الصحابة — صورة + tint مميز + نص ──
+      var tint = TINTS[idx] || 'rgba(0,0,0,0)';
       card.className='story-card';
       card.innerHTML=
-        '<img class="card-img" src="'+story.img+'" alt="" loading="lazy">'
-        +'<div class="card-badge">'+story.badge+'</div>'
-        +'<div class="card-title">'+story.title+'</div>'
-        +'<div class="card-subtitle">'+story.en+'</div>';
+        '<div class="card-img-wrap">'
+          +'<img class="card-img" src="'+story.img+'" alt="" loading="lazy">'
+          +'<div class="card-img-tint" style="background:'+tint+'"></div>'
+        +'</div>'
+        +'<div class="card-body">'
+          +'<div class="card-badge">'+story.badge+'</div>'
+          +'<div class="card-title">'+story.title+'</div>'
+          +'<div class="card-subtitle">'+story.en+'</div>'
+        +'</div>';
     }
 
     card.addEventListener('click',function(){openStory(captured)});
