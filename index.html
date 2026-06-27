@@ -53,9 +53,29 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
 .card-badge{display:inline-block;font-size:10px;font-weight:700;color:var(--accent);background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.25);border-radius:20px;padding:2px 10px;margin-bottom:6px}
 .card-title{font-family:'Cairo',sans-serif;font-weight:800;font-size:clamp(14px,2.8vw,18px);color:#E8F0C8;line-height:1.35;margin-bottom:4px}
 .card-subtitle{font-family:'Cairo',sans-serif;font-size:clamp(11px,2vw,13px);color:rgba(212,232,160,.55);line-height:1.4}
-.card-intro{grid-column:1/-1;background:linear-gradient(145deg,rgba(30,50,14,.95),rgba(14,30,46,.9));border-color:rgba(200,168,48,.3)}
-.card-intro .card-badge{color:var(--gold);background:rgba(200,168,48,.1);border-color:rgba(200,168,48,.3)}
-.card-intro .card-title{font-size:clamp(16px,3.2vw,22px);color:var(--gold-light)}
+.card-intro{
+  grid-column:1/-1;
+  background:linear-gradient(135deg,rgba(20,38,10,.97) 0%,rgba(10,20,40,.97) 100%);
+  border:2px solid rgba(200,168,48,.55);
+  border-radius:20px;
+  padding:0;
+  overflow:hidden;
+  box-shadow:0 6px 32px rgba(0,0,0,.5),0 0 0 1px rgba(200,168,48,.1);
+}
+.card-intro:hover{transform:translateY(-4px);border-color:rgba(200,168,48,.85);box-shadow:0 12px 40px rgba(0,0,0,.6),0 0 24px rgba(200,168,48,.15)}
+.card-intro-inner{display:flex;gap:0;height:clamp(130px,22vw,180px)}
+.card-intro-img{flex-shrink:0;width:clamp(120px,30%,200px);position:relative;overflow:hidden}
+.card-intro-img img{width:100%;height:100%;object-fit:cover;display:block;opacity:.8;filter:brightness(.9) saturate(1.1)}
+.card-intro-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 60%,rgba(20,38,10,.95))}
+.card-intro-body{flex:1;padding:clamp(14px,3vw,22px) clamp(14px,3vw,22px) clamp(14px,3vw,22px) 0;display:flex;flex-direction:column;justify-content:center;text-align:right}
+.card-intro-badge{display:inline-block;font-size:11px;font-weight:700;color:var(--gold);background:rgba(200,168,48,.12);border:1px solid rgba(200,168,48,.4);border-radius:20px;padding:3px 12px;margin-bottom:8px;letter-spacing:.3px}
+.card-intro-title{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:clamp(20px,4.5vw,32px);color:var(--gold-light);line-height:1.2;margin-bottom:6px;text-shadow:0 0 20px rgba(200,168,48,.35)}
+.card-intro-sub{font-family:'Cairo',sans-serif;font-size:clamp(11px,2vw,14px);color:rgba(212,232,160,.65);line-height:1.5;margin-bottom:10px}
+.card-intro-cta{display:inline-flex;align-items:center;gap:6px;font-family:'Cairo',sans-serif;font-size:clamp(11px,2vw,13px);font-weight:700;color:var(--gold-light);background:rgba(200,168,48,.12);border:1px solid rgba(200,168,48,.35);border-radius:20px;padding:5px 14px;width:fit-content}
+.card-intro .card-badge{display:none}
+.card-intro .card-title{display:none}
+.card-intro .card-subtitle{display:none}
+.card-intro .card-img{display:none}
 
 /* ═══════════════════════════════════════════════
    STORY VIEWER (fullscreen)
@@ -664,12 +684,32 @@ function renderHome(){
   var g=document.getElementById('cardsGrid');g.innerHTML='';
   STORIES.forEach(function(story,idx){
     var card=document.createElement('div');
-    card.className='story-card'+(idx===0?' card-intro':'');
-    card.innerHTML='<img class="card-img" src="'+story.img+'" alt="" loading="lazy">'
-      +'<div class="card-badge">'+story.badge+'</div>'
-      +'<div class="card-title">'+story.title+'</div>'
-      +'<div class="card-subtitle">'+story.en+'</div>';
-    card.addEventListener('click',function(){openStory(idx)});
+    var captured=idx;
+
+    if(idx===0){
+      // ── مقدمة المشروع — كارت بانر خاص ──
+      card.className='story-card card-intro';
+      card.innerHTML=
+        '<div class="card-intro-inner">'
+          +'<div class="card-intro-img"><img src="'+story.img+'" alt="مقدمة المشروع"></div>'
+          +'<div class="card-intro-body">'
+            +'<div class="card-intro-badge">🌿 '+story.badge+'</div>'
+            +'<div class="card-intro-title">'+story.title+'</div>'
+            +'<div class="card-intro-sub">لماذا يختبئ الأبطال؟ رِحْلَةٌ فِي سِيَرِ مَنْ عَمِلُوا فِي صَمْتٍ وَصَنَعُوا التَّارِيخَ</div>'
+            +'<div class="card-intro-cta">▶ ابدأ هنا <span style="opacity:.6;font-size:11px">· مُقَدِّمَةُ المَشْرُوعِ</span></div>'
+          +'</div>'
+        +'</div>';
+    } else {
+      // ── كروت الصحابة العادية ──
+      card.className='story-card';
+      card.innerHTML=
+        '<img class="card-img" src="'+story.img+'" alt="" loading="lazy">'
+        +'<div class="card-badge">'+story.badge+'</div>'
+        +'<div class="card-title">'+story.title+'</div>'
+        +'<div class="card-subtitle">'+story.en+'</div>';
+    }
+
+    card.addEventListener('click',function(){openStory(captured)});
     g.appendChild(card);
   });
 }
