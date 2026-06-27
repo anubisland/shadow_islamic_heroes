@@ -1,102 +1,854 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>أبطال في الظل | Shadow Heroes</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Inter:wght@400;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <button class="icon-button" id="backButton" type="button" aria-label="Back">←</button>
-        <div class="brand">
-          <span class="brand-mark">ظ</span>
-          <div>
-            <strong data-i18n="brand">أبطال في الظل</strong>
-            <small data-i18n="tagline">سير الجنود المجهولين من صحابة رسول الله</small>
-          </div>
-        </div>
-        <div class="toolbar">
-          <button class="segmented active" id="arabicButton" type="button">عربي</button>
-          <button class="segmented" id="englishButton" type="button">EN</button>
-        </div>
-      </header>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>أَبْطَالٌ فِي الظِّلِّ — سِيَرُ الجُنُودِ المَجْهُولِينَ</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#A8CC40">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="أبطال في الظل">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:100vh;overflow-x:hidden}
+:root{
+  --gold:#C8A830;--gold-light:#E8CC60;--green:#5A8C28;--green-light:#7ABE3C;
+  --navy:#060E1A;--navy-mid:#0E1E2E;--navy-soft:#162440;
+  --cream:#F5F8E8;--text-dark:#0D1808;
+  --accent:#A8CC40;--accent-soft:rgba(168,204,64,.15);
+}
 
-      <main>
-        <section class="hero" id="homeView">
-          <div class="hero-copy">
-            <p class="eyebrow" data-i18n="eyebrow">مشروع قصصي تفاعلي</p>
-            <h1 data-i18n="headline">أبطال في الظل</h1>
-            <p data-i18n="heroText">
-              رحلة مرئية وصوتية إلى سير صحابة كرام عملوا في صمت، وصنعوا في لحظات خفية أثراً باقياً.
-            </p>
-          </div>
-          <div class="hero-art" aria-hidden="true">
-            <img src="assets/heroes-desert-collage.png" alt="" />
-          </div>
-        </section>
+/* ═══════════════════════════════════════════════
+   CANVAS STARS
+═══════════════════════════════════════════════ */
+#stars-bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-        <section class="cards-section" id="cardsSection">
-          <div class="section-heading">
-            <h2 data-i18n="browseTitle">اختر قصة</h2>
-            <p data-i18n="browseText">ابدأ بالمقدمة أو افتح كارت أي شخصية لقراءة التعريف والسيناريو.</p>
-          </div>
-          <div class="card-grid" id="cardGrid"></div>
-        </section>
+/* ═══════════════════════════════════════════════
+   HOME SCREEN
+═══════════════════════════════════════════════ */
+#home{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+.home-header{padding:28px 24px 0;text-align:center}
+.home-brand{font-family:'Aref Ruqaa',serif;font-size:clamp(26px,6vw,42px);color:var(--gold-light);text-shadow:0 0 30px rgba(200,168,48,.4);line-height:1.2}
+.home-tagline{font-family:'Cairo',sans-serif;font-size:clamp(12px,2.4vw,16px);color:rgba(212,232,160,.6);margin-top:6px;font-weight:600}
+.home-hero{position:relative;margin:18px 16px 0;border-radius:20px;overflow:hidden;height:clamp(140px,28vw,200px)}
+.home-hero img{width:100%;height:100%;object-fit:cover;display:block;opacity:.75}
+.home-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(6,14,26,.9));display:flex;align-items:flex-end;padding:16px 20px}
+.home-hero-text{font-family:'Cairo',sans-serif;font-size:clamp(13px,2.4vw,17px);color:rgba(232,240,200,.8);line-height:1.5}
+.home-section-title{font-family:'Cairo',sans-serif;font-weight:800;font-size:clamp(14px,2.6vw,18px);color:var(--accent);padding:18px 20px 8px;letter-spacing:.5px}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(160px,46%),1fr));gap:12px;padding:0 16px 100px}
+.story-card{background:linear-gradient(145deg,rgba(14,30,46,.95),rgba(22,36,64,.9));border:1px solid rgba(168,204,64,.2);border-radius:16px;padding:16px 14px;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation;text-align:right;overflow:hidden;position:relative}
+.story-card::before{content:'';position:absolute;inset:0;border-radius:16px;background:linear-gradient(145deg,rgba(168,204,64,.04),transparent);opacity:0;transition:opacity .2s}
+.story-card:hover{transform:translateY(-3px);border-color:rgba(168,204,64,.45);box-shadow:0 8px 24px rgba(0,0,0,.4)}
+.story-card:hover::before{opacity:1}
+.story-card:active{transform:scale(.97)}
+.card-img{width:100%;aspect-ratio:3/2;border-radius:10px;object-fit:cover;margin-bottom:10px;opacity:.85}
+.card-badge{display:inline-block;font-size:10px;font-weight:700;color:var(--accent);background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.25);border-radius:20px;padding:2px 10px;margin-bottom:6px}
+.card-title{font-family:'Cairo',sans-serif;font-weight:800;font-size:clamp(14px,2.8vw,18px);color:#E8F0C8;line-height:1.35;margin-bottom:4px}
+.card-subtitle{font-family:'Cairo',sans-serif;font-size:clamp(11px,2vw,13px);color:rgba(212,232,160,.55);line-height:1.4}
+.card-intro{grid-column:1/-1;background:linear-gradient(145deg,rgba(30,50,14,.95),rgba(14,30,46,.9));border-color:rgba(200,168,48,.3)}
+.card-intro .card-badge{color:var(--gold);background:rgba(200,168,48,.1);border-color:rgba(200,168,48,.3)}
+.card-intro .card-title{font-size:clamp(16px,3.2vw,22px);color:var(--gold-light)}
 
-        <section class="story-view" id="storyView" hidden>
-          <div class="story-hero">
-            <div>
-              <p class="eyebrow" id="storyCategory"></p>
-              <h1 id="storyTitle"></h1>
-              <p id="storySummary"></p>
-            </div>
-            <div class="story-portrait" id="storyPortrait"></div>
-          </div>
+/* ═══════════════════════════════════════════════
+   STORY VIEWER (fullscreen)
+═══════════════════════════════════════════════ */
+#viewer{display:none;position:fixed;inset:0;z-index:100;background:linear-gradient(180deg,#040C18 0%,#0E1E08 55%,#6A7C10 100%);flex-direction:column}
+#viewer.open{display:flex}
+.viewer-topbar{display:flex;align-items:center;gap:6px;padding:10px 12px 4px;flex-shrink:0}
+.v-back{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:14px;color:#D4E8A0;-webkit-tap-highlight-color:transparent;touch-action:manipulation;transition:background .2s;flex-shrink:0}
+.v-back:active{transform:scale(.9)}
+.v-series{font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:var(--accent);margin-left:auto;white-space:nowrap}
+.v-counter{font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;color:var(--accent);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 10px;white-space:nowrap}
+.v-tts{font-size:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 8px;cursor:pointer;white-space:nowrap;color:var(--accent);-webkit-tap-highlight-color:transparent;transition:border-color .2s;touch-action:manipulation}
+.v-tts:hover{border-color:var(--accent)}
+.v-tts.speaking{animation:ttsGlow .8s ease-in-out infinite alternate}
+@keyframes ttsGlow{0%{border-color:rgba(168,204,64,.3)}100%{border-color:var(--accent);box-shadow:0 0 8px rgba(168,204,64,.35)}}
+#v-stage{position:relative;flex:1;min-height:0;overflow:hidden}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .45s ease;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto;z-index:5}
+/* image panel */
+.s-img{flex-shrink:0;position:relative;width:100%;aspect-ratio:8/2.2;border-radius:16px 16px 0 0;overflow:hidden;background:#040C18;border:1px solid rgba(168,204,64,.2);border-bottom:none}
+.s-img img{width:100%;height:100%;object-fit:cover;display:block}
+.s-img svg{width:100%;height:100%;display:block}
+.s-img-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(4,12,24,.6))}
+.s-scene-num{position:absolute;top:8px;right:8px;background:var(--accent);color:#040C18;font-family:'Cairo',sans-serif;font-size:11px;font-weight:800;border-radius:8px;padding:1px 8px;direction:ltr;z-index:2}
+/* night wrap (full slide — cover/morals/closing) */
+.s-night{flex:1;min-height:0;width:100%;border-radius:16px;background:linear-gradient(145deg,rgba(4,12,24,.95) 0%,rgba(14,30,8,.85) 100%);border:1px solid rgba(168,204,64,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(14px,3vw,30px);text-align:center;overflow-y:auto}
+/* caption card */
+.s-caption{width:100%;flex:1;min-height:0;background:var(--cream);border:1px solid var(--accent);border-top:3px solid var(--accent);border-radius:0 0 16px 16px;padding:clamp(10px,2.5vw,20px) clamp(12px,3vw,22px);overflow-y:auto;display:flex;flex-direction:column}
+.s-caption-inner{margin:auto;width:100%;text-align:center}
+.s-ar{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(16px,3.2vw,24px);line-height:1.65;color:var(--text-dark);margin-bottom:6px}
+.s-divider{width:48px;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);margin:4px auto 8px}
+.s-en{font-family:'Lora',serif;font-size:clamp(12px,2vw,16px);line-height:1.55;color:#253A10;font-style:italic}
+/* hadith box inside caption */
+.hadith-wrap{background:rgba(90,140,40,.1);border-right:3px solid var(--green-light);border-radius:4px 10px 10px 4px;padding:10px 14px;margin:8px 0;text-align:right}
+.hadith-ar{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(14px,2.6vw,19px);color:#1A2808;line-height:1.8}
+.hadith-response{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(14px,2.5vw,18px);color:var(--green);margin-top:6px;line-height:1.7}
+.hadith-src{font-family:'Cairo',sans-serif;font-size:clamp(10px,1.5vw,12px);color:rgba(90,140,40,.6);margin-top:4px}
+/* cover slide elements */
+.cover-icon{font-size:clamp(50px,11vw,76px);margin-bottom:6px;filter:drop-shadow(0 4px 18px rgba(168,204,64,.4))}
+.cover-title{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:clamp(26px,5.5vw,44px);color:#D4E8A0;text-shadow:0 0 22px rgba(168,204,64,.4);margin-bottom:4px;line-height:1.2}
+.cover-sub{font-family:'Cairo',sans-serif;font-weight:600;font-size:clamp(13px,2.6vw,19px);color:var(--accent)}
+.cover-en{font-family:'Lora',serif;font-size:clamp(12px,2.2vw,16px);color:rgba(212,232,160,.6);font-style:italic;margin:4px 0 8px}
+.cover-badge{display:inline-block;font-family:'Cairo',sans-serif;font-size:clamp(10px,1.8vw,13px);font-weight:700;color:#D4E8A0;background:rgba(168,204,64,.12);border:1px solid rgba(168,204,64,.32);border-radius:40px;padding:3px 16px}
+.cover-src{font-family:'Cairo',sans-serif;font-size:clamp(10px,1.5vw,12px);color:rgba(212,232,160,.3);margin-top:10px}
+/* morals */
+.morals-title{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(16px,3.2vw,24px);color:#D4E8A0;margin-bottom:10px}
+.moral-row{display:flex;align-items:flex-start;gap:8px;background:rgba(212,232,160,.05);border:1px solid rgba(168,204,64,.14);border-radius:12px;padding:9px 12px;margin-bottom:6px;text-align:right;width:100%}
+.moral-num{font-family:'Cairo',sans-serif;font-weight:800;font-size:13px;color:var(--accent);flex-shrink:0;width:22px;text-align:center;margin-top:3px}
+.moral-ar{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(13px,2.5vw,18px);color:#E8F5C0;line-height:1.6}
+.moral-en{font-family:'Lora',serif;font-size:clamp(11px,1.8vw,14px);color:rgba(212,232,160,.5);font-style:italic;line-height:1.45;margin-top:2px}
+/* closing */
+.closing-icon{font-size:clamp(40px,9vw,60px);margin-bottom:6px}
+.closing-title{font-family:'Aref Ruqaa',serif;font-weight:700;font-size:clamp(22px,4.5vw,32px);color:#D4E8A0}
+.closing-quote{font-family:'Cairo',sans-serif;font-size:clamp(13px,2.4vw,17px);color:rgba(212,232,160,.72);line-height:1.75;margin:10px 0;font-style:italic}
+.closing-en{font-family:'Lora',serif;font-size:clamp(12px,2.2vw,16px);color:rgba(212,232,160,.5);font-style:italic}
+.home-btn{display:inline-block;margin-top:14px;background:rgba(168,204,64,.12);border:1px solid var(--accent);border-radius:30px;padding:7px 22px;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(12px,2vw,15px);color:#D4E8A0;transition:background .2s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.home-btn:hover{background:rgba(168,204,64,.24)}
+.home-btn:active{transform:scale(.96)}
+/* intro slide (full-height text) */
+.intro-line{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(15px,2.8vw,21px);color:#E8F5C0;line-height:1.7;margin-bottom:4px}
+.intro-en{font-family:'Lora',serif;font-size:clamp(11px,2vw,15px);color:rgba(212,232,160,.5);font-style:italic;margin-bottom:10px}
+/* progress */
+.v-progress{display:flex;align-items:center;justify-content:center;gap:4px;padding:5px 0 2px;flex-shrink:0}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(168,204,64,.2);transition:background .3s,transform .3s}
+.dot.done{background:rgba(168,204,64,.5)}
+.dot.active{background:var(--accent);transform:scale(1.45);box-shadow:0 0 8px rgba(168,204,64,.4)}
+/* controls */
+.v-controls{display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0 2px;flex-shrink:0}
+.ctrl{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#D4E8A0;transition:background .2s,transform .1s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ctrl:active{transform:scale(.9)}
+.ctrl:hover{background:rgba(255,255,255,.14)}
+.ctrl:disabled{opacity:.2;pointer-events:none}
+.ctrl.sm{width:32px;height:32px;font-size:14px}
+/* responsive */
+@media(max-width:480px){.viewer-topbar{padding:6px 8px 2px}.s-img{aspect-ratio:8/2}.v-controls{gap:9px}.ctrl{width:34px;height:34px;font-size:14px}}
+@media(max-height:650px){.s-img{aspect-ratio:8/1.8}.s-caption{padding:7px 10px}.s-night{padding:10px 12px}.v-controls{padding:0;gap:8px}.ctrl{width:30px;height:30px;font-size:13px}.v-progress{padding:2px 0}.s-ar{font-size:clamp(14px,2.8vw,19px)}}
+/* source line */
+.src-line{font-family:'Cairo',sans-serif;font-size:clamp(9px,1.4vw,11px);color:rgba(212,232,160,.3);margin-top:8px}
+/* loading */
+#loader{position:fixed;inset:0;background:#060E1A;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:22px;z-index:999;font-family:'Cairo',sans-serif}
+</style>
+</head>
+<body>
+<div id="loader">جَارِي التَّحْمِيلُ…</div>
+<canvas id="stars-bg"></canvas>
 
-          <div class="audio-dock storybook-top-controls">
-            <button class="primary-button" id="listenButton" type="button">▶</button>
-            <div>
-              <strong id="listenTitle"></strong>
-              <small id="listenStatus"></small>
-            </div>
-            <button class="ghost-button" id="stopButton" type="button" data-i18n="stop">إيقاف</button>
-          </div>
-
-          <div class="progress-bar" id="progressBar"></div>
-
-          <div class="story-layout">
-            <aside class="chapter-list" id="chapterList"></aside>
-            <article class="story-card">
-              <div class="story-card-header">
-                <span class="scene-label" id="sceneLabel"></span>
-                <span class="scene-kind" id="sceneKind"></span>
-              </div>
-              <div class="chapter-image" id="chapterImage"></div>
-              <div class="profile-panel" id="profilePanel"></div>
-              <h2 id="chapterTitle"></h2>
-              <p class="narrator-label" id="narratorLabel"></p>
-              <div class="story-content" id="storyContent"></div>
-              <div class="translation-box" id="translationBox"></div>
-              <div class="lesson-box" id="lessonBox"></div>
-              <div class="story-nav">
-                <button class="ghost-button round-control" id="prevChapter" type="button" data-i18n="previous">السابق</button>
-                <span id="chapterCounter"></span>
-                <button class="primary-button round-control" id="nextChapter" type="button" data-i18n="next">التالي</button>
-              </div>
-            </article>
-          </div>
-        </section>
-      </main>
+<!-- ═══ HOME ═══ -->
+<div id="home">
+  <div class="home-header">
+    <div class="home-brand">أَبْطَالٌ فِي الظِّلِّ</div>
+    <div class="home-tagline">سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللهِ ﷺ</div>
+  </div>
+  <div class="home-hero">
+    <img src="assets/heroes-desert-collage.png" alt="أبطال في الظل">
+    <div class="home-hero-overlay">
+      <div class="home-hero-text">رِحْلَةٌ مَرْئِيَّةٌ وَصَوْتِيَّةٌ إِلَى سِيَرِ صَحَابَةٍ كِرَامٍ عَمِلُوا فِي صَمْتٍ وَصَنَعُوا أَثَرًا بَاقِيًا</div>
     </div>
+  </div>
+  <div class="home-section-title">🌿 اخْتَرْ قِصَّةً</div>
+  <div class="cards-grid" id="cardsGrid"></div>
+</div>
 
-    <script src="app.js"></script>
-  </body>
+<!-- ═══ STORY VIEWER ═══ -->
+<div id="viewer">
+  <div class="viewer-topbar">
+    <button class="v-back" id="vBack" aria-label="العودة">→</button>
+    <span class="v-series" id="vSeries">🌿 أَبْطَالٌ فِي الظِّلِّ</span>
+    <span class="v-counter" id="vCounter">١ / ١</span>
+    <span class="v-tts" id="vTts" role="button" tabindex="0">⏳ صَوْت</span>
+  </div>
+  <div id="v-stage"></div>
+  <div class="v-progress" id="vProgress"></div>
+  <div class="v-controls">
+    <button class="ctrl" id="vPrev" aria-label="السابق" disabled>◀</button>
+    <button class="ctrl" id="vPlay" aria-label="تشغيل">▶</button>
+    <button class="ctrl sm" id="vSpeak" aria-label="استماع">🔊</button>
+    <button class="ctrl" id="vNext" aria-label="التالي">▶</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ═══════════════════════════════════════════════
+   ANIMATED STARS BACKGROUND
+═══════════════════════════════════════════════ */
+(function(){
+  var c=document.getElementById('stars-bg'),ctx=c.getContext('2d'),pts=[];
+  function resize(){c.width=innerWidth;c.height=innerHeight}
+  function init(){pts=[];for(var i=0;i<110;i++)pts.push({x:Math.random(),y:Math.random()*.6,r:.4+Math.random()*1.2,o:.12+Math.random()*.5,sp:.3+Math.random()*.9,ph:Math.random()*Math.PI*2})}
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    var now=Date.now()/1000;
+    for(var i=0;i<pts.length;i++){var p=pts[i];var op=p.o*(.7+.3*Math.sin(now*p.sp+p.ph));ctx.beginPath();ctx.arc(p.x*c.width,p.y*c.height,p.r,0,Math.PI*2);ctx.fillStyle='rgba(200,230,140,'+op+')';ctx.fill()}
+    requestAnimationFrame(draw)
+  }
+  init();resize();window.addEventListener('resize',resize);draw();
+})();
+
+/* ═══════════════════════════════════════════════
+   SVG SCENE LIBRARY
+   Colour tokens: navy #040C18, dark-green #0E1E08, 
+   accent-green #5A8C28, gold #C8A830
+═══════════════════════════════════════════════ */
+var SVG = (function(){
+  var D = '<defs>'
+    +'<linearGradient id="gNight" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#020810"/><stop offset="100%" stop-color="#0A1A06"/></linearGradient>'
+    +'<linearGradient id="gDawn" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#060E1A"/><stop offset="40%" stop-color="#152A08"/><stop offset="100%" stop-color="#7A9214"/></linearGradient>'
+    +'<linearGradient id="gBattle" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1A0404"/><stop offset="55%" stop-color="#3E0E00"/><stop offset="100%" stop-color="#7A3800"/></linearGradient>'
+    +'<linearGradient id="gSunset" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#080E1A"/><stop offset="35%" stop-color="#1A2A06"/><stop offset="100%" stop-color="#9A8010"/></linearGradient>'
+    +'<radialGradient id="gWell"><stop offset="0%" stop-color="#A8CC40" stop-opacity=".35"/><stop offset="100%" stop-color="#A8CC40" stop-opacity="0"/></radialGradient>'
+    +'<radialGradient id="gFire"><stop offset="0%" stop-color="#FF8C00" stop-opacity=".4"/><stop offset="100%" stop-color="#FF8C00" stop-opacity="0"/></radialGradient>'
+    +'<radialGradient id="gLamp"><stop offset="0%" stop-color="#FFD060" stop-opacity=".28"/><stop offset="100%" stop-color="#FFD060" stop-opacity="0"/></radialGradient>'
+    +'<radialGradient id="gGold"><stop offset="0%" stop-color="#C8A830" stop-opacity=".3"/><stop offset="100%" stop-color="#C8A830" stop-opacity="0"/></radialGradient>'
+    +'<linearGradient id="gSand" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8A7820"/><stop offset="100%" stop-color="#5A4C10"/></linearGradient>'
+    +'<linearGradient id="gWall" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7A6820"/><stop offset="100%" stop-color="#4A3C10"/></linearGradient>'
+    +'<linearGradient id="gTent" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5A3818"/><stop offset="100%" stop-color="#3A2408"/></linearGradient>'
+    +'</defs>';
+
+  function wrap(inner){return '<svg viewBox="0 0 400 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">'+D+inner+'</svg>'}
+
+  function stars(n){var s='',ps=[[45,16],[88,27],[138,11],[178,24],[220,13],[268,27],[312,9],[352,21],[382,31],[28,38],[108,7],[158,33],[198,18],[248,34],[298,16],[342,34],[368,14],[72,5],[128,24],[258,7],[318,29],[48,30],[200,6]];n=Math.min(n||18,ps.length);for(var i=0;i<n;i++)s+='<circle cx="'+ps[i][0]+'" cy="'+ps[i][1]+'" r="'+(0.65+i%3*0.38)+'" fill="#FFF" opacity="'+(0.22+i%5*0.15)+'"/>';return s}
+  function moon(x,y,r){return'<circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#DCE8A0" opacity=".9"/><circle cx="'+(x+r*.28)+'" cy="'+(y-r*.18)+'" r="'+(r*.82)+'" fill="#040C18"/>'}
+  function sun(x,y,r){return'<circle cx="'+x+'" cy="'+y+'" r="'+(r*1.7)+'" fill="url(#gGold)"/><circle cx="'+x+'" cy="'+y+'" r="'+r+'" fill="#C8A830" opacity=".88"/>'}
+  function dunes(){return'<path d="M0,66 Q60,54 120,63 Q180,50 240,60 Q300,52 360,58 L400,56 L400,110 L0,110 Z" fill="#4A4408" opacity=".6"/><path d="M0,77 Q80,66 160,75 Q220,63 280,72 Q340,62 400,69 L400,110 L0,110 Z" fill="#3A3408" opacity=".65"/><path d="M0,89 Q100,79 200,87 Q300,77 400,84 L400,110 L0,110 Z" fill="#686020" opacity=".3"/>'}
+  function palm(x,y,sc){sc=sc||1;var th=36*sc,fs=20*sc,ty=y-th;return'<path d="M'+(x-2*sc)+','+y+' Q'+(x-sc)+','+(ty+th*.3)+' '+x+','+ty+' Q'+(x+sc)+','+(ty+th*.3)+' '+(x+2*sc)+','+y+'" fill="#2E2008" stroke="#1E1404" stroke-width="'+(0.5*sc)+'"/><path d="M'+x+','+ty+' Q'+(x-fs*1.3)+','+(ty-fs*.25)+' '+(x-fs*1.5)+','+(ty+fs*.42)+' Q'+(x-fs*.5)+','+(ty+fs*.08)+' '+x+','+ty+'" fill="#254818"/><path d="M'+x+','+ty+' Q'+(x+fs*1.3)+','+(ty-fs*.25)+' '+(x+fs*1.5)+','+(ty+fs*.42)+' Q'+(x+fs*.5)+','+(ty+fs*.08)+' '+x+','+ty+'" fill="#2E5820"/><path d="M'+x+','+ty+' Q'+(x-fs*.7)+','+(ty-fs*.62)+' '+(x-fs*.15)+','+(ty-fs*.82)+' Q'+(x+fs*.3)+','+(ty-fs*.48)+' '+x+','+ty+'" fill="#385E28"/>'}
+  function well(cx,cy,sc){sc=sc||1;var r=13*sc,h=9*sc,rt=r*.9;return'<ellipse cx="'+cx+'" cy="'+(cy+h)+'" rx="'+r+'" ry="'+(r*.38)+'" fill="#1A1204"/><rect x="'+(cx-r)+'" y="'+cy+'" width="'+(r*2)+'" height="'+h+'" fill="url(#gWall)"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rt+'" ry="'+(rt*.35)+'" fill="#4A3C12"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(rt*.68)+'" ry="'+(rt*.25)+'" fill="#182808" opacity=".9"/><ellipse cx="'+(cx+3*sc)+'" cy="'+(cy+1*sc)+'" rx="'+(rt*.18)+'" ry="'+(rt*.07)+'" fill="#A8CC40" opacity=".4"/><circle cx="'+cx+'" cy="'+cy+'" r="'+(rt*.92)+'" fill="url(#gWell)"/><line x1="'+(cx-rt*.5)+'" y1="'+(cy-2*sc)+'" x2="'+(cx+rt*.5)+'" y2="'+(cy-2*sc)+'" stroke="#6A5818" stroke-width="'+(1.5*sc)+'" stroke-linecap="round"/><line x1="'+cx+'" y1="'+(cy-2*sc)+'" x2="'+cx+'" y2="'+(cy-9*sc)+'" stroke="#8A7228" stroke-width="'+sc+'" stroke-linecap="round"/>'}
+  function fig(x,y,tc,hc){tc=tc||'#D8D0A0';hc=hc||'#C0A870';return'<path d="M'+(x-5)+','+(y-7)+' L'+(x-8)+','+(y+18)+' L'+(x+8)+','+(y+18)+' L'+(x+5)+','+(y-7)+' Z" fill="'+tc+'" opacity=".92"/><rect x="'+(x-2.5)+'" y="'+(y-9)+'" width="5" height="4" fill="'+hc+'" rx="1"/><circle cx="'+x+'" cy="'+(y-13)+'" r="4.5" fill="'+hc+'"/><path d="M'+(x-4.5)+','+(y-14)+' Q'+x+','+(y-21)+' '+(x+4.5)+','+(y-14)+'" fill="'+hc+'" opacity=".82"/>'}
+  function spear(x,y){return'<line x1="'+x+'" y1="'+(y-26)+'" x2="'+x+'" y2="'+(y+20)+'" stroke="#887618" stroke-width="1.2" stroke-linecap="round"/><path d="M'+(x-2)+','+(y-26)+' L'+x+','+(y-33)+' L'+(x+2)+','+(y-26)+'" fill="#B0B0B0"/>'}
+  function torch(x,y){return'<circle cx="'+x+'" cy="'+(y-8)+'" r="10" fill="url(#gFire)"/><line x1="'+x+'" y1="'+(y-8)+'" x2="'+x+'" y2="'+(y+6)+'" stroke="#8A6810" stroke-width="1.8" stroke-linecap="round"/><path d="M'+(x-2)+','+(y-8)+' Q'+x+','+(y-16)+' '+(x+2)+','+(y-8)+'" fill="#FF8C00" opacity=".85"/><path d="M'+(x-1)+','+(y-8)+' Q'+x+','+(y-14)+' '+(x+1)+','+(y-8)+'" fill="#FFD060" opacity=".65"/>'}
+  function tent(cx,y,w){w=w||30;var h=w*.85;return'<path d="M'+(cx-w)+','+y+' L'+cx+','+(y-h)+' L'+(cx+w)+','+y+' Z" fill="url(#gTent)" stroke="#2A1804" stroke-width=".6"/><path d="M'+(cx-w)+','+y+' L'+cx+','+(y-h)+' L'+cx+','+y+' Z" fill="#3A2410" opacity=".5"/><path d="M'+(cx-w*.25)+','+y+' L'+cx+','+(y-h*.5)+' L'+(cx+w*.25)+','+y+' Z" fill="#0E0804" opacity=".7"/>'}
+  function mosque(cx,y){return'<rect x="'+(cx-22)+'" y="'+(y-28)+'" width="44" height="28" fill="#1A2C0E" stroke="#A8CC40" stroke-width=".6"/><path d="M'+(cx-22)+','+(y-28)+' Q'+cx+','+(y-48)+' '+(cx+22)+','+(y-28)+' Z" fill="#2A3C14" stroke="#A8CC40" stroke-width=".5"/><rect x="'+(cx-1.5)+'" y="'+(y-52)+'" width="3" height="26" fill="#A8CC40" opacity=".7"/><circle cx="'+cx+'" cy="'+(y-52)+'" r="2.5" fill="#C8A830" opacity=".8"/><rect x="'+(cx-8)+'" y="'+(y-18)+'" width="16" height="18" fill="#0E1808"/><rect x="'+(cx-28)+'" y="'+(y-38)+'" width="5" height="38" fill="#1A2C0E"/><circle cx="'+(cx-25.5)+'" cy="'+(y-38)+'" r="2.5" fill="#A8CC40" opacity=".6"/><rect x="'+(cx+23)+'" y="'+(y-32)+'" width="5" height="32" fill="#1A2C0E"/><circle cx="'+(cx+25.5)+'" cy="'+(y-32)+'" r="2.5" fill="#A8CC40" opacity=".55"/>'}
+  function water(cx,cy,rx,ry){return'<ellipse cx="'+cx+'" cy="'+cy+'" rx="'+rx+'" ry="'+ry+'" fill="#1A3A14" opacity=".6"/><ellipse cx="'+cx+'" cy="'+cy+'" rx="'+(rx*.75)+'" ry="'+(ry*.7)+'" fill="#2A5020" opacity=".4"/><ellipse cx="'+(cx+rx*.15)+'" cy="'+(cy+ry*.1)+'" rx="'+(rx*.22)+'" ry="'+(ry*.16)+'" fill="#A8CC40" opacity=".3"/>'}
+
+  // ── NAMED SCENES ──
+  return {
+    // General purpose
+    desertNight:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(21)+moon(340,22,13)+dunes()+palm(78,86)+palm(322,84,.85))},
+    desertDawn:function(){return wrap('<rect width="400" height="110" fill="url(#gDawn)"/>'+stars(12)+moon(50,20,10)+dunes()+palm(340,82,.9)+sun(55,28,12))},
+    desertSunset:function(){return wrap('<rect width="400" height="110" fill="url(#gSunset)"/>'+sun(330,30,14)+dunes()+palm(80,82)+palm(315,80,.85))},
+    battle:function(){return wrap('<rect width="400" height="110" fill="url(#gBattle)"/><ellipse cx="100" cy="45" rx="38" ry="18" fill="#A8CC40" opacity=".07"/><ellipse cx="280" cy="52" rx="48" ry="16" fill="#A8CC40" opacity=".05"/>'+dunes()+palm(50,76,.75)+palm(355,74,.72)+fig(145,66,'#E8E0C0','#C8B880')+spear(153,50)+fig(165,66,'#D4D0A0','#B0A068')+spear(173,50)+fig(185,66,'#F0E8C8','#D0B080')+spear(193,50)+fig(225,66,'#C09050','#A07830')+fig(245,66,'#A87840','#886020')+spear(253,50)+fig(265,66,'#B08040','#906030')+'<path d="M112,38 L142,54 L112,66 Z" fill="#A8CC40" opacity=".8"/><line x1="112" y1="26" x2="112" y2="68" stroke="#3A3008" stroke-width="2"/>') },
+    madinah:function(){return wrap('<rect width="400" height="110" fill="url(#gDawn)"/>'+stars(10)+sun(330,28,11)+mosque(200,90)+dunes()+palm(75,80,.9)+palm(330,78,.85))},
+    nightCamp:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(20)+moon(320,26,12)+dunes()+tent(150,82,28)+tent(260,80,22)+'<circle cx="205" cy="82" r="10" fill="url(#gFire)"/>'+torch(205,80)+palm(60,78,.85)+palm(340,76,.8)+fig(185,72,'#E8E0C0','#C0A870'))},
+    wellScene:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(18)+moon(50,18,11)+dunes()+well(120,70,.9)+well(200,66,1.15)+well(280,70,.88)+'<circle cx="200" cy="66" r="26" fill="url(#gWell)"/>'+fig(160,74,'#F0E8C8','#D0B888')+'<line x1="168" y1="65" x2="190" y2="64" stroke="#C8A830" stroke-width="1.4" stroke-linecap="round"/><path d="M188,61 L193,64 L188,67" fill="none" stroke="#C8A830" stroke-width="1.2"/>'+palm(320,82,.85))},
+    oasis:function(){return wrap('<rect width="400" height="110" fill="url(#gSunset)"/>'+sun(60,30,13)+water(200,90,90,12)+palm(100,80)+palm(300,80)+'<path d="M155,68 Q160,58 165,68" fill="#264816"/><path d="M235,65 Q240,55 245,65" fill="#264816"/>'+dunes())},
+    armyLines:function(){return wrap('<rect width="400" height="110" fill="url(#gDawn)"/>'+stars(9)+dunes()+palm(55,78,.8)+palm(350,76,.75)+fig(100,68,'#E8E0C0','#C8B880')+spear(108,52)+fig(122,68,'#D4D0A0','#B0A068')+spear(130,52)+fig(144,68,'#E0D8B0','#C0A870')+spear(152,52)+fig(166,68,'#F0E8C8','#D0B888')+spear(174,52)+fig(188,68,'#D8D0A0','#B0A068')+fig(210,68,'#E0D8B0','#C0A870')+spear(218,52)+fig(232,68,'#D4D0A0','#B0A068')+spear(240,52)+fig(254,68,'#E8E0C0','#C8B880')+'<path d="M290,38 L316,52 L290,64 Z" fill="#A8CC40" opacity=".82"/><line x1="290" y1="26" x2="290" y2="66" stroke="#3A3008" stroke-width="1.8"/>') },
+    study:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(16)+torch(90,52)+torch(310,54)+'<rect x="140" y="55" width="120" height="28" fill="#1A2808" rx="3"/><rect x="145" y="58" width="110" height="22" fill="#F5F0D8" rx="2"/><line x1="152" y1="64" x2="248" y2="64" stroke="#1A0E04" stroke-width=".5" opacity=".3"/><line x1="152" y1="68" x2="248" y2="68" stroke="#1A0E04" stroke-width=".5" opacity=".3"/><line x1="152" y1="72" x2="220" y2="72" stroke="#1A0E04" stroke-width=".5" opacity=".3"/>'+fig(195,72,'#E8E0C0','#C8B880')+palm(360,80,.8))},
+    prayerNight:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(22)+moon(200,18,14)+'<polygon points="200,0 80,110 320,110" fill="#A8CC40" opacity=".04"/><polygon points="200,0 140,110 260,110" fill="#A8CC40" opacity=".07"/>'+dunes()+'<g transform="translate(200,68)"><path d="M-6,8 Q-10,-5 -8,-15 Q-5,-20 -2,-18 Q1,-15 -2,4 Z" fill="#C8B880" opacity=".9"/><path d="M6,8 Q10,-5 8,-15 Q5,-20 2,-18 Q-1,-15 2,4 Z" fill="#C8B880" opacity=".9"/></g>')},
+    gardenScene:function(){return wrap('<rect width="400" height="110" fill="url(#gDawn)"/>'+sun(55,28,13)+palm(80,80)+palm(130,76,.9)+palm(180,80,1.05)+palm(240,74,.95)+palm(290,80)+palm(340,76,.88)+water(200,90,70,10)+dunes())},
+    cityScene:function(){return wrap('<rect width="400" height="110" fill="url(#gSunset)"/>'+sun(330,28,12)+'<g transform="translate(0,42)"><rect x="28" y="12" width="32" height="44" fill="#1A2C0E" rx="1"/><rect x="40" y="24" width="8" height="10" fill="#0E0804" rx="0.5"/><rect x="68" y="8" width="28" height="48" fill="#2A3C14" rx="1"/><rect x="76" y="18" width="8" height="10" fill="#0E0804" rx="0.5"/><rect x="108" y="16" width="36" height="40" fill="#1A3010" rx="1"/><rect x="118" y="26" width="10" height="12" fill="#0E0804" rx="0.5"/></g>'+mosque(250,88)+dunes()+palm(370,78,.85))},
+    shroud:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(20)+moon(50,20,11)+'<ellipse cx="200" cy="80" rx="70" ry="12" fill="#0E1A08" opacity=".7"/><rect x="148" y="70" width="104" height="22" fill="#2A4018" rx="3" opacity=".9"/><rect x="152" y="72" width="96" height="18" fill="#3A5422" rx="2" opacity=".7"/><ellipse cx="200" cy="80" rx="60" ry="6" fill="#A8CC40" opacity=".06"/>'+fig(155,66,'#D0D8B8','#B0B898',)+fig(245,66,'#D0D8B8','#B0B898')+palm(55,80,.85)+palm(350,78,.8))},
+    xhq:function(){return wrap('<rect width="400" height="110" fill="url(#gNight)"/>'+stars(18)+moon(340,22,12)+tent(110,82,32)+tent(280,80,26)+torch(200,76)+'<circle cx="200" cy="76" r="20" fill="url(#gFire)"/>'+fig(160,72,'#F0E8C8','#D0B888')+fig(220,72,'#E0D8B0','#C0A870')+fig(240,72,'#D8D0A0','#B0A068')+palm(60,78,.85)+palm(355,76,.8))},
+    finalDawn:function(){return wrap('<rect width="400" height="110" fill="url(#gDawn)"/>'+stars(8)+sun(330,26,12)+dunes()+palm(75,82)+palm(320,80,.9)+'<circle cx="200" cy="50" r="40" fill="url(#gGold)"/>'+moon(200,50,16))},
+  };
+})();
+
+/* ═══════════════════════════════════════════════
+   ARABIC NUMBER HELPER
+═══════════════════════════════════════════════ */
+function arNum(n){var d='٠١٢٣٤٥٦٧٨٩',s='';if(n===0)return'٠';while(n>0){s=d[n%10]+s;n=Math.floor(n/10);}return s;}
+
+/* ═══════════════════════════════════════════════
+   STORY DATA  (9 stories × slides)
+   Each slide: {type, ar, en, tashkeel (narration text), scene, sceneImg, ...}
+   types: cover | intro | scene | hadith | morals | closing
+═══════════════════════════════════════════════ */
+var STORIES = [
+
+/* ─── 0. INTRO ─── */
+{
+  id:'intro', img:'assets/intro.png',
+  badge:'مُقَدِّمَةُ المَشْرُوعِ', title:'أَبْطَالٌ فِي الظِّلِّ', en:'Heroes in the Shadows',
+  slides:[
+    {type:'cover',icon:'🏛️',title:'أَبْطَالٌ فِي الظِّلِّ',sub:'سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللهِ ﷺ',subEn:'Stories of the Unknown Soldiers among the Companions of the Messenger of Allah ﷺ',scene:'desertNight',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
+     nar:'أَبْطَالٌ فِي الظِّلِّ. سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ'},
+    {type:'intro',scene:'desertNight',
+     lines:[
+      {ar:'حِينَ يَلْتَفِتُ التَّارِيخُ لِيُسَجِّلَ أَعْظَمَ التَّحَوُّلَاتِ، تَقْفِزُ إِلَى الأَذْهَانِ فَوْرًا أَسْمَاءُ النُّجُومِ الكِبَارِ…',en:'When history records its greatest turning points, great names leap to mind immediately…'},
+      {ar:'لَكِنْ خَلْفَ هَذَا الوَمِيضِ الظَّاهِرِ، كَانَ هُنَاكَ جِيلٌ آخَرُ آثَرَ العَطَاءَ بِصَمْتٍ، وَعَاشَ فِي الخَفَاءِ.',en:'But behind the visible brilliance, there was another generation that gave in silence and lived in the shadow.'},
+      {ar:'هَؤُلَاءِ هُمُ «الجُنُودُ المَجْهُولُونَ» — صَحَابَةٌ كِرَامٌ نُقِشَتْ أَسْمَاؤُهُمْ بِأَحْرُفٍ مِنْ نُورٍ فِي دِيوَانِ السَّمَاءِ.',en:'These are the "Unknown Soldiers" — noble companions whose names were inscribed in letters of light in Heaven\'s register.'}
+     ],
+     nar:'حِينَ يَلْتَفِتُ التَّارِيخُ لِيُسَجِّلَ أَعْظَمَ التَّحَوُّلَاتِ، تَقْفِزُ إِلَى الأَذْهَانِ أَسْمَاءُ النُّجُومِ الكِبَارِ. لَكِنْ خَلْفَ هَذَا الوَمِيضِ، كَانَ هُنَاكَ جِيلٌ آخَرُ آثَرَ العَطَاءَ بِصَمْتٍ. هَؤُلَاءِ هُمُ الجُنُودُ المَجْهُولُونَ، صَحَابَةٌ كِرَامٌ نُقِشَتْ أَسْمَاؤُهُمْ بِأَحْرُفٍ مِنْ نُورٍ فِي دِيوَانِ السَّمَاءِ.'},
+    {type:'morals',scene:'finalDawn',
+     items:[
+      {ar:'العَطَاءُ لِلدِّينِ لَا يَحْتَاجُ إِلَى أَضْوَاءٍ وَلَا إِلَى شَهْرَةٍ.',en:'Giving to the faith needs no spotlight and no fame.'},
+      {ar:'اللهُ يُحِبُّ العَبْدَ التَّقِيَّ النَّقِيَّ الخَفِيَّ.',en:'Allah loves the pious, pure, and hidden servant.'},
+      {ar:'كُلُّ مُسْلِمٍ يَمْلِكُ تَخَصُّصًا وَمَوْهِبَةً يُمْكِنُهُ تَقْدِيمُهَا خِدْمَةً لِدِينِهِ.',en:'Every Muslim holds a speciality or gift they can offer in service to their faith.'}
+     ],
+     nar:'مِنْ دُرُوسِ هَذَا المَشْرُوعِ: العَطَاءُ لِلدِّينِ لَا يَحْتَاجُ إِلَى أَضْوَاءٍ وَلَا إِلَى شَهْرَةٍ. وَاللهُ يُحِبُّ العَبْدَ التَّقِيَّ النَّقِيَّ الخَفِيَّ. وَكُلُّ مُسْلِمٍ يَمْلِكُ تَخَصُّصًا يُمْكِنُهُ تَقْدِيمُهُ خِدْمَةً لِدِينِهِ.'},
+    {type:'closing',icon:'🌿',ar:'وَمَضَاتٌ مِنَ التَّارِيخِ تُضِيءُ دَرْبَ الحَاضِرِ',en:'Flashes from history that illuminate the present path',
+     quote:'هَذِهِ قِصَصُ ثَمَانِيَةٍ مِنَ الجُنُودِ المَجْهُولِينَ — اخْتَرْ بِطَلَكَ وَابْدَأِ الرِّحْلَةَ',
+     nar:'هَذِهِ قِصَصُ ثَمَانِيَةٍ مِنَ الجُنُودِ المَجْهُولِينَ. اخْتَرْ بِطَلَكَ وَابْدَأِ الرِّحْلَةَ.'}
+  ]
+},
+
+/* ─── 1. الحباب بن المنذر ─── */
+{
+  id:'hubab', img:'assets/hubab.png',
+  badge:'مُهَنْدِسُ النَّصْرِ', title:'الحُبَابُ بْنُ المُنْذِرِ', en:'Al-Hubab ibn Al-Mundhir',
+  slides:[
+    {type:'cover',icon:'🏺',title:'الحُبَابُ بْنُ المُنْذِرِ',sub:'مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ',subEn:'Architect of Victory · Strategist of Badr',scene:'wellScene',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
+     nar:'الحُبَابُ بْنُ المُنْذِرِ. مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ.'},
+    {type:'scene',sceneImg:'assets/hubab.png',sceneIdx:1,
+     ar:'مِنْ سَادَةِ الخَزْرَجِ، لُقِّبَ بِـ «الخَضِمِ» لِغَزَارَةِ عِلْمِهِ وَسَدَادِ رَأْيِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ ﷺ.',
+     en:'A chieftain of the Khazraj, nicknamed "Al-Khadim" for his vast knowledge and sound judgment. He witnessed Badr and all battles with the Prophet ﷺ.',
+     nar:'مِنْ سَادَةِ الخَزْرَجِ الأَنْصَارِ، لُقِّبَ بِالخَضِمِ لِغَزَارَةِ عِلْمِهِ وَسَدَادِ رَأْيِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ.'},
+    {type:'scene',scene:'armyLines',sceneIdx:2,
+     ar:'فِي غَزْوَةِ بَدْرٍ عَامَ اثْنَيْنِ لِلْهِجْرَةِ، نَزَلَ الجَيْشُ عِنْدَ أَوَّلِ بِئْرٍ مِنْ مِيَاهِ بَدْرٍ. وَنَظَرَ الحُبَابُ بِعَيْنِ الخَبِيرِ فَرَأَى خَطَرًا دَاهِمًا.',
+     en:'At the Battle of Badr in year 2 AH, the army camped at the first well of Badr\'s waters. Al-Hubab looked with an expert\'s eye and saw imminent danger.',
+     nar:'فِي غَزْوَةِ بَدْرٍ الكُبْرَى عَامَ اثْنَيْنِ مِنَ الهِجْرَةِ، نَزَلَ الجَيْشُ عِنْدَ أَوَّلِ بِئْرٍ. وَنَظَرَ الحُبَابُ بِعَيْنِ الخَبِيرِ فَرَأَى خَطَرًا دَاهِمًا.'},
+    {type:'hadith',scene:'wellScene',sceneIdx:3,
+     ar:'تَقَدَّمَ الحُبَابُ إِلَى النَّبِيِّ ﷺ بِأَدَبٍ وَسَأَلَ سُؤَالَ العَارِفِ:',
+     hadith:'«يَا رَسُولَ اللهِ، أَرَأَيْتَ هَذَا المَنْزِلَ؟ أَمَنْزِلًا أَنْزَلَكَهُ اللهُ فَلَيْسَ لَنَا أَنْ نَتَقَدَّمَهُ وَلَا نَتَأَخَّرَ عَنْهُ؟ أَمْ هُوَ الرَّأْيُ وَالحَرْبُ وَالمَكِيدَةُ؟»',
+     response:'فَقَالَ ﷺ: «بَلْ هُوَ الرَّأْيُ وَالحَرْبُ وَالمَكِيدَةُ»',src:'صَحِيحُ البُخَارِيِّ — كِتَابُ المَغَازِي',
+     en:'Al-Hubab respectfully asked: "O Messenger of Allah, is this position a revelation from Allah or is it strategy and warfare?" The Prophet said: "It is strategy and warfare."',
+     nar:'تَقَدَّمَ الحُبَابُ إِلَى النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَسَأَلَ: يَا رَسُولَ اللهِ، أَرَأَيْتَ هَذَا المَنْزِلَ؟ أَمَنْزِلًا أَنْزَلَكَهُ اللهُ، أَمْ هُوَ الرَّأْيُ وَالحَرْبُ وَالمَكِيدَةُ؟ فَقَالَ النَّبِيُّ: بَلْ هُوَ الرَّأْيُ وَالحَرْبُ وَالمَكِيدَةُ.'},
+    {type:'scene',scene:'wellScene',sceneIdx:4,
+     ar:'قَالَ الحُبَابُ بِعَزْمٍ: «نَنْزِلُ أَدْنَى مَاءٍ مِنَ القَوْمِ، وَنُغَوِّرُ مَا وَرَاءَهُ مِنَ الآبَارِ، وَنَبْنِي حَوْضًا فَنَشْرَبُ وَلَا يَشْرَبُونَ!» فَقَالَ النَّبِيُّ ﷺ: «لَقَدْ أَشَرْتَ بِالرَّأْيِ».',
+     en:'Al-Hubab said firmly: "We advance to the nearest water, block all remaining wells, build a reservoir — we drink and they cannot!" The Prophet ﷺ said: "You have given sound counsel."',
+     nar:'قَالَ الحُبَابُ: نَنْزِلُ أَدْنَى مَاءٍ مِنَ القَوْمِ، وَنُغَوِّرُ مَا وَرَاءَهُ مِنَ الآبَارِ، وَنَبْنِي حَوْضًا فَنَشْرَبُ وَلَا يَشْرَبُونَ! فَقَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: لَقَدْ أَشَرْتَ بِالرَّأْيِ.'},
+    {type:'morals',scene:'desertNight',
+     items:[
+      {ar:'قَدِّمْ تَخَصُّصَكَ لِدِينِكَ: الحُبَابُ عَرَفَ الآبَارَ فَقَدَّمَ خِبْرَتَهُ لِلإِسْلَامِ.',en:'Offer your expertise to your faith: Al-Hubab knew the wells and gave his knowledge to Islam.'},
+      {ar:'أَدَبُ السُّؤَالِ: سَأَلَ أَوَّلًا هَلِ الأَمْرُ وَحْيٌ أَمِ اجْتِهَادٌ ثُمَّ تَكَلَّمَ.',en:'The etiquette of inquiry: he first asked if it was revelation or judgment, then spoke.'},
+      {ar:'الشُّورَى الحَقِيقِيَّةُ: النَّبِيُّ ﷺ قَبِلَ رَأْيَ جُنْدِيٍّ وَغَيَّرَ خُطَّةَ المَعْرَكَةِ.',en:'True consultation: the Prophet ﷺ accepted a soldier\'s counsel and changed the battle plan.'}
+     ],
+     nar:'مِنْ دُرُوسِ قِصَّةِ الحُبَابِ: قَدِّمْ تَخَصُّصَكَ لِدِينِكَ، فَالحُبَابُ عَرَفَ الآبَارَ فَقَدَّمَ خِبْرَتَهُ لِلإِسْلَامِ. وَأَدَبُ السُّؤَالِ قَبْلَ الكَلَامِ. وَالشُّورَى الحَقِيقِيَّةُ أَنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ قَبِلَ رَأْيَ جُنْدِيٍّ وَغَيَّرَ خُطَّةَ المَعْرَكَةِ.'},
+    {type:'closing',icon:'🏺',ar:'رَحَلَ الحُبَابُ وَتَرَكَ بِئْرًا غَيَّرَتْ مَوَازِينَ بَدْرٍ — فَرَضِيَ اللهُ عَنِ الحُبَابِ',en:'Al-Hubab left behind a well that changed the balance of Badr — may Allah be pleased with him',
+     quote:'جُنْدِيٌّ وَاحِدٌ بِرَأْيٍ صَادِقٍ يَصْنَعُ النَّصْرَ',
+     nar:'رَحَلَ الحُبَابُ وَتَرَكَ بِئْرًا غَيَّرَتْ مَوَازِينَ بَدْرٍ. فَرَضِيَ اللهُ عَنِ الحُبَابِ بْنِ المُنْذِرِ.'}
+  ]
+},
+
+/* ─── 2. نعيم بن مسعود ─── */
+{
+  id:'nuaym', img:'assets/nuaym.png',
+  badge:'دَهَاءٌ بِلَا سَيْفٍ', title:'نُعَيْمُ بْنُ مَسْعُودٍ', en:'Nu\'aym ibn Mas\'ud',
+  slides:[
+    {type:'cover',icon:'🧠',title:'نُعَيْمُ بْنُ مَسْعُودٍ',sub:'الرَّجُلُ الَّذِي هَزَمَ جُيُوشَ الأَحْزَابِ بِمُفْرَدِهِ',subEn:'The Man Who Defeated the Confederate Armies Alone',scene:'nightCamp',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
+     nar:'نُعَيْمُ بْنُ مَسْعُودٍ. الرَّجُلُ الَّذِي هَزَمَ جُيُوشَ الأَحْزَابِ بِمُفْرَدِهِ.'},
+    {type:'scene',sceneImg:'assets/nuaym.png',sceneIdx:1,
+     ar:'دَاهِيَةٌ مِنْ دَوَاهِي العَرَبِ، صَاحِبُ شَبَكَةِ عَلَاقَاتٍ وَاسِعَةٍ. أَسْلَمَ سِرًّا فِي ذُرْوَةِ حِصَارِ الخَنْدَقِ عَامَ خَمْسَةٍ مِنَ الهِجْرَةِ.',
+     en:'A master strategist of the Arabs with a vast network of relationships. He embraced Islam secretly at the peak of the Trench siege, year 5 AH.',
+     nar:'دَاهِيَةٌ مِنْ دَوَاهِي العَرَبِ، صَاحِبُ شَبَكَةِ عَلَاقَاتٍ وَاسِعَةٍ. أَسْلَمَ سِرًّا فِي ذُرْوَةِ حِصَارِ الخَنْدَقِ عَامَ خَمْسَةٍ مِنَ الهِجْرَةِ.'},
+    {type:'scene',scene:'nightCamp',sceneIdx:2,
+     ar:'تَسَلَّلَ نُعَيْمٌ إِلَى المَدِينَةِ سِرًّا وَأَعْلَنَ إِسْلَامَهُ لِلنَّبِيِّ ﷺ، وَقَالَ: «يَا رَسُولَ اللهِ، مُرْنِي بِمَا شِئْتَ».',
+     en:'Nu\'aym slipped secretly into Madinah and declared his Islam to the Prophet ﷺ, saying: "O Messenger of Allah, command me as you wish."',
+     nar:'تَسَلَّلَ نُعَيْمٌ إِلَى المَدِينَةِ سِرًّا وَأَعْلَنَ إِسْلَامَهُ لِلنَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ، وَقَالَ: يَا رَسُولَ اللهِ، مُرْنِي بِمَا شِئْتَ.'},
+    {type:'hadith',scene:'xhq',sceneIdx:3,
+     ar:'قَالَ لَهُ النَّبِيُّ ﷺ بِثِقَةِ القَائِدِ الحَكِيمِ:',
+     hadith:'«إِنَّمَا أَنْتَ فِينَا رَجُلٌ وَاحِدٌ، فَخَذِّلْ عَنَّا إِنِ اسْتَطَعْتَ، فَإِنَّ الحَرْبَ خُدْعَةٌ»',
+     response:'فَانْطَلَقَ نُعَيْمٌ يُنَفِّذُ أَعْقَدَ عَمَلِيَّةِ تَفْتِيتٍ نَفْسِيٍّ فِي التَّارِيخِ',src:'سِيرَةُ ابْنِ هِشَامٍ — الدُّرَرُ السَّنِيَّةُ',
+     en:'The Prophet ﷺ said: "You are but one man among us — so work to divide them if you can, for war is deception."',
+     nar:'قَالَ لَهُ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: إِنَّمَا أَنْتَ فِينَا رَجُلٌ وَاحِدٌ، فَخَذِّلْ عَنَّا إِنِ اسْتَطَعْتَ، فَإِنَّ الحَرْبَ خُدْعَةٌ. فَانْطَلَقَ نُعَيْمٌ يُنَفِّذُ أَعْقَدَ عَمَلِيَّةِ تَفْتِيتٍ نَفْسِيٍّ فِي التَّارِيخِ.'},
+    {type:'scene',scene:'nightCamp',sceneIdx:4,
+     ar:'ذَهَبَ نُعَيْمٌ إِلَى بَنِي قُرَيْظَةَ وَأَلْقَى فِي قُلُوبِهِمُ الشَّكَّ، ثُمَّ إِلَى قُرَيْشٍ وَغَطَفَانَ فَبَثَّ الرِّيبَةَ بَيْنَهُمَا — فَانْفَرَطَ عِقْدُ التَّحَالُفِ وَانْكَسَرَ الحِصَارُ!',
+     en:'Nu\'aym sowed doubt among Banu Qurayza, then among Quraysh and Ghatafan — the alliance shattered and the siege broke!',
+     nar:'ذَهَبَ نُعَيْمٌ إِلَى بَنِي قُرَيْظَةَ فَأَلْقَى فِي قُلُوبِهِمُ الشَّكَّ، ثُمَّ إِلَى قُرَيْشٍ وَغَطَفَانَ فَبَثَّ الرِّيبَةَ بَيْنَهُمَا. فَانْفَرَطَ عِقْدُ التَّحَالُفِ وَانْكَسَرَ الحِصَارُ.'},
+    {type:'morals',scene:'desertNight',
+     items:[
+      {ar:'قِيمَةُ الفَرْدِ: رَجُلٌ وَاحِدٌ مُخْلِصٌ يُمْكِنُهُ تَعْدِيلُ كَفَّةِ الصِّرَاعِ.',en:'The value of one person: a single sincere individual can shift the balance of a struggle.'},
+      {ar:'وَظِّفْ قُدْرَاتِكَ: النَّبِيُّ ﷺ وَجَّهَ نُعَيْمًا بِحَسَبِ مَوْهِبَتِهِ لَا بِالسَّيْفِ.',en:'Use your gifts: the Prophet ﷺ directed Nu\'aym by his talent, not by the sword.'},
+      {ar:'سُرْعَةُ العَطَاءِ بَعْدَ الهِدَايَةِ: نُعَيْمٌ بَذَلَ قُصَارَى جُهْدِهِ مِنْ أَوَّلِ سَاعَةٍ.',en:'Swift giving after guidance: Nu\'aym gave his utmost from the very first hour.'}
+     ],
+     nar:'مِنْ دُرُوسِ قِصَّةِ نُعَيْمٍ: قِيمَةُ الفَرْدِ، فَرَجُلٌ وَاحِدٌ مُخْلِصٌ يُمْكِنُهُ تَعْدِيلُ كَفَّةِ الصِّرَاعِ. وَتَوْظِيفُ القُدْرَاتِ، فَالنَّبِيُّ وَجَّهَ نُعَيْمًا بِحَسَبِ مَوْهِبَتِهِ. وَسُرْعَةُ العَطَاءِ بَعْدَ الهِدَايَةِ.'},
+    {type:'closing',icon:'🧠',ar:'خَرَجَ نُعَيْمٌ رَجُلًا وَاحِدًا وَعَادَ وَقَدْ فَكَّكَ جَيْشًا مِنْ عَشَرَةِ آلَافٍ — فَرَضِيَ اللهُ عَنْهُ',en:'Nu\'aym left as one man and returned having dismantled an army of ten thousand — may Allah be pleased with him',
+     quote:'كَانَ نُعَيْمٌ جَيْشًا كَامِلًا ارْتَدَى ثَوْبَ رَجُلٍ',
+     nar:'خَرَجَ نُعَيْمٌ رَجُلًا وَاحِدًا وَعَادَ وَقَدْ فَكَّكَ جَيْشًا مِنْ عَشَرَةِ آلَافٍ. فَرَضِيَ اللهُ عَنْ نُعَيْمِ بْنِ مَسْعُودٍ.'}
+  ]
+},
+
+/* ─── 3. ربيعة بن كعب ─── */
+{
+  id:'rabia', img:'assets/rabia.png',
+  badge:'خَادِمٌ صَادِقٌ', title:'رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ', en:'Rabi\'a ibn Ka\'b al-Aslami',
+  slides:[
+    {type:'cover',icon:'💧',title:'رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ',sub:'الشَّابُّ الَّذِي اشْتَرَى الفِرْدَوْسَ بِإِنَاءِ وُضُوءٍ',subEn:'The Young Man Who Bought Paradise with a Vessel of Water',scene:'prayerNight',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ الصَّلَاةِ',
+     nar:'رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ. الشَّابُّ الَّذِي اشْتَرَى الفِرْدَوْسَ بِإِنَاءِ وُضُوءٍ.'},
+    {type:'scene',sceneImg:'assets/rabia.png',sceneIdx:1,
+     ar:'فَتًى شَابٌّ مِنَ الصُّفَّةِ، لَا بَيْتَ لَهُ وَلَا مَالَ. نَذَرَ حَيَاتَهُ وَشَبَابَهُ لِيَكُونَ ظِلًّا لِرَسُولِ اللهِ ﷺ يَخْدُمُهُ فِي حِلِّهِ وَتَرْحَالِهِ.',
+     en:'A young man from the Suffa, with no home and no wealth. He devoted his youth to being the shadow of the Messenger of Allah ﷺ, serving him in all circumstances.',
+     nar:'فَتًى شَابٌّ مِنَ الصُّفَّةِ، لَا بَيْتَ لَهُ وَلَا مَالَ. نَذَرَ حَيَاتَهُ وَشَبَابَهُ لِيَكُونَ ظِلًّا لِرَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يَخْدُمُهُ فِي حِلِّهِ وَتَرْحَالِهِ.'},
+    {type:'scene',scene:'prayerNight',sceneIdx:2,
+     ar:'كَانَ رَبِيعَةُ يُلَازِمُ عَتَبَةَ بَيْتِ النَّبِيِّ ﷺ طَوَالَ اللَّيْلِ، فَإِذَا اسْتَيْقَظَ النَّبِيُّ وَجَدَهُ وَاقِفًا بِالمَاءِ يَنْتَظِرُ بِصَمْتٍ وَوَفَاءٍ.',
+     en:'Rabi\'a would stand at the Prophet\'s doorstep all night. When the Prophet woke, he found him standing with water, waiting in silent loyalty.',
+     nar:'كَانَ رَبِيعَةُ يُلَازِمُ عَتَبَةَ بَيْتِ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ طَوَالَ اللَّيْلِ. فَإِذَا اسْتَيْقَظَ النَّبِيُّ وَجَدَهُ وَاقِفًا بِالمَاءِ يَنْتَظِرُ بِصَمْتٍ وَوَفَاءٍ.'},
+    {type:'hadith',scene:'prayerNight',sceneIdx:3,
+     ar:'تَأَثَّرَ النَّبِيُّ ﷺ بِوَفَاءِ هَذَا الشَّابِّ، فَأَرَادَ أَنْ يُكَافِئَهُ بِجَائِزَةٍ مَلَكِيَّةٍ مُطْلَقَةٍ:',
+     hadith:'«سَلْنِي مَا شِئْتَ» — فَقَالَ رَبِيعَةُ: «أَسْأَلُكَ مُرَافَقَتَكَ فِي الجَنَّةِ!»',
+     response:'فَقَالَ النَّبِيُّ ﷺ: «فَأَعِنِّي عَلَى نَفْسِكَ بِكَثْرَةِ السُّجُودِ»',src:'صَحِيحُ مُسْلِمٍ (489)',
+     en:'The Prophet ﷺ said: "Ask me whatever you wish." Rabi\'a replied: "I ask for your companionship in Paradise!" The Prophet said: "Then help me by prostrating often."',
+     nar:'قَالَ لَهُ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: سَلْنِي مَا شِئْتَ. فَقَالَ رَبِيعَةُ: أَسْأَلُكَ مُرَافَقَتَكَ فِي الجَنَّةِ! فَقَالَ النَّبِيُّ: فَأَعِنِّي عَلَى نَفْسِكَ بِكَثْرَةِ السُّجُودِ.'},
+    {type:'morals',scene:'prayerNight',
+     items:[
+      {ar:'الهِمَّةُ لَا تُقَيِّدُهَا الظُّرُوفُ: الفَقْرُ لَا يَمْنَعُ الطُّمُوحَ لِأَعْلَى مَرَاتِبِ الآخِرَةِ.',en:'Ambition defies circumstance: poverty does not prevent aspiring to the highest ranks in the Hereafter.'},
+      {ar:'العَمَلُ مَقْرُونٌ بِالأَمَلِ: «فَأَعِنِّي» — الأُمْنِيَاتُ تَحْتَاجُ إِلَى سُجُودٍ وَعَمَلٍ.',en:'"Help me" — hopes require prostration and action.'},
+      {ar:'شَرَفُ الخِدْمَةِ: الصَّحَابَةُ رَأَوْا فِي خِدْمَةِ النَّبِيِّ ﷺ شَرَفًا لَا يُعَادِلُهُ شَيْءٌ.',en:'The honour of service: the companions saw serving the Prophet ﷺ as an unmatched honour.'}
+     ],
+     nar:'مِنْ دُرُوسِ رَبِيعَةَ: الهِمَّةُ لَا تُقَيِّدُهَا الظُّرُوفُ، فَالفَقْرُ لَا يَمْنَعُ الطُّمُوحَ. وَالعَمَلُ مَقْرُونٌ بِالأَمَلِ، فَالأُمْنِيَاتُ تَحْتَاجُ إِلَى سُجُودٍ. وَشَرَفُ الخِدْمَةِ الصَّادِقَةِ.'},
+    {type:'closing',icon:'💧',ar:'مَاتَ رَبِيعَةُ وَلَمْ يَتْرُكْ مَالًا، لَكِنَّهُ تَرَكَ لِكُلِّ سَاجِدٍ أَمَلًا — فَرَضِيَ اللهُ عَنْهُ',en:'Rabi\'a died leaving no wealth, but left every prostrating soul a hope — may Allah be pleased with him',
+     quote:'فَكُلَّمَا سَجَدْتَ لِلَّهِ تَذَكَّرْتَ وَصِيَّةَ النَّبِيِّ ﷺ لِرَبِيعَةَ',
+     nar:'مَاتَ رَبِيعَةُ وَلَمْ يَتْرُكْ مَالًا، لَكِنَّهُ تَرَكَ لِكُلِّ سَاجِدٍ أَمَلًا. فَرَضِيَ اللهُ عَنْ رَبِيعَةَ بْنِ كَعْبٍ الأَسْلَمِيِّ.'}
+  ]
+},
+
+/* ─── 4. عمرو بن الجموح ─── */
+{
+  id:'amr', img:'assets/amr.png',
+  badge:'عَزِيمَةٌ لَا تَنْكَسِرُ', title:'عَمْرُو بْنُ الجَمُوحِ', en:'Amr ibn al-Jamuh',
+  slides:[
+    {type:'cover',icon:'⚔️',title:'عَمْرُو بْنُ الجَمُوحِ',sub:'الأَعْرَجُ الَّذِي طَارَ بِأَجْنِحَةِ الشَّهَادَةِ فِي أُحُدٍ',subEn:'The Limping Hero Who Flew on Wings of Martyrdom at Uhud',scene:'desertDawn',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
+     nar:'عَمْرُو بْنُ الجَمُوحِ. الأَعْرَجُ الَّذِي طَارَ بِأَجْنِحَةِ الشَّهَادَةِ فِي أُحُدٍ.'},
+    {type:'scene',sceneImg:'assets/amr.png',sceneIdx:1,
+     ar:'سَيِّدٌ مِنْ سَادَاتِ بَنِي سَلِمَةَ، أَسْلَمَ فِي سِنٍّ مُتَأَخِّرَةٍ. كَانَ يُعَانِي مِنْ عَرَجٍ شَدِيدٍ فِي رِجْلِهِ، لَكِنَّ قَلْبَهُ لَمْ يَكُنْ فِيهِ عَرَجٌ قَطُّ.',
+     en:'A chieftain of Banu Salima, who embraced Islam in his later years. He suffered severe lameness in his leg, but his heart never once faltered.',
+     nar:'سَيِّدٌ مِنْ سَادَاتِ بَنِي سَلِمَةَ، أَسْلَمَ فِي سِنٍّ مُتَأَخِّرَةٍ. كَانَ يُعَانِي مِنْ عَرَجٍ شَدِيدٍ فِي رِجْلِهِ، لَكِنَّ قَلْبَهُ لَمْ يَكُنْ فِيهِ عَرَجٌ قَطُّ.'},
+    {type:'scene',scene:'armyLines',sceneIdx:2,
+     ar:'لَمَّا نُودِيَ لِغَزْوَةِ أُحُدٍ، مَنَعَهُ أَبْنَاؤُهُ الأَرْبَعَةُ قَائِلِينَ: «إِنَّ اللهَ قَدْ عَذَرَكَ». فَغَضِبَ الشَّيْخُ وَقَرَّرَ أَنْ يَذْهَبَ إِلَى النَّبِيِّ ﷺ.',
+     en:'When the call came for Uhud, his four sons tried to stop him saying: "Allah has excused you." The elder grew angry and decided to go to the Prophet ﷺ.',
+     nar:'لَمَّا نُودِيَ لِغَزْوَةِ أُحُدٍ، مَنَعَهُ أَبْنَاؤُهُ الأَرْبَعَةُ قَائِلِينَ: إِنَّ اللهَ قَدْ عَذَرَكَ. فَغَضِبَ الشَّيْخُ وَقَرَّرَ أَنْ يَذْهَبَ إِلَى النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ.'},
+    {type:'hadith',scene:'madinah',sceneIdx:3,
+     ar:'جَاءَ عَمْرٌو إِلَى النَّبِيِّ ﷺ يَشْكُو وَقَلْبُهُ مُفْعَمٌ بِالشَّوْقِ:',
+     hadith:'«يَا رَسُولَ اللهِ، إِنَّ بَنِيَّ يُرِيدُونَ أَنْ يَحْبِسُونِي وَاللهِ إِنِّي لَأَرْجُو أَنْ أَطَأَ بِعَرْجَتِي هَذِهِ الجَنَّةَ!»',
+     response:'فَقَالَ النَّبِيُّ ﷺ: «مَا عَلَيْكُمْ أَلَّا تَمْنَعُوهُ، لَعَلَّ اللهَ أَنْ يَرْزُقَهُ الشَّهَادَةَ»',src:'السِّيرَةُ النَّبَوِيَّةُ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
+     en:'"O Messenger of Allah, by Allah I hope to tread upon Paradise with this limp of mine!" The Prophet ﷺ said: "Do not stop him — perhaps Allah will grant him martyrdom."',
+     nar:'قَالَ عَمْرٌو: يَا رَسُولَ اللهِ، إِنَّ بَنِيَّ يُرِيدُونَ أَنْ يَحْبِسُونِي، وَاللهِ إِنِّي لَأَرْجُو أَنْ أَطَأَ بِعَرْجَتِي هَذِهِ الجَنَّةَ! فَقَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: مَا عَلَيْكُمْ أَلَّا تَمْنَعُوهُ، لَعَلَّ اللهَ أَنْ يَرْزُقَهُ الشَّهَادَةَ.'},
+    {type:'scene',scene:'battle',sceneIdx:4,
+     ar:'نَزَلَ عَمْرٌو أَرْضَ المَعْرَكَةِ يُقَاتِلُ قِتَالَ شَابٍّ فِي العِشْرِينَ وَهُوَ يَصِيحُ: «وَا شَوْقَاهُ إِلَى الجَنَّةِ!» حَتَّى اسْتُشْهِدَ. وَقَالَ النَّبِيُّ ﷺ: «كَأَنِّي أَنْظُرُ إِلَيْهِ يَطَأُ الجَنَّةَ بِعَرْجَتِهِ صَحِيحًا».',
+     en:'Amr fought at Uhud like a twenty-year-old, crying "How I long for Paradise!" until he was martyred. The Prophet ﷺ said: "I can see him walking in Paradise, his limp healed."',
+     nar:'نَزَلَ عَمْرٌو أَرْضَ المَعْرَكَةِ يُقَاتِلُ قِتَالَ شَابٍّ وَهُوَ يَصِيحُ: وَا شَوْقَاهُ إِلَى الجَنَّةِ! حَتَّى اسْتُشْهِدَ. وَقَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: كَأَنِّي أَنْظُرُ إِلَيْهِ يَطَأُ الجَنَّةَ بِعَرْجَتِهِ صَحِيحًا.'},
+    {type:'morals',scene:'desertNight',
+     items:[
+      {ar:'عُلُوُّ الهِمَّةِ: الأَعْذَارُ الجَسَدِيَّةُ لَا تُقَيِّدُ القُلُوبَ الحَيَّةَ.',en:'High aspiration: physical excuses do not shackle living hearts.'},
+      {ar:'التَّعْوِيضُ الإِلَهِيُّ: مَنْ تَرَكَ شَيْئًا لِلَّهِ، عَوَّضَهُ اللهُ خَيْرًا مِنْهُ.',en:'Divine compensation: whoever leaves something for Allah, Allah compensates them with something better.'},
+      {ar:'النُّبُوَّةُ تَفْتَحُ بَابَ الأَمَلِ: النَّبِيُّ ﷺ لَمْ يَكْسِرْ قَلْبَهُ بَلْ دَعَا لَهُ بِالشَّهَادَةِ.',en:'Prophethood opens the door of hope: the Prophet ﷺ did not break his heart but prayed for his martyrdom.'}
+     ],
+     nar:'مِنْ دُرُوسِ عَمْرٍو: عُلُوُّ الهِمَّةِ فَالأَعْذَارُ الجَسَدِيَّةُ لَا تُقَيِّدُ القُلُوبَ الحَيَّةَ. وَالتَّعْوِيضُ الإِلَهِيُّ لِمَنْ تَرَكَ شَيْئًا لِلَّهِ. وَالنُّبُوَّةُ تَفْتَحُ بَابَ الأَمَلِ.'},
+    {type:'closing',icon:'⚔️',ar:'سَقَطَ عَمْرٌو بِعَرَجِهِ الدُّنْيَوِيِّ لِيَقُومَ بِخُطُوَاتٍ صَحِيحَةٍ فِي الجَنَّةِ — فَرَضِيَ اللهُ عَنْهُ',en:'Amr fell with his worldly limp only to rise walking straight in Paradise — may Allah be pleased with him',
+     quote:'الأَعْرَجُ الَّذِي طَارَ بِجَنَاحَيِ الإِيمَانِ إِلَى الجَنَّةِ',
+     nar:'سَقَطَ عَمْرُو بْنُ الجَمُوحِ بِعَرَجِهِ الدُّنْيَوِيِّ لِيَقُومَ بِخُطُوَاتٍ صَحِيحَةٍ فِي الجَنَّةِ. فَرَضِيَ اللهُ عَنْ عَمْرِو بْنِ الجَمُوحِ.'}
+  ]
+},
+
+/* ─── 5. ذو النجادين ─── */
+{
+  id:'dhu', img:'assets/dhu-al-nijadayn.png',
+  badge:'زَاهِدُ الطَّرِيقِ', title:'ذُو النِّجَادَيْنِ', en:'Dhu al-Nijadayn',
+  slides:[
+    {type:'cover',icon:'🌙',title:'ذُو النِّجَادَيْنِ',sub:'الشَّابُّ الَّذِي كَفَّنَهُ النَّبِيُّ ﷺ بِقَمِيصِهِ',subEn:'The Young Man Whom the Prophet ﷺ Shrouded with His Own Shirt',scene:'desertNight',src:'السِّيرَةُ النَّبَوِيَّةُ — صَحِيحُ البُخَارِيِّ',
+     nar:'ذُو النِّجَادَيْنِ. الشَّابُّ الَّذِي كَفَّنَهُ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ بِقَمِيصِهِ.'},
+    {type:'scene',sceneImg:'assets/dhu-al-nijadayn.png',sceneIdx:1,
+     ar:'شَابٌّ يَتِيمٌ نَشَأَ فِي حِجْرِ عَمِّهِ الثَّرِيِّ فِي قَبِيلَةِ مُزَيْنَةَ. لَمَّا أَسْلَمَ، جَرَّدَهُ عَمُّهُ مِنْ كُلِّ شَيْءٍ — حَتَّى مِنَ الثَّوْبِ الَّذِي يَرْتَدِيهِ.',
+     en:'An orphan who grew up in the care of his wealthy uncle in the Muzayna tribe. When he embraced Islam, his uncle stripped him of everything — even the garment he wore.',
+     nar:'شَابٌّ يَتِيمٌ نَشَأَ فِي حِجْرِ عَمِّهِ الثَّرِيِّ. لَمَّا أَسْلَمَ، جَرَّدَهُ عَمُّهُ مِنْ كُلِّ شَيْءٍ حَتَّى مِنَ الثَّوْبِ الَّذِي يَرْتَدِيهِ.'},
+    {type:'scene',scene:'desertSunset',sceneIdx:2,
+     ar:'قَطَعَ أُمُّهُ بِجَادًا غَلِيظًا نِصْفَيْنِ، وَاتَّزَرَ بِنِصْفٍ وَارْتَدَى الآخَرَ، وَهَرَبَ لَيْلًا إِلَى المَدِينَةِ. فَلَمَّا وَصَلَ رَآهُ النَّبِيُّ ﷺ فَسَمَّاهُ «ذَا النِّجَادَيْنِ» وَأَكْرَمَهُ.',
+     en:'His mother cut a rough cloak in half; he wrapped one half around his waist and wore the other, and fled at night to Madinah. When the Prophet ﷺ saw him, he named him "Dhu al-Nijadayn" and honoured him.',
+     nar:'قَطَعَتْ أُمُّهُ بِجَادًا غَلِيظًا نِصْفَيْنِ، اتَّزَرَ بِنِصْفٍ وَارْتَدَى الآخَرَ، وَهَرَبَ لَيْلًا إِلَى المَدِينَةِ. فَلَمَّا وَصَلَ سَمَّاهُ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ ذَا النِّجَادَيْنِ.'},
+    {type:'scene',scene:'nightCamp',sceneIdx:3,
+     ar:'فِي غَزْوَةِ تَبُوكَ، أَصَابَتِ الحُمَّى ذَا النِّجَادَيْنِ فَمَاتَ. وَرَأَى ابْنُ مَسْعُودٍ فِي جَوْفِ اللَّيْلِ شَعْلَةً فِي جَانِبِ العَسْكَرِ — فَإِذَا هُوَ رَسُولُ اللهِ ﷺ وَأَبُو بَكْرٍ وَعُمَرُ يَحْفِرُونَ!',
+     en:'At the battle of Tabuk, fever struck Dhu al-Nijadayn and he died. Ibn Mas\'ud saw a torch in the night — and found the Messenger of Allah ﷺ with Abu Bakr and Umar digging his grave!',
+     nar:'فِي غَزْوَةِ تَبُوكَ، أَصَابَتِ الحُمَّى ذَا النِّجَادَيْنِ فَمَاتَ. وَرَأَى ابْنُ مَسْعُودٍ فِي جَوْفِ اللَّيْلِ شَعْلَةً، فَإِذَا هُوَ رَسُولُ اللهِ وَأَبُو بَكْرٍ وَعُمَرُ يَحْفِرُونَ لَهُ.'},
+    {type:'hadith',scene:'shroud',sceneIdx:4,
+     ar:'وَقَفَ النَّبِيُّ ﷺ فِي الحُفْرَةِ وَأَوْسَدَهُ بِيَدِهِ الشَّرِيفَةِ، ثُمَّ رَفَعَ يَدَيْهِ دَاعِيًا:',
+     hadith:'«اللَّهُمَّ إِنِّي أَمْسَيْتُ رَاضِيًا عَنْهُ فَارْضَ عَنْهُ»',
+     response:'قَالَ ابْنُ مَسْعُودٍ: يَا لَيْتَنِي كُنْتُ صَاحِبَ القَبْرِ!',src:'السِّيرَةُ النَّبَوِيَّةُ — مُسْنَدُ أَحْمَدَ',
+     en:'The Prophet ﷺ stood in the grave and laid him with his noble hands, then raised them in supplication: "O Allah, I am pleased with him, so be pleased with him." Ibn Mas\'ud said: "Would that I were the man in the grave!"',
+     nar:'وَقَفَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي الحُفْرَةِ وَرَفَعَ يَدَيْهِ قَائِلًا: اللَّهُمَّ إِنِّي أَمْسَيْتُ رَاضِيًا عَنْهُ فَارْضَ عَنْهُ. فَقَالَ ابْنُ مَسْعُودٍ: يَا لَيْتَنِي كُنْتُ صَاحِبَ القَبْرِ.'},
+    {type:'morals',scene:'desertNight',
+     items:[
+      {ar:'التَّضْحِيَةُ بِالدُّنْيَا: تَرَكَ الثَّرْوَةَ وَالثِّيَابَ هَرَبًا بِدِينِهِ — وَهِيَ تِجَارَةٌ رَابِحَةٌ.',en:'Sacrificing the worldly: he left wealth and clothing fleeing with his faith — a profitable trade.'},
+      {ar:'مِقْيَاسُ التَّفَاضُلِ عِنْدَ اللهِ لَيْسَ المَالَ وَلَا المَظْهَرَ، بَلِ الصِّدْقُ وَالإِخْلَاصُ.',en:'Allah\'s measure of worth is not wealth or appearance, but sincerity and truthfulness.'},
+      {ar:'وَفَاءُ النَّبِيِّ ﷺ لِكُلِّ جُنْدِيٍّ مُخْلِصٍ مَهْمَا كَانَ فَقِيرًا أَوْ مَجْهُولًا.',en:'The Prophet\'s ﷺ loyalty to every sincere soldier, however poor or unknown.'}
+     ],
+     nar:'مِنْ دُرُوسِ ذِي النِّجَادَيْنِ: التَّضْحِيَةُ بِالدُّنْيَا تِجَارَةٌ رَابِحَةٌ. وَمِقْيَاسُ التَّفَاضُلِ عِنْدَ اللهِ الصِّدْقُ وَالإِخْلَاصُ. وَوَفَاءُ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ لِكُلِّ جُنْدِيٍّ مُخْلِصٍ.'},
+    {type:'closing',icon:'🌙',ar:'رَحَلَ ذُو النِّجَادَيْنِ بِكِسَائِهِ الخَشِنِ وَدُفِنَ بِدُعَاءِ النَّبِيِّ ﷺ — فَرَضِيَ اللهُ عَنْهُ',en:'Dhu al-Nijadayn departed in his rough cloak and was buried with the Prophet\'s prayer — may Allah be pleased with him',
+     quote:'ذَهَبَ المَالُ وَالثِّيَابُ وَبَقِيَ اللَّقَبُ النَّبَوِيُّ خَالِدًا فِي التَّارِيخِ',
+     nar:'رَحَلَ ذُو النِّجَادَيْنِ بِكِسَائِهِ الخَشِنِ وَدُفِنَ بِدُعَاءِ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ. فَرَضِيَ اللهُ عَنْهُ.'}
+  ]
+},
+
+/* ─── 6. جليبيب ─── */
+{
+  id:'julaybib', img:'assets/three-heroes.png',
+  badge:'رَجُلُ الدَّارَيْنِ', title:'جُلَيْبِيبٌ', en:'Julaybib',
+  slides:[
+    {type:'cover',icon:'⭐',title:'جُلَيْبِيبٌ',sub:'المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ',subEn:'Lifted on the Arms of Prophethood',scene:'desertNight',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ فَضَائِلِ الصَّحَابَةِ',
+     nar:'جُلَيْبِيبٌ. المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ.'},
+    {type:'scene',sceneImg:'assets/three-heroes.png',sceneIdx:1,
+     ar:'كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، وَكَانَ فِي مَظْهَرِهِ دَمَامَةٌ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ ﷺ كَانَ يُحِبُّهُ حُبًّا جَمًّا وَزَوَّجَهُ بِبَرَكَةِ دُعَائِهِ.',
+     en:'A poor man of the Suffa, plain in appearance, from whom people kept their distance. Yet the Prophet ﷺ loved him deeply and arranged his marriage through his blessed supplication.',
+     nar:'كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، دَمِيمَ الخِلْقَةِ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ كَانَ يُحِبُّهُ حُبًّا جَمًّا.'},
+    {type:'hadith',scene:'battle',sceneIdx:2,
+     ar:'بَعْدَ إِحْدَى الغَزَوَاتِ، وَقَفَ النَّبِيُّ ﷺ وَسَأَلَ أَصْحَابَهُ:',
+     hadith:'«هَلْ تَفْقِدُونَ مِنْ أَحَدٍ؟» قَالُوا: نَفْقِدُ فُلَانًا وَفُلَانًا. فَقَالَ: «لَكِنِّي أَفْقِدُ جُلَيْبِيبًا فَابْتَغُوهُ»',
+     response:'فَوَجَدُوهُ صَرِيعًا وَحَوْلَهُ سَبْعَةٌ مِنَ المُشْرِكِينَ قَدْ قَتَلَهُمْ ثُمَّ قُتِلَ',src:'صَحِيحُ مُسْلِمٍ (2472)',
+     en:'"Do you miss anyone?" They listed names. He said: "But I miss Julaybib — go and find him." They found him slain, surrounded by seven enemies he had killed before falling.',
+     nar:'قَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: هَلْ تَفْقِدُونَ مِنْ أَحَدٍ؟ فَقَالُوا: نَفْقِدُ فُلَانًا وَفُلَانًا. فَقَالَ: لَكِنِّي أَفْقِدُ جُلَيْبِيبًا فَابْتَغُوهُ. فَوَجَدُوهُ صَرِيعًا وَحَوْلَهُ سَبْعَةٌ قَتَلَهُمْ ثُمَّ قُتِلَ.'},
+    {type:'scene',scene:'shroud',sceneIdx:3,
+     ar:'جَاءَ النَّبِيُّ ﷺ وَوَقَفَ عَلَيْهِ وَقَالَ بِقَلْبٍ مَلِيءٍ بِالمَحَبَّةِ: «قَتَلَ سَبْعَةً ثُمَّ قَتَلُوهُ! هَذَا مِنِّي وَأَنَا مِنْهُ!» ثُمَّ حَمَلَهُ النَّبِيُّ ﷺ عَلَى سَاعِدَيْهِ لِيَدْفِنَهُ.',
+     en:'The Prophet ﷺ stood over him and said with a heart full of love: "He killed seven then they killed him! He is of me and I am of him!" Then the Prophet ﷺ carried him on his arms to bury him.',
+     nar:'قَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: قَتَلَ سَبْعَةً ثُمَّ قَتَلُوهُ! هَذَا مِنِّي وَأَنَا مِنْهُ! ثُمَّ حَمَلَهُ عَلَى سَاعِدَيْهِ لِيَدْفِنَهُ.'},
+    {type:'morals',scene:'desertNight',
+     items:[
+      {ar:'المَقَايِيسُ الإِلَهِيَّةُ: اللهُ لَا يَنْظُرُ إِلَى صُوَرِكُمْ وَأَمْوَالِكُمْ وَلَكِنْ يَنْظُرُ إِلَى قُلُوبِكُمْ.',en:'Divine measures: Allah does not look at your forms or wealth, but at your hearts.'},
+      {ar:'رَعَايَةُ القِيَادَةِ: تَفَقُّدُ النَّبِيِّ ﷺ لِجُلَيْبِيبٍ بِالاسْمِ وَسْطَ الجَيْشِ فِقْهُ العَدَالَةِ.',en:'Leadership care: the Prophet\'s ﷺ personal naming of Julaybib amidst the army is the jurisprudence of justice.'},
+      {ar:'الحُبُّ النَّبَوِيُّ لَا يُفَرِّقُ بَيْنَ الغَنِيِّ وَالفَقِيرِ وَلَا بَيْنَ الوَسِيمِ وَغَيْرِهِ.',en:'Prophetic love makes no distinction between rich and poor, handsome or otherwise.'}
+     ],
+     nar:'مِنْ دُرُوسِ جُلَيْبِيبٍ: اللهُ لَا يَنْظُرُ إِلَى الصُّوَرِ بَلْ إِلَى القُلُوبِ. وَرَعَايَةُ النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ لِكُلِّ فَرْدٍ. وَالحُبُّ النَّبَوِيُّ لَا يُفَرِّقُ.'},
+    {type:'closing',icon:'⭐',ar:'رُفِعَ جُلَيْبِيبٌ عَلَى سَاعِدَيِ النُّبُوَّةِ وَنَالَ أَعْظَمَ وَسَامٍ: هَذَا مِنِّي وَأَنَا مِنْهُ — فَرَضِيَ اللهُ عَنْهُ',en:'Julaybib was lifted on the arms of Prophethood and earned the greatest honour: "He is of me and I am of him" — may Allah be pleased with him',
+     quote:'الشَّرَفُ لَيْسَ فِي المَالِ وَالمَنْصِبِ — الشَّرَفُ فِي الصِّدْقِ مَعَ اللهِ',
+     nar:'رُفِعَ جُلَيْبِيبٌ عَلَى سَاعِدَيِ النُّبُوَّةِ وَنَالَ أَعْظَمَ وَسَامٍ: هَذَا مِنِّي وَأَنَا مِنْهُ. فَرَضِيَ اللهُ عَنْ جُلَيْبِيبٍ.'}
+  ]
+},
+
+/* ─── 7. صلة بن الحارث ─── */
+{
+  id:'silah', img:'assets/three-heroes.png',
+  badge:'إِخْلَاصٌ خَفِيٌّ', title:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ', en:'Silah ibn al-Harith al-Ghifari',
+  slides:[
+    {type:'cover',icon:'🌊',title:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ',sub:'صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ',subEn:'The Man of the Desert Miracle and Hidden Sincerity',scene:'oasis',src:'دَلَائِلُ النُّبُوَّةِ — التَّارِيخُ الكَبِيرُ لِلْبُخَارِيِّ',
+     nar:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ. صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ.'},
+    {type:'scene',sceneImg:'assets/three-heroes.png',sceneIdx:1,
+     ar:'صَحَابِيٌّ مِنْ قَبِيلَةِ غِفَارَ، كَانَ كَتُومًا عَابِدًا مُجَاهِدًا بِصَمْتٍ فِي جُيُوشِ الفَتْحِ الإِسْلَامِيِّ.',
+     en:'A companion from the Ghifar tribe — silent, devout, a quiet fighter in the armies of the Islamic conquests.',
+     nar:'صَحَابِيٌّ مِنْ قَبِيلَةِ غِفَارَ، كَانَ كَتُومًا عَابِدًا مُجَاهِدًا بِصَمْتٍ فِي جُيُوشِ الفَتْحِ الإِسْلَامِيِّ.'},
+    {type:'scene',scene:'desertSunset',sceneIdx:2,
+     ar:'كَانَ صِلَةُ فِي جَيْشِ المُسْلِمِينَ فِي بِلَادِ الشَّامِ، وَفِي لَيْلَةٍ شَدِيدَةِ الظُّلْمَةِ وَالبَرْدِ، ضَلَّ الجَيْشُ الطَّرِيقَ وَنَفِدَ مَاؤُهُمْ وَكَادُوا يَهْلِكُونَ عَطَشًا.',
+     en:'Silah was with the Muslim army in the Levant. On a night of intense darkness and cold, the army lost its way, their water ran out, and they nearly perished of thirst.',
+     nar:'كَانَ صِلَةُ فِي جَيْشِ المُسْلِمِينَ فِي بِلَادِ الشَّامِ. فِي لَيْلَةٍ شَدِيدَةِ الظُّلْمَةِ وَالبَرْدِ، ضَلَّ الجَيْشُ وَنَفِدَ مَاؤُهُمْ وَكَادُوا يَهْلِكُونَ عَطَشًا.'},
+    {type:'scene',scene:'prayerNight',sceneIdx:3,
+     ar:'تَسَلَّلَ صِلَةُ سِرًّا وَابْتَعَدَ عَنِ المُعَسْكَرِ فَسَجَدَ وَدَعَا اللهَ وَبَكَى. فَنَبَعَ المَاءُ مِنْ بَيْنِ يَدَيْهِ وَسْطَ الصَّحْرَاءِ القَاحِلَةِ! فَدَعَا الجَيْشَ فَشَرِبُوا وَسَقَوْا دَوَابَّهُمْ وَمَلَأُوا قِرَبَهُمْ.',
+     en:'Silah slipped away secretly and prostrated himself in prayer, weeping. Water sprang from beneath his hands in the barren desert! He called the army and they drank, watered their animals, and filled their vessels.',
+     nar:'تَسَلَّلَ صِلَةُ سِرًّا فَسَجَدَ وَدَعَا اللهَ وَبَكَى. فَنَبَعَ المَاءُ مِنْ بَيْنِ يَدَيْهِ وَسْطَ الصَّحْرَاءِ! فَدَعَا الجَيْشَ فَشَرِبُوا وَسَقَوْا دَوَابَّهُمْ.'},
+    {type:'scene',scene:'armyLines',sceneIdx:4,
+     ar:'ثُمَّ عَادَ صِلَةُ إِلَى صُفُوفِ الجَيْشِ صَامِتًا لَمْ يَقُلْ: أَنَا الَّذِي دَعَوْتُ — خَوْفًا مِنَ الرِّيَاءِ أَنْ يُفْسِدَ عَمَلَهُ عِنْدَ اللهِ.',
+     en:'Then Silah returned silently to the army\'s ranks, never saying "I am the one who prayed" — fearing that showing off might ruin his deed with Allah.',
+     nar:'ثُمَّ عَادَ صِلَةُ إِلَى صُفُوفِ الجَيْشِ صَامِتًا لَمْ يَقُلْ: أَنَا الَّذِي دَعَوْتُ، خَوْفًا مِنَ الرِّيَاءِ أَنْ يُفْسِدَ عَمَلَهُ.'},
+    {type:'morals',scene:'oasis',
+     items:[
+      {ar:'الإِخْلَاصُ الشَّدِيدُ وَالخَوْفُ مِنَ الشُّهْرَةِ: صِلَةُ نَصَرَ الجَيْشَ وَأَخْفَى المَشْهَدَ خَوْفًا مِنَ الرِّيَاءِ.',en:'Deep sincerity and fear of fame: Silah saved the army and hid the miracle, fearing ostentation.'},
+      {ar:'اسْتِجَابَةُ الدُّعَاءِ لِلْمُضْطَرِّينَ: السُّجُودُ لِلَّهِ بِصِدْقٍ يَفْتَحُ أَبْوَابَ المُعْجِزَاتِ.',en:'Allah answers the distressed: sincere prostration opens doors to miracles.'},
+      {ar:'هَذَا هُوَ «التَّقِيُّ الخَفِيُّ» الَّذِي يُحِبُّهُ اللهُ وَيَذْكُرُهُ مَنْ لَا يَعْرِفُهُ.',en:'This is the "hidden pious one" whom Allah loves and who is remembered by those who never knew him.'}
+     ],
+     nar:'مِنْ دُرُوسِ صِلَةَ: الإِخْلَاصُ الشَّدِيدُ وَالخَوْفُ مِنَ الشُّهْرَةِ. وَاسْتِجَابَةُ الدُّعَاءِ لِلْمُضْطَرِّينَ. وَهَذَا هُوَ التَّقِيُّ الخَفِيُّ الَّذِي يُحِبُّهُ اللهُ.'},
+    {type:'closing',icon:'🌊',ar:'نَجَا الجَيْشُ بِدُعَاءِ رَجُلٍ لَمْ يَعْرِفْهُ أَحَدٌ — وَاللهُ يَعْلَمُ السِّرَّ وَأَخْفَى',en:'The army was saved by the prayer of a man no one knew — and Allah knows what is hidden and more hidden',
+     quote:'الأَوْلِيَاءُ الأَخْفِيَاءُ هُمُ الَّذِينَ تَدُومُ بِهِمُ الأُمَّةُ',
+     nar:'نَجَا الجَيْشُ بِدُعَاءِ رَجُلٍ لَمْ يَعْرِفْهُ أَحَدٌ. وَاللهُ يَعْلَمُ السِّرَّ وَأَخْفَى. فَرَضِيَ اللهُ عَنْ صِلَةَ بْنِ الحَارِثِ الغِفَارِيِّ.'}
+  ]
+},
+
+/* ─── 8. أبو الدحداح ─── */
+{
+  id:'abududahdah', img:'assets/three-heroes.png',
+  badge:'تَاجِرُ النَّخِيلِ', title:'أَبُو الدَّحْدَاحِ', en:'Abu al-Dahdah',
+  slides:[
+    {type:'cover',icon:'🌴',title:'أَبُو الدَّحْدَاحِ',sub:'صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ',subEn:'The Owner of the Most Profitable Sale in Human History',scene:'gardenScene',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ الجَنَائِزِ',
+     nar:'أَبُو الدَّحْدَاحِ. صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ.'},
+    {type:'scene',sceneImg:'assets/three-heroes.png',sceneIdx:1,
+     ar:'ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ سِتُّمِئَةِ نَخْلَةٍ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.',
+     en:'Thabit ibn al-Dahdah al-Ansari owned a magnificent garden in Madinah with six hundred palm trees, a water well, and a palace where his family lived.',
+     nar:'ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ سِتُّمِئَةِ نَخْلَةٍ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.'},
+    {type:'scene',scene:'study',sceneIdx:2,
+     ar:'لَمَّا نَزَلَتِ الآيَةُ: ﴿مَنْ ذَا الَّذِي يُقْرِضُ اللهَ قَرْضًا حَسَنًا فَيُضَاعِفَهُ لَهُ﴾، مَشَى أَبُو الدَّحْدَاحِ إِلَى النَّبِيِّ ﷺ وَقَالَ: «يَا رَسُولَ اللهِ، وَإِنَّ اللهَ يُرِيدُ مِنَّا القَرْضَ؟»',
+     en:'When the verse was revealed: "Who will lend Allah a goodly loan?", Abu al-Dahdah walked to the Prophet ﷺ and said: "O Messenger of Allah, does Allah want a loan from us?"',
+     nar:'لَمَّا نَزَلَتِ الآيَةُ: مَنْ ذَا الَّذِي يُقْرِضُ اللهَ قَرْضًا حَسَنًا، مَشَى أَبُو الدَّحْدَاحِ إِلَى النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَقَالَ: يَا رَسُولَ اللهِ، وَإِنَّ اللهَ يُرِيدُ مِنَّا القَرْضَ؟'},
+    {type:'hadith',scene:'gardenScene',sceneIdx:3,
+     ar:'قَالَ النَّبِيُّ ﷺ: «نَعَمْ يَا أَبَا الدَّحْدَاحِ» فَنَاوَلَهُ يَدَهُ وَقَالَ أَبُو الدَّحْدَاحِ:',
+     hadith:'«فَإِنِّي قَدْ أَقْرَضْتُ رَبِّي حَائِطِي!» ثُمَّ ذَهَبَ إِلَى البُسْتَانِ وَنَادَى زَوْجَتَهُ: «يَا أُمَّ الدَّحْدَاحِ، اخْرُجِي مِنَ الحَائِطِ فَقَدْ بِعْتُهُ لِرَبِّي!»',
+     response:'قَالَتِ الزَّوْجَةُ بِفَرَحٍ: «رَبِحَ البَيْعُ! رَبِحَ البَيْعُ!» وَأَخْرَجَتِ التَّمْرَ مِنْ أَفْوَاهِ أَطْفَالِهَا',src:'صَحِيحُ مُسْلِمٍ — الدُّرَرُ السَّنِيَّةُ',
+     en:'"I have lent my garden to my Lord!" He went to the garden and called his wife: "Leave the garden, I have sold it to my Lord!" She said with joy: "A profitable sale! A profitable sale!" and removed the dates from her children\'s mouths.',
+     nar:'قَالَ أَبُو الدَّحْدَاحِ: فَإِنِّي قَدْ أَقْرَضْتُ رَبِّي حَائِطِي! ثُمَّ ذَهَبَ إِلَى زَوْجَتِهِ وَقَالَ: اخْرُجِي مِنَ الحَائِطِ فَقَدْ بِعْتُهُ لِرَبِّي! فَقَالَتِ الزَّوْجَةُ بِفَرَحٍ: رَبِحَ البَيْعُ! رَبِحَ البَيْعُ! وَأَخْرَجَتِ التَّمْرَ مِنْ أَفْوَاهِ أَطْفَالِهَا.'},
+    {type:'hadith',scene:'desertNight',sceneIdx:4,
+     ar:'وَلَمَّا مَشَى النَّبِيُّ ﷺ فِي جَنَازَةِ أَبِي الدَّحْدَاحِ قَالَ بِنَبْرَةٍ مَلِيئَةٍ بِالغِبْطَةِ:',
+     hadith:'«كَمْ مِنْ عِذْقٍ مُعَلَّقٍ لِأَبِي الدَّحْدَاحِ فِي الجَنَّةِ!»',
+     response:'صَحِيحُ مُسْلِمٍ — بَابُ الجَنَائِزِ',src:'صَحِيحُ مُسْلِمٍ',
+     en:'When the Prophet ﷺ walked in Abu al-Dahdah\'s funeral procession he said with joy: "How many palm clusters hang for Abu al-Dahdah in Paradise!"',
+     nar:'وَلَمَّا مَشَى النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي جَنَازَةِ أَبِي الدَّحْدَاحِ قَالَ: كَمْ مِنْ عِذْقٍ مُعَلَّقٍ لِأَبِي الدَّحْدَاحِ فِي الجَنَّةِ!'},
+    {type:'morals',scene:'gardenScene',
+     items:[
+      {ar:'الاسْتِجَابَةُ الفَوْرِيَّةُ لِلنَّصِّ الشَّرْعِيِّ: لَمْ يَتَرَدَّدْ وَلَمْ يَحْسِبْ حِسَابَ الخَسَارَةِ الدُّنْيَوِيَّةِ.',en:'Immediate response to scripture: he did not hesitate or calculate worldly loss.'},
+      {ar:'الزَّوْجَةُ الصَّالِحَةُ: لَمْ تَشْتَكِ بَلْ بَارَكَتِ الصَّفْقَةَ وَأَعَانَتْ زَوْجَهَا عَلَى الطَّاعَةِ.',en:'The righteous wife: she did not complain but blessed the deal and supported her husband\'s obedience.'},
+      {ar:'اليَقِينُ بِوَعْدِ اللهِ: مَنْ أَقْرَضَ اللهَ اسْتَوْفَى أَكْثَرَ مِمَّا أَعْطَى — فِي الجَنَّةِ نَخِيلٌ لَا يَنْتَهِي.',en:'Certainty in Allah\'s promise: whoever lends to Allah receives more than they gave — in Paradise are endless palms.'}
+     ],
+     nar:'مِنْ دُرُوسِ أَبِي الدَّحْدَاحِ: الاسْتِجَابَةُ الفَوْرِيَّةُ لِلنَّصِّ الشَّرْعِيِّ. وَالزَّوْجَةُ الصَّالِحَةُ الَّتِي تُعِينُ زَوْجَهَا عَلَى الطَّاعَةِ. وَاليَقِينُ بِوَعْدِ اللهِ.'},
+    {type:'closing',icon:'🌴',ar:'بَاعَ أَبُو الدَّحْدَاحِ بُسْتَانَهُ لِلَّهِ فَاشْتَرَى النَّبِيُّ ﷺ لَهُ نَخِيلَ الجَنَّةِ — فَرَضِيَ اللهُ عَنْهُ',en:'Abu al-Dahdah sold his garden to Allah and the Prophet ﷺ purchased him the palms of Paradise — may Allah be pleased with him',
+     quote:'رَبِحَ البَيْعُ — البَيْعُ الَّذِي لَا خَسَارَةَ فِيهِ أَبَدًا',
+     nar:'بَاعَ أَبُو الدَّحْدَاحِ بُسْتَانَهُ لِلَّهِ فَاشْتَرَى النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ لَهُ نَخِيلَ الجَنَّةِ. رَبِحَ البَيْعُ. فَرَضِيَ اللهُ عَنْ أَبِي الدَّحْدَاحِ.'}
+  ]
+}
+
+];
+
+/* ═══════════════════════════════════════════════
+   APP STATE & TTS ENGINE
+═══════════════════════════════════════════════ */
+var state = {storyIdx:-1,slideIdx:0,autoPlay:false,ttsReady:false,arVoice:null,voiceDone:false,speaking:false,gen:0};
+
+function initTTS(){
+  if(!('speechSynthesis' in window)){document.getElementById('vTts').textContent='🔇';return}
+  document.getElementById('vTts').textContent='⏳ جَارٍ...';
+  function load(){
+    var v=speechSynthesis.getVoices();
+    if(v.length&&!state.voiceDone){
+      state.voiceDone=true;state.ttsReady=true;
+      state.arVoice=v.find(function(x){return/^ar/i.test(x.lang)});
+      document.getElementById('vTts').textContent=state.arVoice?'🔊 عَرَبِيٌّ':'🔉 صَوْت';
+      speechSynthesis.cancel();
+    }
+  }
+  load();
+  if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=load;
+  var n=0,t=setInterval(function(){if(state.voiceDone||n>40){clearInterval(t)}else{load();n++}},200);
+}
+
+function stopTTS(){
+  if('speechSynthesis' in window)speechSynthesis.cancel();
+  state.speaking=false;state.gen++;
+  document.getElementById('vTts').classList.remove('speaking');
+}
+
+// Continuous narrator: queue all remaining slides from `from`
+function queueNarration(fromIdx){
+  stopTTS();
+  if(!state.ttsReady)return;
+  var g=++state.gen;
+  var story=STORIES[state.storyIdx];
+  if(!story)return;
+  var slides=story.slides;
+  var av=state.arVoice;
+
+  for(var i=fromIdx;i<slides.length;i++){
+    var text=getSlideNarration(slides[i]);
+    if(!text)continue;
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang=av?av.lang:'ar-SA';u.rate=0.88;u.pitch=1.0;
+    if(av)u.voice=av;
+    u['_si']=i;
+    u.onstart=(function(si,gen){return function(){
+      if(gen!==state.gen)return;
+      state.speaking=true;
+      document.getElementById('vTts').classList.add('speaking');
+      // Advance slide in sync with narrator
+      if(si!==state.slideIdx){state.slideIdx=si;renderSlide();}
+    }})(i,g);
+    u.onend=(function(si,gen,last){return function(){
+      if(gen!==state.gen)return;
+      if(last){state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
+    }})(i,g,i===slides.length-1);
+    u.onerror=function(){document.getElementById('vTts').classList.remove('speaking')};
+    try{speechSynthesis.speak(u)}catch(e){}
+  }
+}
+
+function getSlideNarration(s){
+  if(!s)return'';
+  var t=s.nar||'';
+  if(s.type==='hadith'&&s.hadith&&!s.nar)t=(s.ar||'')+' '+(s.hadith||'')+' '+(s.response||'');
+  return t;
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER HOME
+═══════════════════════════════════════════════ */
+function renderHome(){
+  var g=document.getElementById('cardsGrid');g.innerHTML='';
+  STORIES.forEach(function(story,idx){
+    var card=document.createElement('div');
+    card.className='story-card'+(idx===0?' card-intro':'');
+    card.innerHTML='<img class="card-img" src="'+story.img+'" alt="" loading="lazy">'
+      +'<div class="card-badge">'+story.badge+'</div>'
+      +'<div class="card-title">'+story.title+'</div>'
+      +'<div class="card-subtitle">'+story.en+'</div>';
+    card.addEventListener('click',function(){openStory(idx)});
+    g.appendChild(card);
+  });
+}
+
+/* ═══════════════════════════════════════════════
+   OPEN / CLOSE STORY
+═══════════════════════════════════════════════ */
+function openStory(idx){
+  stopTTS();
+  state.storyIdx=idx;state.slideIdx=0;state.autoPlay=false;
+  document.getElementById('home').style.display='none';
+  var v=document.getElementById('viewer');v.classList.add('open');
+  buildDots();renderSlide();updatePlayBtn();
+  document.getElementById('vBack').onclick=closeViewer;
+  setTimeout(initTTS,400);
+}
+function closeViewer(){
+  stopTTS();state.storyIdx=-1;
+  document.getElementById('viewer').classList.remove('open');
+  document.getElementById('home').style.display='flex';
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER SLIDE
+═══════════════════════════════════════════════ */
+function buildDots(){
+  var bar=document.getElementById('vProgress');bar.innerHTML='';
+  var story=STORIES[state.storyIdx];if(!story)return;
+  story.slides.forEach(function(_,i){var d=document.createElement('div');d.className='dot';bar.appendChild(d)});
+}
+
+function renderSlide(){
+  var story=STORIES[state.storyIdx];if(!story)return;
+  var slides=story.slides,i=state.slideIdx,s=slides[i];
+  if(!s)return;
+
+  var total=slides.length;
+  document.getElementById('vCounter').textContent=arNum(i+1)+' / '+arNum(total);
+  document.getElementById('vSeries').textContent='🌿 '+story.title;
+
+  // dots
+  var dots=document.getElementById('vProgress').children;
+  for(var d=0;d<dots.length;d++){dots[d].className='dot';if(d<i)dots[d].classList.add('done');if(d===i)dots[d].classList.add('active')}
+
+  // buttons
+  document.getElementById('vPrev').disabled=i===0;
+  document.getElementById('vNext').disabled=i===total-1;
+
+  // HTML
+  var html=buildSlideHTML(s,i);
+  var stage=document.getElementById('v-stage');
+  var el=document.createElement('div');el.className='slide';el.innerHTML=html;
+  stage.innerHTML='';stage.appendChild(el);
+  requestAnimationFrame(function(){requestAnimationFrame(function(){el.classList.add('active')})});
+}
+
+function buildSlideHTML(s,idx){
+  var numBadge='<div class="s-scene-num">'+arNum(s.sceneIdx||0)+'</div>';
+
+  // ── image panel (shared across scene/hadith/intro-with-scene)
+  function imgPanel(){
+    var inner='';
+    if(s.sceneImg){inner='<img src="'+s.sceneImg+'" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><div class="s-img-overlay"></div>'}
+    else if(s.scene&&SVG[s.scene]){inner=SVG[s.scene]()}
+    return'<div class="s-img">'+inner+(s.sceneIdx?numBadge:'')+'</div>';
+  }
+
+  if(s.type==='cover'){
+    return'<div class="s-night">'
+      +'<div class="cover-icon">'+(s.icon||'🌿')+'</div>'
+      +'<div class="cover-title">'+s.title+'</div>'
+      +'<div class="cover-sub">'+s.sub+'</div>'
+      +'<div class="cover-en">'+s.subEn+'</div>'
+      +'<div class="cover-badge">أَبْطَالٌ فِي الظِّلِّ</div>'
+      +(s.src?'<div class="src-line">'+s.src+'</div>':'')
+      +'</div>';
+  }
+  if(s.type==='intro'){
+    var imgH='';
+    if(s.scene&&SVG[s.scene])imgH='<div class="s-img" style="border-radius:16px 16px 0 0">'+SVG[s.scene]()+'</div>';
+    var linesH=s.lines.map(function(l){return'<div class="intro-line">'+l.ar+'</div><div class="intro-en">'+l.en+'</div>'}).join('<div style="height:5px"></div>');
+    return imgH+'<div class="s-caption"><div class="s-caption-inner">'+linesH+'</div></div>';
+  }
+  if(s.type==='scene'){
+    return imgPanel()
+      +'<div class="s-caption"><div class="s-caption-inner">'
+      +'<div class="s-ar">'+s.ar+'</div>'
+      +'<div class="s-divider"></div>'
+      +'<div class="s-en">'+s.en+'</div>'
+      +'</div></div>';
+  }
+  if(s.type==='hadith'){
+    return imgPanel()
+      +'<div class="s-caption"><div class="s-caption-inner">'
+      +'<div class="s-ar" style="font-size:clamp(13px,2.4vw,18px);margin-bottom:6px">'+s.ar+'</div>'
+      +'<div class="hadith-wrap">'
+      +'<div class="hadith-ar">'+s.hadith+'</div>'
+      +(s.response?'<div class="hadith-response">'+s.response+'</div>':'')
+      +'<div class="hadith-src">'+s.src+'</div>'
+      +'</div>'
+      +'<div class="s-en">'+s.en+'</div>'
+      +'</div></div>';
+  }
+  if(s.type==='morals'){
+    var svgH=s.scene&&SVG[s.scene]?'<div class="s-img" style="border-radius:16px 16px 0 0">'+SVG[s.scene]()+'</div>':'';
+    var itemsH=s.items.map(function(m,mi){
+      return'<div class="moral-row"><div class="moral-num">'+arNum(mi+1)+'</div><div><div class="moral-ar">'+m.ar+'</div><div class="moral-en">'+m.en+'</div></div></div>';
+    }).join('');
+    if(svgH){
+      return svgH+'<div class="s-caption"><div class="s-caption-inner"><div class="morals-title">الدُّرُوسُ المُسْتَفَادَةُ</div>'+itemsH+'</div></div>';
+    }
+    return'<div class="s-night"><div style="font-size:clamp(34px,7vw,48px);margin-bottom:6px">⚖️</div><div class="morals-title">الدُّرُوسُ المُسْتَفَادَةُ</div>'+itemsH+'</div>';
+  }
+  if(s.type==='closing'){
+    return'<div class="s-night">'
+      +'<div class="closing-icon">'+(s.icon||'🌿')+'</div>'
+      +'<div class="closing-title">'+s.ar+'</div>'
+      +'<div class="closing-quote">'+s.quote+'</div>'
+      +'<div class="closing-en">'+s.en+'</div>'
+      +'<button class="home-btn" onclick="closeViewer()">← العَوْدَةُ إِلَى القِصَصِ</button>'
+      +'</div>';
+  }
+  return'';
+}
+
+/* ═══════════════════════════════════════════════
+   CONTROLS
+═══════════════════════════════════════════════ */
+function updatePlayBtn(){document.getElementById('vPlay').textContent=state.autoPlay?'⏸':'▶'}
+
+function goTo(i){
+  var story=STORIES[state.storyIdx];if(!story)return;
+  if(i<0||i>=story.slides.length)return;
+  stopTTS();state.slideIdx=i;state.autoPlay=false;updatePlayBtn();renderSlide();
+}
+
+document.getElementById('vPrev').addEventListener('click',function(){goTo(state.slideIdx-1)});
+document.getElementById('vNext').addEventListener('click',function(){goTo(state.slideIdx+1)});
+document.getElementById('vPlay').addEventListener('click',function(){
+  state.autoPlay=!state.autoPlay;updatePlayBtn();
+  if(state.autoPlay)queueNarration(state.slideIdx);else stopTTS();
+});
+document.getElementById('vSpeak').addEventListener('click',function(){stopTTS();queueNarration(state.slideIdx)});
+document.getElementById('vTts').addEventListener('click',function(){stopTTS();queueNarration(state.slideIdx)});
+
+// Touch swipe
+(function(){
+  var tx=0,ty=0,stage=document.getElementById('v-stage');
+  stage.addEventListener('touchstart',function(e){tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+  stage.addEventListener('touchend',function(e){
+    var dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+    if(Math.abs(dx)>Math.abs(dy)+10&&Math.abs(dx)>42){
+      if(dx<0)goTo(state.slideIdx+1);else goTo(state.slideIdx-1);
+    }
+  },{passive:true});
+})();
+
+// Keyboard
+document.addEventListener('keydown',function(e){
+  if(state.storyIdx<0)return;
+  if(e.key==='ArrowRight')goTo(state.slideIdx-1);
+  if(e.key==='ArrowLeft')goTo(state.slideIdx+1);
+  if(e.key===' '){e.preventDefault();document.getElementById('vPlay').click();}
+  if(e.key==='Escape')closeViewer();
+});
+
+/* ═══════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════ */
+renderHome();
+document.getElementById('loader').style.display='none';
+setTimeout(initTTS,600);
+
+// PWA Service Worker
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('./sw.js').catch(function(){});
+  });
+}
+</script>
+</body>
 </html>
