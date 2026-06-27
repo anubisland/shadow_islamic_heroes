@@ -86,7 +86,7 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
 .v-back:active{transform:scale(.9)}
 .v-series{font-family:'Cairo',sans-serif;font-size:11px;font-weight:700;color:var(--accent);margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:35%}
 .v-counter{font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;color:var(--accent);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 10px;white-space:nowrap;flex-shrink:0}
-.v-tts{font-size:11px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 8px;cursor:pointer;white-space:nowrap;color:var(--accent);-webkit-tap-highlight-color:transparent;transition:border-color .2s;touch-action:manipulation;flex-shrink:0}
+.v-tts{font-size:12px;font-weight:700;background:rgba(168,204,64,.15);border:2px solid rgba(168,204,64,.6);border-radius:20px;padding:4px 12px;cursor:pointer;white-space:nowrap;color:#FFFFFF;-webkit-tap-highlight-color:transparent;transition:border-color .2s,background .2s;touch-action:manipulation;flex-shrink:0}
 .v-tts:hover{border-color:var(--accent)}
 .v-tts.speaking{animation:ttsGlow .8s ease-in-out infinite alternate}
 @keyframes ttsGlow{0%{border-color:rgba(168,204,64,.3)}100%{border-color:var(--accent);box-shadow:0 0 8px rgba(168,204,64,.35)}}
@@ -142,14 +142,14 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
 .dot.done{background:rgba(168,204,64,.5)}
 .dot.active{background:var(--accent);transform:scale(1.45);box-shadow:0 0 8px rgba(168,204,64,.4)}
 /* controls */
-.v-controls{display:flex;align-items:center;justify-content:center;gap:12px;padding:4px 0 2px;flex-shrink:0}
-.ctrl{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.18);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:#D4E8A0;transition:background .2s,transform .1s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-.ctrl:active{transform:scale(.9)}
-.ctrl:hover{background:rgba(255,255,255,.14)}
-.ctrl:disabled{opacity:.2;pointer-events:none}
-.ctrl.sm{width:32px;height:32px;font-size:14px}
+.v-controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:6px 0 4px;flex-shrink:0}
+.ctrl{background:rgba(168,204,64,.15);border:2px solid rgba(168,204,64,.55);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:#FFFFFF;font-weight:700;transition:background .2s,transform .1s,border-color .2s;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.ctrl:active{transform:scale(.88)}
+.ctrl:hover{background:rgba(168,204,64,.3);border-color:rgba(168,204,64,.9)}
+.ctrl:disabled{opacity:.25;pointer-events:none}
+.ctrl.sm{width:38px;height:38px;font-size:20px}
 /* responsive */
-@media(max-width:480px){.viewer-topbar{padding:6px 8px 2px}.s-img{aspect-ratio:8/2}.v-controls{gap:9px}.ctrl{width:34px;height:34px;font-size:14px}.card-intro-sub{display:none}}
+@media(max-width:480px){.viewer-topbar{padding:6px 8px 2px}.s-img{aspect-ratio:8/2}.v-controls{gap:10px}.ctrl{width:40px;height:40px;font-size:17px}.ctrl.sm{width:36px;height:36px;font-size:19px}.card-intro-sub{display:none}}
 @media(min-width:600px){.cards-grid{grid-template-columns:repeat(3,1fr)}.card-intro-inner{height:clamp(150px,18vw,200px)}}
 @media(min-width:900px){.cards-grid{grid-template-columns:repeat(4,1fr);max-width:960px;margin:0 auto}.card-intro-inner{height:170px}}
 @media(max-height:650px){.s-img{aspect-ratio:8/1.8}.s-caption{padding:7px 10px}.s-night{padding:10px 12px}.v-controls{padding:0;gap:8px}.ctrl{width:30px;height:30px;font-size:13px}.v-progress{padding:2px 0}.s-ar{font-size:clamp(14px,2.8vw,19px)}}
@@ -184,7 +184,7 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
     <button class="v-back" id="vBack" aria-label="العودة">→</button>
     <span class="v-series" id="vSeries">🌿 أَبْطَالٌ فِي الظِّلِّ</span>
     <span class="v-counter" id="vCounter">١ / ١</span>
-    <span class="v-tts" id="vTts" role="button" tabindex="0">⏳ صَوْت</span>
+    <span class="v-tts" id="vTts" role="button" tabindex="0">🔊 صَوْت</span>
   </div>
   <div id="v-stage"></div>
   <div class="v-progress" id="vProgress"></div>
@@ -321,7 +321,7 @@ var STORIES = [
     {type:'scene',sceneImg:'assets/hubab.png',sceneIdx:1,
      ar:'مِنْ سَادَةِ الخَزْرَجِ، لُقِّبَ بِـ «ذِي الرَّأْيِ» لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ ﷺ.',
      en:'A chieftain of the Khazraj, nicknamed "Al-Khadim" for his vast knowledge and sound judgment. He witnessed Badr and all battles with the Prophet ﷺ.',
-     nar:'مِنْ سَادَةِ الخَزْرَجِ الأَنْصَارِ، لُقِّبَ بِـ«ذِي الرَّأْيِ» لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ.'},
+     nar:'مِنْ سَادَةِ الخَزْرَجِ الأَنْصَارِ، لُقِّبَ بِـذِي الرَّأْيِ لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ.'},
     {type:'scene',scene:'armyLines',sceneIdx:2,
      ar:'فِي غَزْوَةِ بَدْرٍ عَامَ اثْنَيْنِ لِلْهِجْرَةِ، نَزَلَ الجَيْشُ عِنْدَ أَوَّلِ بِئْرٍ مِنْ مِيَاهِ بَدْرٍ. وَنَظَرَ الحُبَابُ بِعَيْنِ الخَبِيرِ فَرَأَى خَطَرًا دَاهِمًا.',
      en:'At the Battle of Badr in year 2 AH, the army camped at the first well of Badr\'s waters. Al-Hubab looked with an expert\'s eye and saw imminent danger.',
@@ -335,7 +335,7 @@ var STORIES = [
     {type:'scene',scene:'wellScene',sceneIdx:4,
      ar:'قَالَ الحُبَابُ بِعَزْمٍ: «نَنْزِلُ أَدْنَى مَاءٍ مِنَ القَوْمِ، وَنُغَوِّرُ مَا وَرَاءَهُ مِنَ الآبَارِ، وَنَبْنِي حَوْضًا فَنَشْرَبُ وَلَا يَشْرَبُونَ!» فَقَالَ النَّبِيُّ ﷺ: «لَقَدْ أَشَرْتَ بِالرَّأْيِ».',
      en:'Al-Hubab said firmly: "We advance to the nearest water, block all remaining wells, build a reservoir — we drink and they cannot!" The Prophet ﷺ said: "You have given sound counsel."',
-     nar:'قَالَ الحُبَابُ: نَنْزِلُ أَدْنَى مَاءٍ مِنَ القَوْمِ، وَنُغَوِّرُ مَا وَرَاءَهُ مِنَ الآبَارِ، وَنَبْنِي حَوْضًا فَنَشْرَبُ وَلَا يَشْرَبُونَ! فَقَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: لَقَدْ أَشَرْتَ بِالرَّأْيِ.'},
+     nar:'قَالَ الحُبَابُ: نَنْزِلُ أَدْنَى مَاءٍ مِنَ القَوْمِ، وَنُغَوِّرُ مَا وَرَاءَهُ مِنَ الأَبَارِ، وَنَبْنِي حَوْضًا فَنَشْرَبُ وَلَا يَشْرَبُونَ! فَقَالَ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ: لَقَدْ أَشَرْتَ بِالرَّأْيِ.'},
     {type:'morals',scene:'desertNight',
      items:[
       {ar:'قَدِّمْ تَخَصُّصَكَ لِدِينِكَ: الحُبَابُ عَرَفَ الآبَارَ فَقَدَّمَ خِبْرَتَهُ لِلإِسْلَامِ.',en:'Offer your expertise to your faith: Al-Hubab knew the wells and gave his knowledge to Islam.'},
@@ -593,7 +593,7 @@ var STORIES = [
      hadith:'«كَمْ مِنْ عِذْقٍ مُعَلَّقٍ لِأَبِي الدَّحْدَاحِ فِي الجَنَّةِ!»',
      response:'',src:'صَحِيحُ مُسْلِمٍ — بَابُ الجَنَائِزِ',
      en:'When the Prophet ﷺ walked in Abu al-Dahdah\'s funeral procession he said with joy: "How many palm clusters hang for Abu al-Dahdah in Paradise!"',
-     nar:'وَلَمَّا مَشَى النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي جَنَازَةِ أَبِي الدَّحْدَاحِ قَالَ: كَمْ مِنْ عِذْقٍ مُعَلَّقٍ لِأَبِي الدَّحْدَاحِ فِي الجَنَّةِ!'},
+     nar:'وَلَمَّا مَشَى النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي جَنَازَةِ أَبِي الدَّحْدَاحِ قَالَ: كَمْ مِنْ عِذْقٌ مُعَلَّقٌ لِأَبِي الدَّحْدَاحِ فِي الجَنَّةِ!'},
     {type:'morals',scene:'gardenScene',
      items:[
       {ar:'الاسْتِجَابَةُ الفَوْرِيَّةُ لِلنَّصِّ الشَّرْعِيِّ: لَمْ يَتَرَدَّدْ وَلَمْ يَحْسِبْ حِسَابَ الخَسَارَةِ الدُّنْيَوِيَّةِ.',en:'Immediate response to scripture: he did not hesitate or calculate worldly loss.'},
@@ -615,14 +615,14 @@ var STORIES = [
 var state = {storyIdx:-1,slideIdx:0,autoPlay:false,ttsReady:false,arVoice:null,voiceDone:false,speaking:false,gen:0};
 
 function initTTS(){
-  if(!('speechSynthesis' in window)){document.getElementById('vTts').textContent='🔇';return}
-  document.getElementById('vTts').textContent='⏳ جَارٍ...';
+  var chip=document.getElementById('vTts');
+  if(!('speechSynthesis' in window)){chip.textContent='🔇 غير متاح';return}
   function load(){
     var v=speechSynthesis.getVoices();
     if(v.length&&!state.voiceDone){
       state.voiceDone=true;state.ttsReady=true;
       state.arVoice=v.find(function(x){return/^ar/i.test(x.lang)});
-      document.getElementById('vTts').textContent=state.arVoice?'🔊 عَرَبِيٌّ':'🔉 صَوْت';
+      chip.textContent=state.arVoice?'🔊 اضغط للاستماع':'🔊 صَوْت';
       speechSynthesis.cancel();
     }
   }
