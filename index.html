@@ -61,7 +61,7 @@
             <div class="story-portrait" id="storyPortrait"></div>
           </div>
 
-          <div class="audio-dock">
+          <div class="audio-dock storybook-top-controls">
             <button class="primary-button" id="listenButton" type="button">▶</button>
             <div>
               <strong id="listenTitle"></strong>
@@ -70,16 +70,26 @@
             <button class="ghost-button" id="stopButton" type="button" data-i18n="stop">إيقاف</button>
           </div>
 
+          <div class="progress-bar" id="progressBar"></div>
+
           <div class="story-layout">
             <aside class="chapter-list" id="chapterList"></aside>
             <article class="story-card">
+              <div class="story-card-header">
+                <span class="scene-label" id="sceneLabel"></span>
+                <span class="scene-kind" id="sceneKind"></span>
+              </div>
               <div class="chapter-image" id="chapterImage"></div>
+              <div class="profile-panel" id="profilePanel"></div>
               <h2 id="chapterTitle"></h2>
+              <p class="narrator-label" id="narratorLabel"></p>
               <div class="story-content" id="storyContent"></div>
+              <div class="translation-box" id="translationBox"></div>
+              <div class="lesson-box" id="lessonBox"></div>
               <div class="story-nav">
-                <button class="ghost-button" id="prevChapter" type="button" data-i18n="previous">السابق</button>
+                <button class="ghost-button round-control" id="prevChapter" type="button" data-i18n="previous">السابق</button>
                 <span id="chapterCounter"></span>
-                <button class="primary-button" id="nextChapter" type="button" data-i18n="next">التالي</button>
+                <button class="primary-button round-control" id="nextChapter" type="button" data-i18n="next">التالي</button>
               </div>
             </article>
           </div>

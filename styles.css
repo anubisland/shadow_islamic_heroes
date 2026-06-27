@@ -243,19 +243,20 @@ button {
 }
 
 .story-view {
-  padding-bottom: 64px;
+  min-height: calc(100vh - 82px);
+  padding: 12px 0 18px;
 }
 
 .story-hero {
   display: grid;
-  grid-template-columns: 1fr 340px;
-  gap: 24px;
+  grid-template-columns: 1fr 260px;
+  gap: 16px;
   align-items: stretch;
-  padding: 32px 0 16px;
+  padding: 16px 0 10px;
 }
 
 .story-hero h1 {
-  font-size: clamp(42px, 6vw, 72px);
+  font-size: clamp(32px, 5vw, 60px);
 }
 
 .story-hero p {
@@ -274,7 +275,7 @@ button {
 }
 
 .story-portrait {
-  min-height: 250px;
+  min-height: 170px;
 }
 
 .audio-dock {
@@ -292,6 +293,19 @@ button {
   backdrop-filter: blur(18px);
 }
 
+.storybook-top-controls {
+  top: 70px;
+  max-width: 860px;
+  margin-inline: auto;
+  border-color: rgba(212, 175, 55, 0.28);
+  background: rgba(36, 49, 61, 0.92);
+  color: var(--paper);
+}
+
+.storybook-top-controls small {
+  color: rgba(255, 248, 234, 0.68);
+}
+
 .primary-button,
 .ghost-button {
   padding: 10px 16px;
@@ -306,9 +320,10 @@ button {
 
 .story-layout {
   display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 18px;
-  align-items: start;
+  grid-template-columns: minmax(140px, 220px) minmax(0, 860px);
+  justify-content: center;
+  gap: 16px;
+  align-items: stretch;
 }
 
 .chapter-list {
@@ -332,36 +347,257 @@ button {
   background: var(--palm);
 }
 
+.chapter-tab strong {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.45;
+}
+
+.chapter-tab span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.chapter-tab.active span {
+  color: rgba(255, 248, 234, 0.76);
+}
+
 .story-card {
-  padding: 18px;
-  border: 1px solid var(--line);
+  min-height: 620px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid rgba(212, 175, 55, 0.35);
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(36, 49, 61, 0.96), rgba(31, 37, 40, 0.92));
+  box-shadow: 0 22px 60px rgba(31, 37, 40, 0.22);
+}
+
+.story-card-header {
+  order: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px 0;
+  margin-bottom: 10px;
+}
+
+.scene-label,
+.scene-kind {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 6px 12px;
   border-radius: 8px;
-  background: rgba(255, 248, 234, 0.84);
+  font-weight: 800;
+}
+
+.scene-label {
+  color: var(--ink);
+  background: #d4af37;
+}
+
+.scene-kind {
+  color: #ffe4a0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.28);
 }
 
 .chapter-image {
-  min-height: 280px;
-  margin-bottom: 18px;
+  order: 2;
+  flex-shrink: 0;
+  min-height: 310px;
+  margin: 0 14px;
+  border-radius: 16px 16px 0 0;
+  border-color: rgba(212, 175, 55, 0.34);
+}
+
+.profile-panel {
+  order: 3;
+  margin: 0 14px;
+  padding: 12px;
+  border: 1px solid rgba(154, 81, 52, 0.18);
+  border-radius: 0;
+  background: #fff8e7;
+}
+
+.profile-title {
+  margin-bottom: 10px;
+  color: var(--clay);
+  font-weight: 900;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.profile-grid div {
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 248, 234, 0.72);
+}
+
+.profile-grid span,
+.narrator-label,
+.lesson-box strong {
+  display: block;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.profile-grid strong {
+  display: block;
+  margin-top: 3px;
+  line-height: 1.6;
+}
+
+.story-card h2 {
+  order: 4;
+  padding: 0 18px;
+  margin: 10px 0 6px;
+  color: var(--paper);
+  font-size: clamp(1.55rem, 3vw, 2.3rem);
+  line-height: 1.35;
+}
+
+.narrator-label {
+  order: 5;
+  padding: 0 18px;
+  margin: 0 0 8px;
+  color: #e8c158;
 }
 
 .story-content {
-  font-size: 1.12rem;
-  line-height: 2;
+  order: 6;
+  margin: 0 14px;
+  padding: 18px;
+  border: 1px solid #d4af37;
+  border-top: 3px solid #d4af37;
+  border-inline-start: 0;
+  border-radius: 0;
+  background: #fff8e7;
+  font-size: clamp(1.05rem, 2vw, 1.38rem);
+  font-weight: 700;
+  line-height: 1.75;
+  text-align: center;
   white-space: pre-wrap;
+  overflow-y: auto;
 }
 
 .story-content p {
   margin: 0 0 1em;
 }
 
+.translation-box {
+  order: 7;
+  margin: 0 14px;
+  padding: 14px 18px 18px;
+  border: 1px solid #d4af37;
+  border-top: 0;
+  border-radius: 0 0 16px 16px;
+  background: #fff8e7;
+  color: #4f3a22;
+  text-align: left;
+  direction: ltr;
+  font-family: "Inter", "Noto Naskh Arabic", system-ui, sans-serif;
+}
+
+.translation-box::before {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 2px;
+  margin: 0 auto 12px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+}
+
+.translation-box strong {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--clay);
+  font-size: 0.86rem;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.translation-box p {
+  margin: 0;
+  font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+  line-height: 1.65;
+}
+
+.lesson-box {
+  order: 8;
+  margin-top: 16px;
+  margin-inline: 14px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  color: var(--paper);
+  background: linear-gradient(135deg, var(--palm), #283d2a);
+}
+
+.lesson-box strong {
+  color: rgba(255, 248, 234, 0.78);
+}
+
+.lesson-box p {
+  margin: 6px 0 0;
+  line-height: 1.8;
+  font-weight: 700;
+}
+
 .story-nav {
+  order: 9;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-top: 22px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
+  margin-top: auto;
+  padding: 12px 14px 14px;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  color: #ffe4a0;
+}
+
+.round-control {
+  min-width: 86px;
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  max-width: 860px;
+  margin: 0 auto 12px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(36, 49, 61, 0.24);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease, width 0.2s ease;
+}
+
+.dot.done {
+  background: rgba(212, 175, 55, 0.55);
+}
+
+.dot.active {
+  width: 24px;
+  background: #d4af37;
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.45);
 }
 
 @media (max-width: 920px) {
@@ -378,6 +614,20 @@ button {
   .chapter-list {
     position: static;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    order: 2;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .story-layout {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .story-card {
+    order: 1;
   }
 }
 
@@ -409,8 +659,63 @@ button {
     flex-direction: column;
   }
 
+  .storybook-top-controls {
+    display: grid;
+    grid-template-columns: 54px 1fr auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .storybook-top-controls .primary-button {
+    min-height: 48px;
+    padding: 8px;
+  }
+
+  .storybook-top-controls .ghost-button {
+    min-height: 44px;
+    padding: 8px 12px;
+  }
+
   .card-grid,
   .chapter-list {
     grid-template-columns: 1fr;
+  }
+
+  .story-card-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .chapter-image {
+    min-height: 220px;
+  }
+
+  .story-view {
+    padding-bottom: 10px;
+  }
+
+  .story-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .story-portrait {
+    display: none;
+  }
+
+  .storybook-top-controls {
+    top: 62px;
+  }
+
+  .story-card {
+    min-height: calc(100vh - 210px);
+  }
+
+  .profile-panel {
+    display: none;
+  }
+
+  .story-content {
+    font-size: clamp(1rem, 4vw, 1.2rem);
+    line-height: 1.65;
   }
 }
