@@ -8,7 +8,7 @@ const ASSETS=[
   'assets/amr.png',
   'assets/dhu-al-nijadayn.png',
   'assets/three-heroes.png',
-  'assets/intro.png',
+  'assets/intro.jpg',
   'assets/heroes-desert-collage.png'
 ];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting()))});

@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>أَبْطَالٌ فِي الظِّلِّ — سِيَرُ الجُنُودِ المَجْهُولِينَ</title>
 <link rel="manifest" href="manifest.json">
+  <link rel='preload' as='image' href='assets/intro.jpg'>
+  <link rel='preload' as='image' href='assets/hubab.jpg'>
+  <link rel='preload' as='image' href='assets/nuaym.jpg'>
+  <link rel='preload' as='image' href='assets/rabia.jpg'>
+
 <meta name="theme-color" content="#A8CC40">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -286,7 +291,7 @@ var STORIES = [
 
 /* ─── 0. INTRO ─── */
 {
-  id:'intro', img:'assets/intro.png',
+  id:'intro', img:'assets/intro.jpg',
   badge:'مُقَدِّمَةُ المَشْرُوعِ', title:'أَبْطَالٌ فِي الظِّلِّ', en:'Heroes in the Shadows',
   slides:[
     {type:'cover',icon:'🏛️',title:'أَبْطَالٌ فِي الظِّلِّ',sub:'سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللهِ ﷺ',subEn:'Stories of the Unknown Soldiers among the Companions of the Messenger of Allah ﷺ',scene:'desertNight',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
@@ -313,12 +318,12 @@ var STORIES = [
 
 /* ─── 1. الحباب بن المنذر ─── */
 {
-  id:'hubab', img:'assets/hubab.png',
+  id:'hubab', img:'assets/hubab.jpg',
   badge:'مُهَنْدِسُ النَّصْرِ', title:'الحُبَابُ بْنُ المُنْذِرِ', en:'Al-Hubab ibn Al-Mundhir',
   slides:[
     {type:'cover',icon:'🏺',title:'الحُبَابُ بْنُ المُنْذِرِ',sub:'مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ',subEn:'Architect of Victory · Strategist of Badr',scene:'wellScene',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
      nar:'الحُبَابُ بْنُ المُنْذِرِ. مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ.'},
-    {type:'scene',sceneImg:'assets/hubab.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/hubab.jpg',sceneIdx:1,
      ar:'مِنْ سَادَةِ الخَزْرَجِ، لُقِّبَ بِـ «ذِي الرَّأْيِ» لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ ﷺ.',
      en:'A chieftain of the Khazraj, nicknamed "Al-Khadim" for his vast knowledge and sound judgment. He witnessed Badr and all battles with the Prophet ﷺ.',
      nar:'مِنْ سَادَةِ الخَزْرَجِ الأَنْصَارِ، لُقِّبَ بِـذِي الرَّأْيِ لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ.'},
@@ -351,12 +356,12 @@ var STORIES = [
 
 /* ─── 2. نعيم بن مسعود ─── */
 {
-  id:'nuaym', img:'assets/nuaym.png',
+  id:'nuaym', img:'assets/nuaym.jpg',
   badge:'دَهَاءٌ بِلَا سَيْفٍ', title:'نُعَيْمُ بْنُ مَسْعُودٍ', en:'Nu\'aym ibn Mas\'ud',
   slides:[
     {type:'cover',icon:'🧠',title:'نُعَيْمُ بْنُ مَسْعُودٍ',sub:'الرَّجُلُ الَّذِي هَزَمَ جُيُوشَ الأَحْزَابِ بِمُفْرَدِهِ',subEn:'The Man Who Defeated the Confederate Armies Alone',scene:'nightCamp',src:'سِيرَةُ ابْنِ هِشَامٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
      nar:'نُعَيْمُ بْنُ مَسْعُودٍ. الرَّجُلُ الَّذِي هَزَمَ جُيُوشَ الأَحْزَابِ بِمُفْرَدِهِ.'},
-    {type:'scene',sceneImg:'assets/nuaym.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/nuaym.jpg',sceneIdx:1,
      ar:'دَاهِيَةٌ مِنْ دَوَاهِي العَرَبِ، صَاحِبُ شَبَكَةِ عَلَاقَاتٍ وَاسِعَةٍ. أَسْلَمَ سِرًّا فِي ذُرْوَةِ حِصَارِ الخَنْدَقِ عَامَ خَمْسَةٍ مِنَ الهِجْرَةِ.',
      en:'A master strategist of the Arabs with a vast network of relationships. He embraced Islam secretly at the peak of the Trench siege, year 5 AH.',
      nar:'كَانَ نُعَيْمُ بْنُ مَسْعُودٍ دَاهِيَةً مِنْ دَوَاهِي العَرَبِ، صَاحِبَ شَبَكَةِ عَلَاقَاتٍ وَاسِعَةٍ. وَأَسْلَمَ سِرًّا أَثْنَاءَ حِصَارِ الخَنْدَقِ عَامَ خَمْسَةٍ مِنَ الهِجْرَةِ.'},
@@ -389,12 +394,12 @@ var STORIES = [
 
 /* ─── 3. ربيعة بن كعب ─── */
 {
-  id:'rabia', img:'assets/rabia.png',
+  id:'rabia', img:'assets/rabia.jpg',
   badge:'خَادِمٌ صَادِقٌ', title:'رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ', en:'Rabi\'a ibn Ka\'b al-Aslami',
   slides:[
     {type:'cover',icon:'💧',title:'رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ',sub:'الشَّابُّ الَّذِي اشْتَرَى الفِرْدَوْسَ بِإِنَاءِ وُضُوءٍ',subEn:'The Young Man Who Bought Paradise with a Vessel of Water',scene:'prayerNight',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ الصَّلَاةِ',
      nar:'رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ. الشَّابُّ الَّذِي اشْتَرَى الفِرْدَوْسَ بِإِنَاءِ وُضُوءٍ.'},
-    {type:'scene',sceneImg:'assets/rabia.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/rabia.jpg',sceneIdx:1,
      ar:'فَتًى شَابٌّ مِنَ الصُّفَّةِ، لَا بَيْتَ لَهُ وَلَا مَالَ. نَذَرَ حَيَاتَهُ وَشَبَابَهُ لِيَكُونَ ظِلًّا لِرَسُولِ اللهِ ﷺ يَخْدُمُهُ فِي حِلِّهِ وَتَرْحَالِهِ.',
      en:'A young man from the Suffa, with no home and no wealth. He devoted his youth to being the shadow of the Messenger of Allah ﷺ, serving him in all circumstances.',
      nar:'فَتًى شَابٌّ مِنَ الصُّفَّةِ، لَا بَيْتَ لَهُ وَلَا مَالَ. نَذَرَ حَيَاتَهُ وَشَبَابَهُ لِيَكُونَ ظِلًّا لِرَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ يَخْدُمُهُ فِي حِلِّهِ وَتَرْحَالِهِ.'},
@@ -423,12 +428,12 @@ var STORIES = [
 
 /* ─── 4. عمرو بن الجموح ─── */
 {
-  id:'amr', img:'assets/amr.png',
+  id:'amr', img:'assets/amr.jpg',
   badge:'عَزِيمَةٌ لَا تَنْكَسِرُ', title:'عَمْرُو بْنُ الجَمُوحِ', en:'Amr ibn al-Jamuh',
   slides:[
     {type:'cover',icon:'⚔️',title:'عَمْرُو بْنُ الجَمُوحِ',sub:'الأَعْرَجُ الَّذِي طَارَ بِأَجْنِحَةِ الشَّهَادَةِ فِي أُحُدٍ',subEn:'The Limping Hero Who Flew on Wings of Martyrdom at Uhud',scene:'desertDawn',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — سِيَرُ أَعْلَامِ النُّبَلَاءِ',
      nar:'عَمْرُو بْنُ الجَمُوحِ. الأَعْرَجُ الَّذِي طَارَ بِأَجْنِحَةِ الشَّهَادَةِ فِي أُحُدٍ.'},
-    {type:'scene',sceneImg:'assets/amr.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/amr.jpg',sceneIdx:1,
      ar:'سَيِّدٌ مِنْ سَادَاتِ بَنِي سَلِمَةَ، أَسْلَمَ فِي سِنٍّ مُتَأَخِّرَةٍ. كَانَ يُعَانِي مِنْ عَرَجٍ شَدِيدٍ فِي رِجْلِهِ، لَكِنَّ قَلْبَهُ لَمْ يَكُنْ فِيهِ عَرَجٌ قَطُّ.',
      en:'A chieftain of Banu Salima, who embraced Islam in his later years. He suffered severe lameness in his leg, but his heart never once faltered.',
      nar:'سَيِّدٌ مِنْ سَادَاتِ بَنِي سَلِمَةَ، أَسْلَمَ فِي سِنٍّ مُتَأَخِّرَةٍ. كَانَ يُعَانِي مِنْ عَرَجٍ شَدِيدٍ فِي رِجْلِهِ، لَكِنَّ قَلْبَهُ لَمْ يَكُنْ فِيهِ عَرَجٌ قَطُّ.'},
@@ -461,12 +466,12 @@ var STORIES = [
 
 /* ─── 5. ذو النجادين ─── */
 {
-  id:'dhu', img:'assets/dhu-al-nijadayn.png',
+  id:'dhu', img:'assets/dhu-al-nijadayn.jpg',
   badge:'زَاهِدُ الطَّرِيقِ', title:'ذُو النِّجَادَيْنِ', en:'Dhu al-Nijadayn',
   slides:[
     {type:'cover',icon:'🌙',title:'ذُو النِّجَادَيْنِ',sub:'الشَّابُّ الَّذِي دَفَنَهُ النَّبِيُّ ﷺ بِيَدِهِ الشَّرِيفَةِ',subEn:'The Young Man Whom the Prophet ﷺ Shrouded with His Own Shirt',scene:'desertNight',src:'السِّيرَةُ النَّبَوِيَّةُ — صَحِيحُ البُخَارِيِّ',
      nar:'ذُو النِّجَادَيْنِ. الشَّابُّ الَّذِي دَفَنَهُ النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ بِيَدِهِ الشَّرِيفَةِ.'},
-    {type:'scene',sceneImg:'assets/dhu-al-nijadayn.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/dhu-al-nijadayn.jpg',sceneIdx:1,
      ar:'شَابٌّ يَتِيمٌ نَشَأَ فِي حِجْرِ عَمِّهِ الثَّرِيِّ فِي قَبِيلَةِ مُزَيْنَةَ. لَمَّا أَسْلَمَ، جَرَّدَهُ عَمُّهُ مِنْ كُلِّ شَيْءٍ — حَتَّى مِنَ الثَّوْبِ الَّذِي يَرْتَدِيهِ.',
      en:'An orphan who grew up in the care of his wealthy uncle in the Muzayna tribe. When he embraced Islam, his uncle stripped him of everything — even the garment he wore.',
      nar:'شَابٌّ يَتِيمٌ مِنْ قَبِيلَةِ مُزَيْنَةَ، نَشَأَ فِي حِجْرِ عَمِّهِ الثَّرِيِّ. لَمَّا أَسْلَمَ، جَرَّدَهُ عَمُّهُ مِنْ كُلِّ شَيْءٍ، حَتَّى مِنَ الثَّوْبِ الَّذِي يَرْتَدِيهِ.'},
@@ -499,12 +504,12 @@ var STORIES = [
 
 /* ─── 6. جليبيب ─── */
 {
-  id:'julaybib', img:'assets/hero_julaybib.png',
+  id:'julaybib', img:'assets/hero_julaybib.jpg',
   badge:'رَجُلُ الدَّارَيْنِ', title:'جُلَيْبِيبٌ', en:'Julaybib',
   slides:[
     {type:'cover',icon:'⭐',title:'جُلَيْبِيبٌ',sub:'المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ',subEn:'Lifted on the Arms of Prophethood',scene:'desertNight',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ فَضَائِلِ الصَّحَابَةِ',
      nar:'جُلَيْبِيبٌ. المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ.'},
-    {type:'scene',sceneImg:'assets/hero_julaybib.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/hero_julaybib.jpg',sceneIdx:1,
      ar:'كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، وَكَانَ فِي مَظْهَرِهِ دَمَامَةٌ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ ﷺ كَانَ يُحِبُّهُ حُبًّا جَمًّا وَزَوَّجَهُ بِبَرَكَةِ دُعَائِهِ.',
      en:'A poor man of the Suffa, plain in appearance, from whom people kept their distance. Yet the Prophet ﷺ loved him deeply and arranged his marriage through his blessed supplication.',
      nar:'كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، دَمِيمَ الخِلْقَةِ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ كَانَ يُحِبُّهُ حُبًّا جَمًّا، وَزَوَّجَهُ بِبَرَكَةِ دُعَائِهِ الشَّرِيفِ.'},
@@ -533,12 +538,12 @@ var STORIES = [
 
 /* ─── 7. صلة بن الحارث ─── */
 {
-  id:'silah', img:'assets/hero_silah.png',
+  id:'silah', img:'assets/hero_silah.jpg',
   badge:'إِخْلَاصٌ خَفِيٌّ', title:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ', en:'Silah ibn al-Harith al-Ghifari',
   slides:[
     {type:'cover',icon:'🌊',title:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ',sub:'صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ',subEn:'The Man of the Desert Miracle and Hidden Sincerity',scene:'oasis',src:'دَلَائِلُ النُّبُوَّةِ — التَّارِيخُ الكَبِيرُ لِلْبُخَارِيِّ',
      nar:'صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ. صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ.'},
-    {type:'scene',sceneImg:'assets/hero_silah.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/hero_silah.jpg',sceneIdx:1,
      ar:'صَحَابِيٌّ مِنْ قَبِيلَةِ غِفَارَ، كَانَ كَتُومًا عَابِدًا مُجَاهِدًا بِصَمْتٍ فِي جُيُوشِ الفَتْحِ الإِسْلَامِيِّ.',
      en:'A companion from the Ghifar tribe — silent, devout, a quiet fighter in the armies of the Islamic conquests.',
      nar:'صَحَابِيٌّ مِنْ قَبِيلَةِ غِفَارَ، كَانَ كَتُومًا عَابِدًا مُجَاهِدًا بِصَمْتٍ فِي جُيُوشِ الفَتْحِ الإِسْلَامِيِّ.'},
@@ -569,12 +574,12 @@ var STORIES = [
 
 /* ─── 8. أبو الدحداح ─── */
 {
-  id:'abududahdah', img:'assets/hero_dahdah.png',
+  id:'abududahdah', img:'assets/hero_dahdah.jpg',
   badge:'تَاجِرُ النَّخِيلِ', title:'أَبُو الدَّحْدَاحِ', en:'Abu al-Dahdah',
   slides:[
     {type:'cover',icon:'🌴',title:'أَبُو الدَّحْدَاحِ',sub:'صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ',subEn:'The Owner of the Most Profitable Sale in Human History',scene:'gardenScene',src:'صَحِيحُ مُسْلِمٍ — كِتَابُ الجَنَائِزِ',
      nar:'أَبُو الدَّحْدَاحِ. صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ.'},
-    {type:'scene',sceneImg:'assets/hero_dahdah.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/hero_dahdah.jpg',sceneIdx:1,
      ar:'ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ نَخِيلٌ كَثِيرَةٌ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.',
      en:'Thabit ibn al-Dahdah al-Ansari owned a magnificent garden in Madinah with six hundred palm trees, a water well, and a palace where his family lived.',
      nar:'ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ نَخِيلٌ كَثِيرَةٌ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.'},
@@ -613,12 +618,12 @@ var STORIES = [
 
 /* ─── 9. خَبَّابُ بْنُ الأَرَتِّ ─── */
 {
-  id:'khabbab', img:'assets/khabbab.png',
+  id:'khabbab', img:'assets/khabbab.jpg',
   badge:'سَادِسُ الإِسْلَامِ', title:'خَبَّابُ بْنُ الأَرَتِّ', en:'Khabbab ibn al-Aratt',
   slides:[
     {type:'cover',icon:'🔥',title:'خَبَّابُ بْنُ الأَرَتِّ',sub:'الَّذِي جَعَلَ الجَمْرَ فِرَاشَهُ وَلَمْ يَرْتَدَّ',subEn:'Who Made Burning Coals His Bed and Never Renounced His Faith',scene:'desertSunset',src:'صَحِيحُ البُخَارِيِّ — كِتَابُ المَنَاقِبِ',
      nar:'خَبَّابُ بْنُ الأَرَتِّ. الَّذِي جَعَلَ الجَمْرَ فِرَاشَهُ وَلَمْ يَرْتَدَّ.'},
-    {type:'scene',sceneImg:'assets/khabbab.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/khabbab.jpg',sceneIdx:1,
      ar:'كَانَ خَبَّابٌ بْنُ الأَرَتِّ عَبْدًا مَمْلُوكًا مِنَ السَّابِقِينَ الأَوَّلِينَ إِلَى الإِسْلَامِ، وَكَانَ حَدَّادًا يَصْنَعُ السُّيُوفَ لِقُرَيْشٍ، فَلَمَّا أَسْلَمَ صَارَ أَشَدَّ النَّاسِ تَعْذِيبًا فِي مَكَّةَ.',
      en:'Khabbab was an enslaved man and one of the first to embrace Islam. He was a blacksmith who made swords for Quraysh. When he embraced Islam, he became the most severely tortured in Makkah.',
      nar:'كَانَ خَبَّابُ بْنُ الأَرَتِّ عَبْدًا مَمْلُوكًا مِنَ السَّابِقِينَ الأَوَّلِينَ إِلَى الإِسْلَامِ. كَانَ حَدَّادًا يَصْنَعُ السُّيُوفَ لِقُرَيْشٍ. فَلَمَّا أَسْلَمَ صَارَ أَشَدَّ النَّاسِ تَعْذِيبًا فِي مَكَّةَ.'},
@@ -651,12 +656,12 @@ var STORIES = [
 
 /* ─── 10. عَبَّادُ بْنُ بِشْرٍ ─── */
 {
-  id:'abbad', img:'assets/abbad.png',
+  id:'abbad', img:'assets/abbad.jpg',
   badge:'المُصَلِّي تَحْتَ السِّهَامِ', title:'عَبَّادُ بْنُ بِشْرٍ', en:'Abbad ibn Bishr',
   slides:[
     {type:'cover',icon:'🏹',title:'عَبَّادُ بْنُ بِشْرٍ',sub:'الَّذِي كَانَتِ الصَّلَاةُ أَحَبَّ إِلَيْهِ مِنْ حَيَاتِهِ',subEn:'Who Loved Prayer More Than His Own Life',scene:'prayerNight',src:'سِيرَةُ ابْنِ هِشَامٍ — سُنَنُ أَبِي دَاوُدَ',
      nar:'عَبَّادُ بْنُ بِشْرٍ. الَّذِي كَانَتِ الصَّلَاةُ أَحَبَّ إِلَيْهِ مِنْ حَيَاتِهِ.'},
-    {type:'scene',sceneImg:'assets/abbad.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/abbad.jpg',sceneIdx:1,
      ar:'صَحَابِيٌّ أَنْصَارِيٌّ مِنَ الأَوْسِ، آمَنَ مُبَكِّرًا وَأَحَبَّ الصَّلَاةَ حُبًّا لَا يُضَاهِيهِ شَيْءٌ. وُصِفَ بِأَنَّهُ كَانَ إِذَا قَامَ يُصَلِّي تَغَيَّرَ وَجْهُهُ.',
      en:'An Ansari companion from the Aws tribe who believed early and loved prayer in a way nothing could rival. He was described as one whose face changed when he stood in prayer.',
      nar:'صَحَابِيٌّ أَنْصَارِيٌّ مِنَ الأَوْسِ، آمَنَ مُبَكِّرًا وَأَحَبَّ الصَّلَاةَ حُبًّا لَا يُضَاهِيهِ شَيْءٌ. وُصِفَ بِأَنَّهُ كَانَ إِذَا قَامَ يُصَلِّي تَغَيَّرَ وَجْهُهُ.'},
@@ -685,12 +690,12 @@ var STORIES = [
 
 /* ─── 11. أُمُّ عَمَّارَةَ ─── */
 {
-  id:'umm_amara', img:'assets/umm_amara.png',
+  id:'umm_amara', img:'assets/umm_amara.jpg',
   badge:'دِرْعُ النَّبِيِّ فِي أُحُدٍ', title:'أُمُّ عَمَّارَةَ نُسَيْبَةُ', en:'Umm Amara Nusayba',
   slides:[
     {type:'cover',icon:'⚔️',title:'أُمُّ عَمَّارَةَ نُسَيْبَةُ بِنْتُ كَعْبٍ',sub:'الْمَرْأَةُ الَّتِي مَدَحَهَا النَّبِيُّ فِي مَيْدَانِ المَعْرَكَةِ',subEn:'The Woman Whom the Prophet Praised on the Battlefield',scene:'battle',src:'الطَّبَقَاتُ الكُبْرَى لِابْنِ سَعْدٍ — سِيرَةُ ابْنِ هِشَامٍ',
      nar:'أُمُّ عَمَّارَةَ نُسَيْبَةُ بِنْتُ كَعْبٍ. الْمَرْأَةُ الَّتِي مَدَحَهَا النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي مَيْدَانِ المَعْرَكَةِ.'},
-    {type:'scene',sceneImg:'assets/umm_amara.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/umm_amara.jpg',sceneIdx:1,
      ar:'أَنْصَارِيَّةٌ مِنَ الخَزْرَجِ، بَايَعَتْ بَيْعَةَ العَقَبَةِ الثَّانِيَةَ، وَخَرَجَتْ إِلَى غَزْوَةِ أُحُدٍ تَسْقِي المُقَاتِلِينَ وَتُدَاوِي الْجَرْحَى.',
      en:'An Ansari woman from the Khazraj who pledged the Second Pledge of Aqaba. She went to Uhud to give water to the fighters and tend the wounded.',
      nar:'أَنْصَارِيَّةٌ مِنَ الخَزْرَجِ، بَايَعَتْ بَيْعَةَ العَقَبَةِ الثَّانِيَةَ. خَرَجَتْ إِلَى غَزْوَةِ أُحُدٍ تَسْقِي الْمُقَاتِلِينَ وَتُدَاوِي الجَرْحَى.'},
@@ -719,12 +724,12 @@ var STORIES = [
 
 /* ─── 12. أَبُو عَقِيلٍ الأَنْصَارِيُّ ─── */
 {
-  id:'abu_aqeel', img:'assets/abu_aqeel.png',
+  id:'abu_aqeel', img:'assets/abu_aqeel.jpg',
   badge:'نِصْفُ صَاعٍ يَهْزِمُ النِّفَاقَ', title:'أَبُو عَقِيلٍ الأَنْصَارِيُّ', en:'Abu Aqeel al-Ansari',
   slides:[
     {type:'cover',icon:'🌾',title:'أَبُو عَقِيلٍ الأَنْصَارِيُّ',sub:'الَّذِي أَنْزَلَ اللهُ فِيهِ آيَةً تُتْلَى إِلَى يَوْمِ القِيَامَةِ',subEn:'For Whom Allah Revealed a Verse Recited Until the Day of Judgment',scene:'desertDawn',src:'صَحِيحُ البُخَارِيِّ وَمُسْلِمٍ — أَسْبَابُ النُّزُولِ',
      nar:'أَبُو عَقِيلٍ الأَنْصَارِيُّ. الَّذِي أَنْزَلَ اللهُ فِيهِ آيَةً تُتْلَى إِلَى يَوْمِ القِيَامَةِ.'},
-    {type:'scene',sceneImg:'assets/abu_aqeel.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/abu_aqeel.jpg',sceneIdx:1,
      ar:'صَحَابِيٌّ أَنْصَارِيٌّ فَقِيرٌ، لَمَّا نَادَى النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ إِلَى الصَّدَقَةِ لِتَجْهِيزِ جَيْشِ العُسْرَةِ، آجَرَ نَفْسَهُ لَيْلَةً كَامِلَةً بِصَاعَيْنِ مِنَ التَّمْرِ.',
      en:'A poor Ansari companion. When the Prophet ﷺ called for charity to equip the Army of Hardship, he hired himself out for a full night for two saa of dates.',
      nar:'صَحَابِيٌّ أَنْصَارِيٌّ فَقِيرٌ. لَمَّا نَادَى النَّبِيُّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ إِلَى الصَّدَقَةِ لِتَجْهِيزِ جَيْشِ العُسْرَةِ، آجَرَ نَفْسَهُ لَيْلَةً كَامِلَةً بِصَاعَيْنِ مِنَ التَّمْرِ.'},
@@ -753,12 +758,12 @@ var STORIES = [
 
 /* ─── 13. عُبَادَةُ بْنُ الصَّامِتِ ─── */
 {
-  id:'ubada', img:'assets/ubada.png',
+  id:'ubada', img:'assets/ubada.jpg',
   badge:'نَقِيبُ العَقَبَةِ', title:'عُبَادَةُ بْنُ الصَّامِتِ', en:'Ubada ibn al-Samit',
   slides:[
     {type:'cover',icon:'📜',title:'عُبَادَةُ بْنُ الصَّامِتِ',sub:'أَوَّلُ مَنْ حَمَلَ القُرْآنَ إِلَى الشَّامِ',subEn:'The First to Carry the Quran to the Levant',scene:'madinah',src:'صَحِيحُ البُخَارِيِّ — الطَّبَقَاتُ الكُبْرَى',
      nar:'عُبَادَةُ بْنُ الصَّامِتِ. أَوَّلُ مَنْ حَمَلَ الْقُرْآنَ إِلَى الشَّامِ.'},
-    {type:'scene',sceneImg:'assets/ubada.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/ubada.jpg',sceneIdx:1,
      ar:'مِنْ سَادَاتِ الخَزْرَجِ، كَانَ نَقِيبًا فِي بَيْعَةِ العَقَبَةِ الثَّانِيَةِ الَّتِي أَسَّسَتْ لِلْهِجْرَةِ. كَانَ طَوِيلًا أَسْوَدَ جَلِيلَ الْمَنْظَرِ، إِذَا رَآهُ النَّاسُ هَابُوهُ.',
      en:'A chief of the Khazraj and one of the twelve deputies at the Second Pledge of Aqaba that laid the foundation for the Hijra. Tall, dark, and commanding — people stood in awe when they saw him.',
      nar:'مِنْ سَادَاتِ الْخَزْرَجِ، كَانَ نَقِيبًا فِي بَيْعَةِ الْعَقَبَةِ الثَّانِيَةِ الَّتِي أَسَّسَتْ لِلْهِجْرَةِ. كَانَ طَوِيلًا أَسْوَدَ جَلِيلَ الْمَنْظَرِ، إِذَا رَآهُ النَّاسُ هَابُوهُ.'},
@@ -787,12 +792,12 @@ var STORIES = [
 
 /* ─── 14. أَبُو الدَّرْدَاءِ ─── */
 {
-  id:'abu_darda', img:'assets/abu_darda.png',
+  id:'abu_darda', img:'assets/abu_darda.jpg',
   badge:'حَكِيمُ الصَّحَابَةِ', title:'أَبُو الدَّرْدَاءِ', en:'Abu al-Darda',
   slides:[
     {type:'cover',icon:'🕯️',title:'أَبُو الدَّرْدَاءِ عُوَيْمِرُ بْنُ زَيْدٍ',sub:'التَّاجِرُ الَّذِي تَرَكَ السُّوقَ لِيَفْتَحَ مَدَارِسَ العِلْمِ',subEn:'The Merchant Who Left the Market to Open Schools of Knowledge',scene:'study',src:'صَحِيحُ البُخَارِيِّ — سُنَنُ التِّرْمِذِيِّ',
      nar:'أَبُو الدَّرْدَاءِ عُوَيْمِرُ بْنُ زَيْدٍ. التَّاجِرُ الَّذِي تَرَكَ السُّوقَ لِيَفْتَحَ مَدَارِسَ الْعِلْمِ.'},
-    {type:'scene',sceneImg:'assets/abu_darda.png',sceneIdx:1,
+    {type:'scene',sceneImg:'assets/abu_darda.jpg',sceneIdx:1,
      ar:'أَسْلَمَ أَبُو الدَّرْدَاءِ مُتَأَخِّرًا عَنِ الْبَدْرِيِّينَ، وَكَانَ تَاجِرًا مَشْغُولًا بِالسُّوقِ. فَلَمَّا أَسْلَمَ رَأَى أَنَّ التِّجَارَةَ وَالْعِلْمَ لَا يَجْتَمِعَانِ فَاخْتَارَ الْعِلْمَ.',
      en:'Abu al-Darda embraced Islam later than the Badris and was a busy merchant in the market. When he embraced Islam, he saw that trade and knowledge cannot coexist, so he chose knowledge.',
      nar:'أَسْلَمَ أَبُو الدَّرْدَاءِ مُتَأَخِّرًا عَنِ الْبَدْرِيِّينَ وَكَانَ تَاجِرًا مَشْغُولًا. فَلَمَّا أَسْلَمَ رَأَى أَنَّ التِّجَارَةَ وَالْعِلْمَ لَا يَجْتَمِعَانِ فَاخْتَارَ الْعِلْمَ.'},
@@ -883,9 +888,19 @@ function queueNarration(fromIdx){
 
 function getSlideNarration(s){
   if(!s)return'';
-  var t=s.nar||'';
-  if(s.type==='hadith'&&s.hadith&&!s.nar)t=(s.ar||'')+' '+(s.hadith||'')+' '+(s.response||'');
-  return t;
+  var parts=[];
+  if(s.type==='cover'){if(s.title)parts.push(s.title);if(s.sub)parts.push(s.sub);}
+  else if(s.type==='intro'){if(s.lines)s.lines.forEach(function(l){if(l.ar)parts.push(l.ar);});}
+  else if(s.type==='morals'){if(s.items)s.items.forEach(function(m,i){parts.push(String(i+1)+'. '+m.ar);});}
+  else if(s.type==='closing'){if(s.ar)parts.push(s.ar);if(s.quote)parts.push(s.quote);}
+  else{
+    if(s.ar)parts.push(s.ar);
+    if(s.hadith)parts.push(s.hadith);
+    if(s.response&&s.response.length>8)parts.push(s.response);
+  }
+  var text=parts.filter(Boolean).join('. ');
+  text=text.replace(/[«»]/g,'').replace(/ — /g,'، ').replace(/ﷺ/g,'صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ');
+  return text;
 }
 
 /* ═══════════════════════════════════════════════
