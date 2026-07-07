@@ -1,48 +1,32 @@
-# Generate audio files using Google Cloud Text-to-Speech
-# Prerequisites: gcloud CLI installed and authenticated
-# gcloud auth application-default login
+# Generate audio files using edge-tts (Microsoft Azure Neural TTS)
+# Prerequisites:
+#   pip install edge-tts
+#
+# Usage:
+#   .\scripts\generate_audio.ps1
+#
+# This reads assets/audio/narration_list.json and generates MP3 files
+# using edge-tts with voice ar-SA-HamedNeural (Microsoft Hamed).
+# Files are saved to assets/audio/{storyId}_{slideIndex}.mp3
 
-Write-Host "Generating: assets/audio/intro_0.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>أَبْطَالٌ فِي الظِّلِّ. سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\intro_0.mp3" -Encoding Byte
+Write-Host "=== Audio Generation (edge-tts) ===" -ForegroundColor Cyan
 
-Write-Host "Generating: assets/audio/intro_1.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>حِينَ يَلْتَفِتُ التَّارِيخُ لِيُسَجِّلَ أَعْظَمَ التَّحَوُّلَاتِ، تَقْفِزُ إِلَى الأَذْهَانِ أَسْمَاءُ النُّجُومِ الكِبَارِ. لَكِنْ خَلْفَ هَذَا الوَمِيضِ، كَانَ هُنَاكَ جِيلٌ آخَرُ آثَرَ العَطَاءَ بِصَمْتٍ. هَؤُلَاءِ هُمُ الجُنُودُ المَجْهُولُونَ، صَحَابَةٌ كِرَامٌ نُقِشَتْ أَسْمَاؤُهُمْ بِأَحْرُفٍ مِنْ نُورٍ فِي دِيوَانِ السَّمَاءِ.</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\intro_1.mp3" -Encoding Byte
+# Check edge-tts
+try {
+    $null = edge-tts --help 2>&1
+} catch {
+    Write-Error "edge-tts not found. Install it: pip install edge-tts"
+    exit 1
+}
 
-Write-Host "Generating: assets/audio/intro_2.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>مِنْ دُرُوسِ هَذَا المَشْرُوعِ: العَطَاءُ لِلدِّينِ لَا يَحْتَاجُ إِلَى أَضْوَاءٍ وَلَا إِلَى شَهْرَةٍ. وَاللهُ يُحِبُّ العَبْدَ التَّقِيَّ النَّقِيَّ الخَفِيَّ. وَكُلُّ مُسْلِمٍ يَمْلِكُ تَخَصُّصًا يُمْكِنُهُ تَقْدِيمُهُ خِدْمَةً لِدِينِهِ.</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\intro_2.mp3" -Encoding Byte
+# Delegate to Node.js script
+node "$PSScriptRoot\generate_audio.js"
 
-Write-Host "Generating: assets/audio/intro_3.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>هَذِهِ قِصَصُ ثَمَانِيَةٍ مِنَ الجُنُودِ المَجْهُولِينَ. اخْتَرْ بِطَلَكَ وَابْدَأِ الرِّحْلَةَ.</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\intro_3.mp3" -Encoding Byte
-
-Write-Host "Generating: assets/audio/hubab_0.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>الحُبَابُ بْنُ المُنْذِرِ. مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ.</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\hubab_0.mp3" -Encoding Byte
-
-Write-Host "Generating: assets/audio/hubab_1.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>مِنْ سَادَةِ الخَزْرَجِ الأَنْصَارِ، لُقِّبَ بِـذِي الرَّأْيِ لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ.</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\hubab_1.mp3" -Encoding Byte
-
-Write-Host "Generating: assets/audio/hubab_2.mp3"
-$token = gcloud auth application-default print-access-token
-$body = @{input=@{ssml="<speak>فِي غَزْوَةِ بَدْرٍ الكُبْرَى عَامَ اثْنَيْنِ مِنَ الهِجْرَةِ، نَزَلَ الجَيْشُ عِنْدَ أَوَّلِ بِئْرٍ. وَنَظَرَ الحُبَابُ بِعَيْنِ الخَبِيرِ فَرَأَى خَطَرًا دَاهِمًا.</speak>"};voice=@{languageCode="ar-XA";name="ar-XA-Wavenet-D"};audioConfig=@{audioEncoding="MP3";speakingRate=0.9}} | ConvertTo-Json
-$result = Invoke-RestMethod -Uri "https://texttospeech.googleapis.com/v1/text:synthesize" -Method Post -Headers @{Authorization="Bearer $token"} -ContentType "application/json" -Body $body
-[Convert]::FromBase64String($result.audioContent) | Set-Content -Path "C:\Users\melwa\OneDrive\Documents\GitHub\shadow_islamic_heroes\assets\audio\hubab_2.mp3" -Encoding Byte
+if ($LASTEXITCODE -eq 0) {
+    Write-Host " Done!" -ForegroundColor Green
+} else {
+    Write-Error "Generation failed (exit code: $LASTEXITCODE)"
+}
 
 Write-Host "Generating: assets/audio/hubab_3.mp3"
 $token = gcloud auth application-default print-access-token

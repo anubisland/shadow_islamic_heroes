@@ -1,38 +1,60 @@
 /**
- * Google Cloud Text-to-Speech Audio Generator
- * =============================================
+ * edge-tts Audio Generator (Microsoft Azure Neural TTS)
+ * ======================================================
+ *
+ * Uses edge-tts (Python) which calls Microsoft Azure Neural TTS for free.
+ * Voice: ar-SA-HamedNeural (Microsoft Hamed — Arabic Saudi Arabia, male)
  *
  * Prerequisites:
- *   1. Node.js installed (v16+)
- *   2. Google Cloud project with Text-to-Speech API enabled
- *   3. Authentication set up:
- *      - Install gcloud CLI: https://cloud.google.com/sdk/docs/install
- *      - Run: gcloud auth application-default login
- *      - Or set GOOGLE_APPLICATION_CREDENTIALS env var
- *   4. Install dependency: npm install @google-cloud/text-to-speech
+ *   1. Python 3.8+ installed
+ *   2. Install: pip install edge-tts
  *
  * Usage:
  *   node scripts/generate_audio.js
  *
  * This reads assets/audio/narration_list.json and generates MP3 files
- * for each narration text using Google Cloud TTS WaveNet voice.
+ * for each narration text using edge-tts.
  * Files are saved to assets/audio/{storyId}_{slideIndex}.mp3
  */
 
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
+const os = require('os');
 
-// Configuration
-const CONFIG = {
-  voiceName: 'ar-XA-Wavenet-D',  // Arabic WaveNet male voice D
-  languageCode: 'ar-XA',
-  speakingRate: 0.9,             // Slightly slower for narration
-  pitch: 0.0,
-  outputFormat: 'MP3',
-};
+const VOICE = 'ar-SA-HamedNeural';  // Microsoft Hamed
+const PITCH = '+0Hz';
+const RATE = '+0%';
+
+function checkEdgeTTS() {
+  try {
+    execSync('edge-tts --help', { stdio: 'ignore' });
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function escapeText(text) {
+  // Escape special chars for shell command
+  if (os.platform() === 'win32') {
+    // Windows PowerShell: use single quotes, escape single quotes
+    return text.replace(/'/g, "''");
+  }
+  // Unix: use single quotes, escape single quotes
+  return text.replace(/'/g, "'\\''");
+}
 
 async function main() {
-  // Read narration list
+  // 1. Check edge-tts
+  if (!checkEdgeTTS()) {
+    console.error('edge-tts not found. Install it:');
+    console.error('  pip install edge-tts');
+    process.exit(1);
+  }
+  console.log(`✓ edge-tts found. Using voice: ${VOICE}\n`);
+
+  // 2. Read narration list
   const listPath = path.join(__dirname, '..', 'assets', 'audio', 'narration_list.json');
   if (!fs.existsSync(listPath)) {
     console.error('narration_list.json not found. Run scripts/extract_narration.js first.');
@@ -40,89 +62,77 @@ async function main() {
   }
 
   const items = JSON.parse(fs.readFileSync(listPath, 'utf8'));
-  console.log(`Found ${items.length} narration items to generate.`);
+  console.log(`Found ${items.length} narration items to generate.\n`);
 
-  // Try loading Google Cloud TTS client
-  let client;
-  try {
-    const textToSpeech = require('@google-cloud/text-to-speech');
-    client = new textToSpeech.TextToSpeechClient();
-  } catch (e) {
-    console.error('Failed to load @google-cloud/text-to-speech.');
-    console.error('Install it: npm install @google-cloud/text-to-speech');
-    console.error('Then run: node scripts/generate_audio.js');
-    process.exit(1);
-  }
-
-  const outDir = path.join(__dirname, '..', 'assets', 'audio');
-  if (!fs.existsSync(outDir)) {
-    fs.mkdirSync(outDir, { recursive: true });
-  }
-
+  const isWin = os.platform() === 'win32';
   let success = 0;
   let failed = 0;
+  let skipped = 0;
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     const outputFile = path.join(__dirname, '..', item.filename);
 
+    // Ensure output directory
+    const outDir = path.dirname(outputFile);
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir, { recursive: true });
+    }
+
     // Skip if already generated
     if (fs.existsSync(outputFile) && fs.statSync(outputFile).size > 1000) {
       console.log(`[${i + 1}/${items.length}] SKIP (exists): ${item.filename}`);
-      success++;
+      skipped++;
       continue;
     }
 
     const text = item.text;
     if (!text || text.trim().length < 3) {
       console.log(`[${i + 1}/${items.length}] SKIP (empty): ${item.filename}`);
-      failed++;
+      skipped++;
       continue;
     }
 
     console.log(`[${i + 1}/${items.length}] Generating: ${item.filename} (${text.length} chars)`);
 
     try {
-      const request = {
-        input: { ssml: `<speak>${escapeXml(text)}</speak>` },
-        voice: {
-          languageCode: CONFIG.languageCode,
-          name: CONFIG.voiceName,
-        },
-        audioConfig: {
-          audioEncoding: CONFIG.outputFormat,
-          speakingRate: CONFIG.speakingRate,
-          pitch: CONFIG.pitch,
-          effectsProfileId: ['headphone-class-device'],
-        },
-      };
+      // Write text to temp file to avoid shell escaping issues
+      const tmpFile = path.join(os.tmpdir(), `narration_${i}.txt`);
+      fs.writeFileSync(tmpFile, text, 'utf8');
 
-      const [response] = await client.synthesizeSpeech(request);
-
-      // Ensure output directory exists
-      const outDir2 = path.dirname(outputFile);
-      if (!fs.existsSync(outDir2)) {
-        fs.mkdirSync(outDir2, { recursive: true });
+      let cmd;
+      if (isWin) {
+        cmd = `edge-tts --voice ${VOICE} --pitch "${PITCH}" --rate "${RATE}" -f "${tmpFile}" --write-media "${outputFile}"`;
+      } else {
+        cmd = `edge-tts --voice ${VOICE} --pitch '${PITCH}' --rate '${RATE}' -f '${tmpFile}' --write-media '${outputFile}'`;
       }
 
-      fs.writeFileSync(outputFile, response.audioContent, 'binary');
-      console.log(`  ✓ Saved (${(response.audioContent.length / 1024).toFixed(1)} KB)`);
+      execSync(cmd, { stdio: 'pipe', timeout: 60000 });
+
+      // Clean up temp file
+      try { fs.unlinkSync(tmpFile); } catch(e) {}
+
+      const sizeKB = (fs.statSync(outputFile).size / 1024).toFixed(1);
+      console.log(`  ✓ Saved (${sizeKB} KB)`);
       success++;
     } catch (err) {
-      console.error(`  ✗ Error: ${err.message}`);
+      console.error(`  ✗ Error: ${err.message.split('\n')[0]}`);
       failed++;
     }
 
-    // Small delay to avoid rate limiting
+    // Small delay to be nice
     if (i < items.length - 1) {
-      await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 100));
     }
   }
 
-  console.log('\n=== Generation Complete ===');
-  console.log(`Success: ${success}`);
-  console.log(`Failed: ${failed}`);
-  console.log(`Total: ${items.length}`);
+  console.log('\n═══════════════════════════════');
+  console.log('  Generation Complete');
+  console.log('═══════════════════════════════');
+  console.log(`  ✓ Success: ${success}`);
+  console.log(`  ⏭  Skipped: ${skipped}`);
+  console.log(`  ✗ Failed:  ${failed}`);
+  console.log(`  Total:     ${items.length}`);
 
   // Update manifest with file sizes
   const manifestPath = path.join(__dirname, '..', 'assets', 'audio', 'manifest.json');
@@ -130,30 +140,16 @@ async function main() {
     const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
     for (const storyId in manifest) {
       for (const slide of manifest[storyId].slides) {
-        const filePath = path.join(__dirname, '..', slide.filename);
-        if (fs.existsSync(filePath)) {
-          slide.size = fs.statSync(filePath).size;
-          slide.duration = estimateDuration(slide.text);
+        const fp = path.join(__dirname, '..', slide.filename);
+        if (fs.existsSync(fp)) {
+          slide.size = fs.statSync(fp).size;
+          slide.duration = Math.ceil((slide.text.length / 4) * 1000);
         }
       }
     }
     fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2), 'utf8');
-    console.log('Manifest updated with file sizes.');
+    console.log('\n✓ Manifest updated with file sizes.');
   }
-}
-
-function escapeXml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
-}
-
-function estimateDuration(text) {
-  // Rough estimate: ~4 chars per second for Arabic narration
-  return Math.ceil((text.length / 4) * 1000);
 }
 
 main().catch(console.error);

@@ -1,21 +1,27 @@
 #!/bin/bash
-# Generate audio files using Google Cloud Text-to-Speech
-# Prerequisites: gcloud CLI installed and authenticated
-# gcloud auth application-default login
+# Generate audio files using edge-tts (Microsoft Azure Neural TTS)
+# Prerequisites:
+#   pip install edge-tts
 #
+# Usage:
+#   bash scripts/generate_audio.sh
+#
+# This reads assets/audio/narration_list.json and generates MP3 files
+# using edge-tts with voice ar-SA-HamedNeural (Microsoft Hamed).
+
 set -e
+DIR="$(cd "$(dirname "$0")" && pwd)"
 
-echo "Generating: assets/audio/intro_0.mp3"
-curl -s -X POST -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" -H "Content-Type: application/json" -d '{"input":{"ssml":"<speak>أَبْطَالٌ فِي الظِّلِّ. سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللهِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ</speak>"},"voice":{"languageCode":"ar-XA","name":"ar-XA-Wavenet-D"},"audioConfig":{"audioEncoding":"MP3","speakingRate":0.9}}' "https://texttospeech.googleapis.com/v1/text:synthesize" | jq -r '.audioContent' | base64 --decode > "C:/Users/melwa/OneDrive/Documents/GitHub/shadow_islamic_heroes/assets/audio/intro_0.mp3"
+# Check edge-tts
+if ! command -v edge-tts &>/dev/null; then
+    echo "edge-tts not found. Install it: pip install edge-tts"
+    exit 1
+fi
 
-echo "Generating: assets/audio/intro_1.mp3"
-curl -s -X POST -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" -H "Content-Type: application/json" -d '{"input":{"ssml":"<speak>حِينَ يَلْتَفِتُ التَّارِيخُ لِيُسَجِّلَ أَعْظَمَ التَّحَوُّلَاتِ، تَقْفِزُ إِلَى الأَذْهَانِ أَسْمَاءُ النُّجُومِ الكِبَارِ. لَكِنْ خَلْفَ هَذَا الوَمِيضِ، كَانَ هُنَاكَ جِيلٌ آخَرُ آثَرَ العَطَاءَ بِصَمْتٍ. هَؤُلَاءِ هُمُ الجُنُودُ المَجْهُولُونَ، صَحَابَةٌ كِرَامٌ نُقِشَتْ أَسْمَاؤُهُمْ بِأَحْرُفٍ مِنْ نُورٍ فِي دِيوَانِ السَّمَاءِ.</speak>"},"voice":{"languageCode":"ar-XA","name":"ar-XA-Wavenet-D"},"audioConfig":{"audioEncoding":"MP3","speakingRate":0.9}}' "https://texttospeech.googleapis.com/v1/text:synthesize" | jq -r '.audioContent' | base64 --decode > "C:/Users/melwa/OneDrive/Documents/GitHub/shadow_islamic_heroes/assets/audio/intro_1.mp3"
+echo "=== Audio Generation (edge-tts) ==="
 
-echo "Generating: assets/audio/intro_2.mp3"
-curl -s -X POST -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" -H "Content-Type: application/json" -d '{"input":{"ssml":"<speak>مِنْ دُرُوسِ هَذَا المَشْرُوعِ: العَطَاءُ لِلدِّينِ لَا يَحْتَاجُ إِلَى أَضْوَاءٍ وَلَا إِلَى شَهْرَةٍ. وَاللهُ يُحِبُّ العَبْدَ التَّقِيَّ النَّقِيَّ الخَفِيَّ. وَكُلُّ مُسْلِمٍ يَمْلِكُ تَخَصُّصًا يُمْكِنُهُ تَقْدِيمُهُ خِدْمَةً لِدِينِهِ.</speak>"},"voice":{"languageCode":"ar-XA","name":"ar-XA-Wavenet-D"},"audioConfig":{"audioEncoding":"MP3","speakingRate":0.9}}' "https://texttospeech.googleapis.com/v1/text:synthesize" | jq -r '.audioContent' | base64 --decode > "C:/Users/melwa/OneDrive/Documents/GitHub/shadow_islamic_heroes/assets/audio/intro_2.mp3"
-
-echo "Generating: assets/audio/intro_3.mp3"
-curl -s -X POST -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" -H "Content-Type: application/json" -d '{"input":{"ssml":"<speak>هَذِهِ قِصَصُ ثَمَانِيَةٍ مِنَ الجُنُودِ المَجْهُولِينَ. اخْتَرْ بِطَلَكَ وَابْدَأِ الرِّحْلَةَ.</speak>"},"voice":{"languageCode":"ar-XA","name":"ar-XA-Wavenet-D"},"audioConfig":{"audioEncoding":"MP3","speakingRate":0.9}}' "https://texttospeech.googleapis.com/v1/text:synthesize" | jq -r '.audioContent' | base64 --decode > "C:/Users/melwa/OneDrive/Documents/GitHub/shadow_islamic_heroes/assets/audio/intro_3.mp3"
+# Delegate to Node.js script
+node "$DIR/generate_audio.js"
 
 echo "Generating: assets/audio/hubab_0.mp3"
 curl -s -X POST -H "Authorization: Bearer $(gcloud auth application-default print-access-token)" -H "Content-Type: application/json" -d '{"input":{"ssml":"<speak>الحُبَابُ بْنُ المُنْذِرِ. مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ.</speak>"},"voice":{"languageCode":"ar-XA","name":"ar-XA-Wavenet-D"},"audioConfig":{"audioEncoding":"MP3","speakingRate":0.9}}' "https://texttospeech.googleapis.com/v1/text:synthesize" | jq -r '.audioContent' | base64 --decode > "C:/Users/melwa/OneDrive/Documents/GitHub/shadow_islamic_heroes/assets/audio/hubab_0.mp3"
