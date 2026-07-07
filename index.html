@@ -848,34 +848,10 @@ function initAudio(){
   if(chip)chip.textContent='🔊 اضغط للاستماع';
   if(state.audioEl)state.audioEl.preload='auto';
 
-  // Load TTS voices — best effort
+  // TTS voices loaded only after user click (avoids Chrome Android freeze)
   if(!('speechSynthesis' in window)){
     document.getElementById('voiceStatus').textContent='🔇';
-    return;
   }
-
-  try{
-    var v=speechSynthesis.getVoices();
-    if(v&&v.length>0)processVoices(v);
-  }catch(e){}
-
-  if(speechSynthesis.onvoiceschanged!==undefined){
-    speechSynthesis.onvoiceschanged=function(){
-      try{
-        var vv=speechSynthesis.getVoices();
-        if(vv&&vv.length>0)processVoices(vv);
-      }catch(ee){}
-    };
-  }
-  var pc=0;
-  var pt=setInterval(function(){
-    if(state.voices.length>0||pc>30){clearInterval(pt);return;}
-    pc++;
-    try{
-      var vvv=speechSynthesis.getVoices();
-      if(vvv&&vvv.length>0)processVoices(vvv);
-    }catch(e){}
-  },300);
 }
 
 function tryLoadVoices(){
@@ -884,6 +860,28 @@ function tryLoadVoices(){
     var v=speechSynthesis.getVoices();
     if(v&&v.length>0)processVoices(v);
   }catch(e){}
+  // Listen for voice changes (some browsers populate after interaction)
+  if(speechSynthesis.onvoiceschanged===undefined){
+    speechSynthesis.onvoiceschanged=function(){
+      try{
+        var vv=speechSynthesis.getVoices();
+        if(vv&&vv.length>0)processVoices(vv);
+      }catch(ee){}
+    };
+  }
+  // Poll a few times as fallback
+  if(!window._voicesPolling){
+    window._voicesPolling=true;
+    var pc=0;
+    var pt=setInterval(function(){
+      if(state.voices.length>0||pc>20){clearInterval(pt);window._voicesPolling=false;return;}
+      pc++;
+      try{
+        var vvv=speechSynthesis.getVoices();
+        if(vvv&&vvv.length>0)processVoices(vvv);
+      }catch(e){}
+    },500);
+  }
 }
 
 function processVoices(allVoices){
@@ -1333,10 +1331,7 @@ document.addEventListener('keydown',function(e){
 ═══════════════════════════════════════════════ */
 renderHome();
 document.getElementById('loader').style.display='none';
-// Init audio/voices — best effort, never blocks
-if('speechSynthesis' in window){
-  try{speechSynthesis.getVoices()}catch(e){}
-}
+// Init audio/voices — deferred, never blocks (Chrome Android freezes on sync getVoices)
 setTimeout(initAudio,300);
 // Also retry on first user tap (some browsers populate voices after interaction)
 document.addEventListener('click',function firstClick(){
