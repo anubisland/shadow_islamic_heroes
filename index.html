@@ -186,7 +186,7 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
     <div id="homeVoice" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;min-height:22px;flex-wrap:wrap"></div>
     <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
       <span id="voiceStatus" style="font-family:'Cairo',sans-serif;font-size:11px;color:rgba(168,204,64,.5)">🔊 جاري تحميل الأصوات...</span>
-      <button id="reloadVoiceBtn" onclick="tryLoadVoices();return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer;display:none">إعادة تحميل</button>
+      <button id="reloadVoiceBtn" onclick="tryLoadVoices(true);return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer;display:none">إعادة تحميل</button>
     </div>
   </div>
   <div class="home-section-title">🌿 اخْتَرْ قِصَّةً</div>
@@ -854,14 +854,14 @@ function initAudio(){
   }
 }
 
-function tryLoadVoices(){
+function tryLoadVoices(force){
   if(!('speechSynthesis' in window))return;
   try{
     var v=speechSynthesis.getVoices();
     if(v&&v.length>0)processVoices(v);
   }catch(e){}
   // Listen for voice changes (some browsers populate after interaction)
-  if(speechSynthesis.onvoiceschanged===undefined){
+  if(!speechSynthesis.onvoiceschanged){
     speechSynthesis.onvoiceschanged=function(){
       try{
         var vv=speechSynthesis.getVoices();
@@ -870,7 +870,7 @@ function tryLoadVoices(){
     };
   }
   // Poll a few times as fallback
-  if(!window._voicesPolling){
+  if(!window._voicesPolling||force){
     window._voicesPolling=true;
     var pc=0;
     var pt=setInterval(function(){
@@ -880,6 +880,13 @@ function tryLoadVoices(){
         var vvv=speechSynthesis.getVoices();
         if(vvv&&vvv.length>0)processVoices(vvv);
       }catch(e){}
+      // After 10 retries (5s), show reload button and update message
+      if(pc===10){
+        var vs=document.getElementById('voiceStatus');
+        if(vs&&state.voices.length===0)vs.textContent='🔇 لم تُعثر على أصوات عربية — اضغط إعادة تحميل';
+        var rb=document.getElementById('reloadVoiceBtn');
+        if(rb)rb.style.display='inline-block';
+      }
     },500);
   }
 }
@@ -888,17 +895,14 @@ function processVoices(allVoices){
   if(state.voices.length>0)return;
   var arabic=allVoices.filter(function(x){return/^ar\b/i.test(x.lang)});
   var vs=document.getElementById('voiceStatus');
-  if(!arabic.length){
-    if(vs)vs.textContent='🔇 لا توجد أصوات عربية — سيستخدم الصوت الافتراضي';
-    var rb=document.getElementById('reloadVoiceBtn');
-    if(rb)rb.style.display='inline-block';
-    return;
-  }
+  if(!arabic.length)return; // will be handled by polling timeout
   state.voices=arabic;
   updateVoiceUI(arabic,'🎙️');
   var defaultV=arabic.find(function(x){return/hamed/i.test(x.name)})||arabic[0];
   if(defaultV)state.selectedVoice=defaultV;
-  if(vs)vs.style.display='none';
+  if(vs){vs.textContent='';vs.style.display='none'}
+  var rb=document.getElementById('reloadVoiceBtn');
+  if(rb)rb.style.display='none';
 }
 
 function updateVoiceUI(voices,label){
