@@ -180,14 +180,13 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">📖 ٨ قِصَصٍ مُصَوَّرَةٍ</span>
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">🔊 رِوَايَةٌ صَوْتِيَّةٌ</span>
     </div>
-    </div>
-    <div id="homeVoiceSelector" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;min-height:28px;flex-wrap:wrap">
+    <div id="homeVoiceSelector" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;min-height:24px;flex-wrap:wrap">
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">🌐 عَرَبِيٌّ · English</span>
     </div>
-    <div id="homeVoice" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;min-height:24px;flex-wrap:wrap"></div>
+    <div id="homeVoice" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;min-height:22px;flex-wrap:wrap"></div>
     <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
       <span id="voiceStatus" style="font-family:'Cairo',sans-serif;font-size:11px;color:rgba(168,204,64,.5)">🔊 جاري تحميل الأصوات...</span>
-      <button id="reloadVoiceBtn" onclick="tryLoadVoices();return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer">إعادة تحميل</button>
+      <button id="reloadVoiceBtn" onclick="tryLoadVoices();return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer;display:none">إعادة تحميل</button>
     </div>
   </div>
   <div class="home-section-title">🌿 اخْتَرْ قِصَّةً</div>
@@ -843,39 +842,43 @@ var STORIES = [
 var state = {storyIdx:-1,slideIdx:0,autoPlay:false,speaking:false,gen:0,audioQueue:[],currentAudio:null,hasAudio:false,selectedVoice:null,voices:[]};
 
 function initAudio(){
-  // Check if audio files exist
+  // Check if audio files exist (async)
   probeAudioExists('assets/audio/intro_0.mp3',function(exists){
     state.hasAudio=exists;
     var chip=document.getElementById('vTts');
     if(chip)chip.textContent=exists?'🔊 اضغط للاستماع':'🔊 صَوْت';
   });
 
-  // Load available TTS voices for selector
+  // Load TTS voices — best effort, never blocks the app
   if(!('speechSynthesis' in window)){
-    updateVoiceUI([],'غير متاح');
+    document.getElementById('voiceStatus').textContent='🔇';
     return;
   }
 
-  // Force voice engine to initialize on some browsers
-  speechSynthesis.cancel();
+  // Safari-safe: don't cancel without utterance
+  try{
+    var v=speechSynthesis.getVoices();
+    if(v&&v.length>0)processVoices(v);
+  }catch(e){}
 
-  tryLoadVoices();
   if(speechSynthesis.onvoiceschanged!==undefined){
     speechSynthesis.onvoiceschanged=function(){
-      var v=speechSynthesis.getVoices();
-      if(v&&v.length)processVoices(v);
+      try{
+        var vv=speechSynthesis.getVoices();
+        if(vv&&vv.length>0)processVoices(vv);
+      }catch(ee){}
     };
   }
-  // Poll aggressively in case onvoiceschanged doesn't fire
-  var pollCount=0;
-  var pollTimer=setInterval(function(){
-    if(state.voices.length>0||pollCount>50){
-      clearInterval(pollTimer);
-      return;
-    }
-    pollCount++;
-    tryLoadVoices();
-  },150);
+  // Poll a few times as backup
+  var pc=0;
+  var pt=setInterval(function(){
+    if(state.voices.length>0||pc>30){clearInterval(pt);return;}
+    pc++;
+    try{
+      var vvv=speechSynthesis.getVoices();
+      if(vvv&&vvv.length>0)processVoices(vvv);
+    }catch(e){}
+  },300);
 }
 
 function tryLoadVoices(){
@@ -887,19 +890,19 @@ function tryLoadVoices(){
 }
 
 function processVoices(allVoices){
-  if(state.voices.length>0)return; // already loaded
+  if(state.voices.length>0)return;
   var arabic=allVoices.filter(function(x){return/^ar\b/i.test(x.lang)});
+  var vs=document.getElementById('voiceStatus');
   if(!arabic.length){
-    var vs=document.getElementById('voiceStatus');
-    if(vs)vs.textContent='🔇 لا توجد أصوات عربية في المتصفح';
+    if(vs)vs.textContent='🔇 لا توجد أصوات عربية — سيستخدم الصوت الافتراضي';
+    var rb=document.getElementById('reloadVoiceBtn');
+    if(rb)rb.style.display='inline-block';
     return;
   }
   state.voices=arabic;
   updateVoiceUI(arabic,'🎙️');
-  // Select default — prefer Hamed or first neural
   var defaultV=arabic.find(function(x){return/hamed/i.test(x.name)})||arabic[0];
   if(defaultV)state.selectedVoice=defaultV;
-  var vs=document.getElementById('voiceStatus');
   if(vs)vs.style.display='none';
 }
 
@@ -1404,21 +1407,17 @@ document.addEventListener('keydown',function(e){
 ═══════════════════════════════════════════════ */
 renderHome();
 document.getElementById('loader').style.display='none';
-// Start voice loading immediately, then probe audio files
+// Init audio/voices — best effort, never blocks
 if('speechSynthesis' in window){
-  speechSynthesis.getVoices(); // prime the engine
-  speechSynthesis.cancel();
+  try{speechSynthesis.getVoices()}catch(e){}
 }
-// Also try loading voices from the home screen with a small delay
-setTimeout(function(){if(!state.selectedVoice)tryLoadVoices();},100);
-setTimeout(function(){if(!state.selectedVoice)tryLoadVoices();},500);
-setTimeout(initAudio,600);
-// Bind a second attempt on first click (browsers often populate voices after interaction)
-if(window.document){document.addEventListener('click',function firstClick(){
+setTimeout(initAudio,300);
+// Also retry on first user tap (some browsers populate voices after interaction)
+document.addEventListener('click',function firstClick(){
   document.removeEventListener('click',firstClick);
-  setTimeout(tryLoadVoices,50);
-  if(!state.selectedVoice)setTimeout(tryLoadVoices,500);
-},{once:false,passive:true})}
+  setTimeout(tryLoadVoices,100);
+  setTimeout(tryLoadVoices,600);
+},{passive:true});
 
 // PWA Service Worker
 if('serviceWorker' in navigator){
