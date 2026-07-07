@@ -185,7 +185,7 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
     </div>
     <div id="homeVoice" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;min-height:22px;flex-wrap:wrap"></div>
     <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
-      <span id="voiceStatus" style="font-family:'Cairo',sans-serif;font-size:11px;color:rgba(168,204,64,.5)">🔊 جاري تحميل الأصوات...</span>
+      <span id="voiceStatus" style="font-family:'Cairo',sans-serif;font-size:11px;color:rgba(168,204,64,.5)"></span>
       <button id="reloadVoiceBtn" onclick="tryLoadVoices(true);return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer;display:none">إعادة تحميل</button>
     </div>
   </div>
@@ -848,44 +848,38 @@ function initAudio(){
   if(chip)chip.textContent='🔊 اضغط للاستماع';
   if(state.audioEl)state.audioEl.preload='auto';
 
-  // TTS voices loaded only after user click (avoids Chrome Android freeze)
+  // TTS voices — loaded on first user click
   if(!('speechSynthesis' in window)){
-    document.getElementById('voiceStatus').textContent='🔇';
+    document.getElementById('voiceStatus').textContent='';
+    document.getElementById('reloadVoiceBtn').style.display='none';
   }
 }
 
 function tryLoadVoices(force){
   if(!('speechSynthesis' in window))return;
-  try{
-    var v=speechSynthesis.getVoices();
-    if(v&&v.length>0)processVoices(v);
-  }catch(e){}
-  // Listen for voice changes (some browsers populate after interaction)
+  var got=function(){
+    try{
+      var v=speechSynthesis.getVoices();
+      if(v&&v.length>0)processVoices(v);
+    }catch(e){}
+  };
+  got();
   if(!speechSynthesis.onvoiceschanged){
-    speechSynthesis.onvoiceschanged=function(){
-      try{
-        var vv=speechSynthesis.getVoices();
-        if(vv&&vv.length>0)processVoices(vv);
-      }catch(ee){}
-    };
+    speechSynthesis.onvoiceschanged=got;
   }
-  // Poll a few times as fallback
   if(!window._voicesPolling||force){
     window._voicesPolling=true;
     var pc=0;
     var pt=setInterval(function(){
       if(state.voices.length>0||pc>20){clearInterval(pt);window._voicesPolling=false;return;}
       pc++;
-      try{
-        var vvv=speechSynthesis.getVoices();
-        if(vvv&&vvv.length>0)processVoices(vvv);
-      }catch(e){}
-      // After 10 retries (5s), show reload button and update message
-      if(pc===10){
+      got();
+      // After 15 retries, hide loading message silently
+      if(pc===15){
         var vs=document.getElementById('voiceStatus');
-        if(vs&&state.voices.length===0)vs.textContent='🔇 لم تُعثر على أصوات عربية — اضغط إعادة تحميل';
+        if(vs)vs.textContent='';
         var rb=document.getElementById('reloadVoiceBtn');
-        if(rb)rb.style.display='inline-block';
+        if(rb)rb.style.display='none';
       }
     },500);
   }
@@ -894,12 +888,13 @@ function tryLoadVoices(force){
 function processVoices(allVoices){
   if(state.voices.length>0)return;
   var arabic=allVoices.filter(function(x){return/^ar\b/i.test(x.lang)});
-  var vs=document.getElementById('voiceStatus');
-  if(!arabic.length)return; // will be handled by polling timeout
-  state.voices=arabic;
-  updateVoiceUI(arabic,'🎙️');
-  var defaultV=arabic.find(function(x){return/hamed/i.test(x.name)})||arabic[0];
+  // If Arabic voices exist by lang use them; otherwise show ALL voices
+  var usable=arabic.length?arabic:allVoices;
+  state.voices=usable;
+  updateVoiceUI(usable,arabic.length?'🎙️':'🎤');
+  var defaultV=usable.find(function(x){return/hamed|shakir|zariyah|salman|naayf/i.test(x.name)})||usable[0];
   if(defaultV)state.selectedVoice=defaultV;
+  var vs=document.getElementById('voiceStatus');
   if(vs){vs.textContent='';vs.style.display='none'}
   var rb=document.getElementById('reloadVoiceBtn');
   if(rb)rb.style.display='none';
