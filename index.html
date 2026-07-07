@@ -919,15 +919,22 @@ function playMP3Slide(g){
     else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   };
   audio.onerror=function(){
-    // MP3 missing — skip this slide silently
-    state.audioQueue.shift();
+    // MP3 missing — retry with Hamed fallback
+    state.audioQueue=state.audioQueue.map(function(q){
+      if(q.file.indexOf('/hamed/')===-1)q.file=q.file.replace('/'+state.voiceSlot+'/','/hamed/');
+      return q;
+    });
     if(state.audioQueue.length){playMP3Slide(g)}
     else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   };
   audio.src=item.file;
   audio.load();
   audio.play().catch(function(){
-    audio.src='';state.audioQueue.shift();
+    // Retry with Hamed fallback
+    state.audioQueue=state.audioQueue.map(function(q){
+      if(q.file.indexOf('/hamed/')===-1)q.file=q.file.replace('/'+state.voiceSlot+'/','/hamed/');
+      return q;
+    });
     if(state.audioQueue.length){playMP3Slide(g)}
     else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   });
@@ -1006,11 +1013,12 @@ function openStory(idx){
   buildDots();renderSlide();updatePlayBtn();
   document.getElementById('vBack').onclick=closeViewer;
   if(!state.audioEl)state.audioEl=new Audio();
+}
+
 function closeViewer(){
   stopAudio();state.storyIdx=-1;
   document.getElementById('viewer').classList.remove('open');
   document.getElementById('home').style.display='flex';
-}
 }
 
 /* ═══════════════════════════════════════════════
