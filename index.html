@@ -842,16 +842,11 @@ var STORIES = [
 var state = {storyIdx:-1,slideIdx:0,autoPlay:false,speaking:false,gen:0,audioQueue:[],currentAudio:null,hasAudio:false,selectedVoice:null,voices:[],audioEl:null};
 
 function initAudio(){
-  // Check if MP3 files exist — probe first file
-  probeAudioExists('assets/audio/intro_0.mp3',function(exists){
-    state.hasAudio=exists;
-    var chip=document.getElementById('vTts');
-    if(chip)chip.textContent=exists?'🔊 اضغط للاستماع':'🔊 صَوْت';
-    if(exists&&state.audioEl){
-      // Pre-buffer intro audio
-      state.audioEl.preload='auto';
-    }
-  });
+  // Assume MP3 files exist — if playback fails, falls back to TTS
+  state.hasAudio=true;
+  var chip=document.getElementById('vTts');
+  if(chip)chip.textContent='🔊 اضغط للاستماع';
+  if(state.audioEl)state.audioEl.preload='auto';
 
   // Load TTS voices — best effort
   if(!('speechSynthesis' in window)){
@@ -962,16 +957,6 @@ function updateVoiceUI(voices,label){
     wrapper.appendChild(sel);
     cont.appendChild(wrapper);
   });
-}
-
-function probeAudioExists(url,cb){
-  var x=new XMLHttpRequest();
-  x.open('HEAD',url,true);
-  x.onreadystatechange=function(){
-    if(x.readyState===4)cb(x.status===200);
-  };
-  x.onerror=function(){cb(false)};
-  x.send();
 }
 
 function stopAudio(){
