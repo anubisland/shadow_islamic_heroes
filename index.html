@@ -93,6 +93,9 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
 .v-counter{font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;color:var(--accent);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 10px;white-space:nowrap;flex-shrink:0}
 .v-tts{font-size:12px;font-weight:700;background:rgba(168,204,64,.15);border:2px solid rgba(168,204,64,.6);border-radius:20px;padding:4px 12px;cursor:pointer;white-space:nowrap;color:#FFFFFF;-webkit-tap-highlight-color:transparent;transition:border-color .2s,background .2s;touch-action:manipulation;flex-shrink:0}
 .v-tts:hover{border-color:var(--accent)}
+#voiceSelector,#homeVoiceSelector{display:flex;align-items:center;flex-shrink:1;min-width:0;overflow:hidden}
+#voiceSelector select,#homeVoiceSelector select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;color:#D4E8A0;font-size:11px;padding:3px 8px;font-family:'Cairo',sans-serif;max-width:130px;cursor:pointer;outline:none}
+#voiceSelector select option,#homeVoiceSelector select option{background:#0E1E2E;color:#D4E8A0}
 .v-tts.speaking{animation:ttsGlow .8s ease-in-out infinite alternate}
 @keyframes ttsGlow{0%{border-color:rgba(168,204,64,.3)}100%{border-color:var(--accent);box-shadow:0 0 8px rgba(168,204,64,.35)}}
 #v-stage{position:relative;flex:1;min-height:0;overflow:hidden;margin:0 10px}
@@ -176,7 +179,15 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
     <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:14px;flex-wrap:wrap">
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">📖 ٨ قِصَصٍ مُصَوَّرَةٍ</span>
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">🔊 رِوَايَةٌ صَوْتِيَّةٌ</span>
+    </div>
+    </div>
+    <div id="homeVoiceSelector" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;min-height:28px;flex-wrap:wrap">
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">🌐 عَرَبِيٌّ · English</span>
+    </div>
+    <div id="homeVoice" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;min-height:24px;flex-wrap:wrap"></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
+      <span id="voiceStatus" style="font-family:'Cairo',sans-serif;font-size:11px;color:rgba(168,204,64,.5)">🔊 جاري تحميل الأصوات...</span>
+      <button id="reloadVoiceBtn" onclick="tryLoadVoices();return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer">إعادة تحميل</button>
     </div>
   </div>
   <div class="home-section-title">🌿 اخْتَرْ قِصَّةً</div>
@@ -190,6 +201,7 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
     <span class="v-series" id="vSeries">🌿 أَبْطَالٌ فِي الظِّلِّ</span>
     <span class="v-counter" id="vCounter">١ / ١</span>
     <span class="v-tts" id="vTts" role="button" tabindex="0">🔊 صَوْت</span>
+    <span id="voiceSelector"></span>
   </div>
   <div id="v-stage"></div>
   <div class="v-progress" id="vProgress"></div>
@@ -826,64 +838,293 @@ var STORIES = [
 ];
 
 /* ═══════════════════════════════════════════════
-   APP STATE & TTS ENGINE
+   APP STATE & AUDIO ENGINE
 ═══════════════════════════════════════════════ */
-var state = {storyIdx:-1,slideIdx:0,autoPlay:false,ttsReady:false,arVoice:null,voiceDone:false,speaking:false,gen:0};
+var state = {storyIdx:-1,slideIdx:0,autoPlay:false,speaking:false,gen:0,audioQueue:[],currentAudio:null,hasAudio:false,selectedVoice:null,voices:[]};
 
-function initTTS(){
-  var chip=document.getElementById('vTts');
-  if(!('speechSynthesis' in window)){chip.textContent='🔇 غير متاح';return}
-  function load(){
-    var v=speechSynthesis.getVoices();
-    if(v.length&&!state.voiceDone){
-      state.voiceDone=true;state.ttsReady=true;
-      state.arVoice=v.find(function(x){return/^ar/i.test(x.lang)});
-      chip.textContent=state.arVoice?'🔊 اضغط للاستماع':'🔊 صَوْت';
-      speechSynthesis.cancel();
-    }
+function initAudio(){
+  // Check if audio files exist
+  probeAudioExists('assets/audio/intro_0.mp3',function(exists){
+    state.hasAudio=exists;
+    var chip=document.getElementById('vTts');
+    if(chip)chip.textContent=exists?'🔊 اضغط للاستماع':'🔊 صَوْت';
+  });
+
+  // Load available TTS voices for selector
+  if(!('speechSynthesis' in window)){
+    updateVoiceUI([],'غير متاح');
+    return;
   }
-  load();
-  if(speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=load;
-  var n=0,t=setInterval(function(){if(state.voiceDone||n>40){clearInterval(t)}else{load();n++}},200);
+
+  // Force voice engine to initialize on some browsers
+  speechSynthesis.cancel();
+
+  tryLoadVoices();
+  if(speechSynthesis.onvoiceschanged!==undefined){
+    speechSynthesis.onvoiceschanged=function(){
+      var v=speechSynthesis.getVoices();
+      if(v&&v.length)processVoices(v);
+    };
+  }
+  // Poll aggressively in case onvoiceschanged doesn't fire
+  var pollCount=0;
+  var pollTimer=setInterval(function(){
+    if(state.voices.length>0||pollCount>50){
+      clearInterval(pollTimer);
+      return;
+    }
+    pollCount++;
+    tryLoadVoices();
+  },150);
 }
 
-function stopTTS(){
-  if('speechSynthesis' in window)speechSynthesis.cancel();
+function tryLoadVoices(){
+  if(!('speechSynthesis' in window))return;
+  try{
+    var v=speechSynthesis.getVoices();
+    if(v&&v.length>0)processVoices(v);
+  }catch(e){}
+}
+
+function processVoices(allVoices){
+  if(state.voices.length>0)return; // already loaded
+  var arabic=allVoices.filter(function(x){return/^ar\b/i.test(x.lang)});
+  if(!arabic.length){
+    var vs=document.getElementById('voiceStatus');
+    if(vs)vs.textContent='🔇 لا توجد أصوات عربية في المتصفح';
+    return;
+  }
+  state.voices=arabic;
+  updateVoiceUI(arabic,'🎙️');
+  // Select default — prefer Hamed or first neural
+  var defaultV=arabic.find(function(x){return/hamed/i.test(x.name)})||arabic[0];
+  if(defaultV)state.selectedVoice=defaultV;
+  var vs=document.getElementById('voiceStatus');
+  if(vs)vs.style.display='none';
+}
+
+function updateVoiceUI(voices,label){
+  var selectors=['voiceSelector','homeVoiceSelector','homeVoice'];
+  selectors.forEach(function(id){
+    var cont=document.getElementById(id);
+    if(!cont)return;
+    cont.innerHTML='';
+    if(voices.length===0){
+      cont.innerHTML='<span style="font-size:11px;color:rgba(255,255,255,.4);font-family:Cairo,sans-serif">'+label+'</span>';
+      return;
+    }
+    // Neural voices first
+    var n=voices.filter(function(v){return/(neural|wavenet|premium)/i.test(v.name)});
+    var s=voices.filter(function(v){return!/(neural|wavenet|premium)/i.test(v.name)});
+    var sorted=n.concat(s);
+
+    var sel=document.createElement('select');
+    sel.style.cssText='background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;color:#D4E8A0;font-size:11px;padding:3px 8px;font-family:Cairo,sans-serif;max-width:130px;cursor:pointer;outline:none';
+    sel.innerHTML='<option value="">🎙️ اختر الصوت</option>';
+
+    sorted.forEach(function(v){
+      var opt=document.createElement('option');
+      opt.value=v.name;
+      var label=v.name.replace(/^Microsoft /,'').replace(/Neural/,'').trim();
+      opt.textContent=label.substring(0,24);
+      sel.appendChild(opt);
+    });
+
+    // Auto-select the current voice
+    if(state.selectedVoice)sel.value=state.selectedVoice.name;
+
+    sel.setAttribute('data-id',id);
+    sel.addEventListener('change',function(){
+      if(!sel.value)return;
+      var match=voices.find(function(v){return v.name===sel.value});
+      if(match){
+        state.selectedVoice=match;
+        // Sync all selectors
+        var thisId=sel.getAttribute('data-id');
+        selectors.forEach(function(sid){
+          if(sid===thisId)return;
+          var otherCont=document.getElementById(sid);
+          if(!otherCont)return;
+          var otherSel=otherCont.querySelector('select');
+          if(otherSel)otherSel.value=sel.value;
+        });
+      }
+    });
+
+    var wrapper=document.createElement('span');
+    wrapper.style.cssText='display:flex;align-items:center;gap:4px';
+    wrapper.innerHTML='<span style="font-size:12px;opacity:.7">🎤</span>';
+    wrapper.appendChild(sel);
+    cont.appendChild(wrapper);
+  });
+}
+
+function probeAudioExists(url,cb){
+  var x=new XMLHttpRequest();
+  x.open('HEAD',url,true);
+  x.onreadystatechange=function(){
+    if(x.readyState===4)cb(x.status===200);
+  };
+  x.onerror=function(){cb(false)};
+  x.send();
+}
+
+function stopAudio(){
+  if(state.currentAudio){state.currentAudio.pause();state.currentAudio=null;}
   state.speaking=false;state.gen++;
+  state.audioQueue=[];
   document.getElementById('vTts').classList.remove('speaking');
 }
 
-// Continuous narrator: queue all remaining slides from `from`
+// Fallback TTS using browser speech synthesis when no audio files
+function speakFallbackTTS(text,callback){
+  if(!('speechSynthesis' in window)){if(callback)callback();return;}
+  var u=new SpeechSynthesisUtterance(text);
+  u.lang='ar-SA';u.rate=0.85;
+  // Use selected voice, or find best Arabic voice
+  if(state.selectedVoice){u.voice=state.selectedVoice}
+  else{
+    // Refresh voices list if empty
+    var v=speechSynthesis.getVoices();
+    if(!state.voices.length&&v.length)state.voices=v.filter(function(x){return/^ar/i.test(x.lang)});
+    var av=state.voices.length?state.voices[0]:v.find(function(x){return/^ar/i.test(x.lang)});
+    if(av)u.voice=av;
+  }
+  u.onend=callback;
+  u.onerror=callback;
+  try{speechSynthesis.speak(u)}catch(e){if(callback)callback();}
+}
+
+var _fallbackQueue=[],_fallbackPlaying=false;
+function fallbackNarrate(fromIdx,gen){
+  _fallbackQueue=[];_fallbackPlaying=false;
+  var story=STORIES[state.storyIdx];if(!story)return;
+  var slides=story.slides;
+  for(var i=fromIdx;i<slides.length;i++){
+    var text=getSlideNarration(slides[i]);
+    if(text)_fallbackQueue.push({idx:i,text:text});
+  }
+  if(_fallbackQueue.length===0)return;
+  _fallbackPlaying=true;
+  function playNext(){
+    if(!_fallbackPlaying||state.gen!==gen||_fallbackQueue.length===0){
+      state.autoPlay=false;updatePlayBtn();return;
+    }
+    var item=_fallbackQueue.shift();
+    if(item.idx!==state.slideIdx){state.slideIdx=item.idx;renderSlide();}
+    state.speaking=true;
+    document.getElementById('vTts').classList.add('speaking');
+    speakFallbackTTS(item.text,function(){
+      state.speaking=false;
+      if(_fallbackQueue.length===0){
+        state.autoPlay=false;updatePlayBtn();
+        document.getElementById('vTts').classList.remove('speaking');
+      }else{playNext();}
+    });
+  }
+  playNext();
+}
+
+// Continuous narrator: play audio files from `fromIdx`
 function queueNarration(fromIdx){
-  stopTTS();
-  if(!state.ttsReady)return;
+  stopAudio();
   var g=++state.gen;
   var story=STORIES[state.storyIdx];
   if(!story)return;
   var slides=story.slides;
-  var av=state.arVoice;
 
-  for(var i=fromIdx;i<slides.length;i++){
-    var text=getSlideNarration(slides[i]);
-    if(!text)continue;
-    var u=new SpeechSynthesisUtterance(text);
-    u.lang=av?av.lang:'ar-SA';u.rate=0.88;u.pitch=1.0;
-    if(av)u.voice=av;
-    u['_si']=i;
-    u.onstart=(function(si,gen){return function(){
-      if(gen!==state.gen)return;
-      state.speaking=true;
-      document.getElementById('vTts').classList.add('speaking');
-      // Advance slide in sync with narrator
-      if(si!==state.slideIdx){state.slideIdx=si;renderSlide();}
-    }})(i,g);
-    u.onend=(function(si,gen,last){return function(){
-      if(gen!==state.gen)return;
-      if(last){state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
-    }})(i,g,i===slides.length-1);
-    u.onerror=function(){document.getElementById('vTts').classList.remove('speaking')};
-    try{speechSynthesis.speak(u)}catch(e){}
+  // If no audio files available, use TTS fallback
+  if(!state.hasAudio){
+    fallbackNarrate(fromIdx,g);
+    return;
   }
+
+  // Build queue of remaining slides
+  var queue=[];
+  for(var i=fromIdx;i<slides.length;i++){
+    queue.push({idx:i,file:'assets/audio/'+story.id+'_'+i+'.mp3'});
+  }
+  if(queue.length===0)return;
+
+  state.audioQueue=queue;
+
+  function playNext(){
+    if(state.gen!==g||state.audioQueue.length===0){
+      state.speaking=false;state.autoPlay=false;updatePlayBtn();
+      document.getElementById('vTts').classList.remove('speaking');return;
+    }
+    var item=state.audioQueue[0];
+    // Advance slide
+    if(item.idx!==state.slideIdx){state.slideIdx=item.idx;renderSlide();}
+    state.speaking=true;
+    document.getElementById('vTts').classList.add('speaking');
+
+    // Try to play audio file — if it fails, use TTS fallback
+    tryPlayAudio(item,function(played){
+      if(!played&&state.gen===g){
+        // Audio failed — use TTS for this slide, then continue
+        var slide=slides[item.idx];
+        var text=slide?getSlideNarration(slide):'';
+        if(text&&'speechSynthesis' in window){
+          speakFallbackTTS(text,function(){
+            state.audioQueue.shift();
+            state.currentAudio=null;
+            playNext();
+          });
+        }else{
+          state.audioQueue.shift();
+          state.currentAudio=null;
+          playNext();
+        }
+      }else if(played){
+        // Audio played OK, onended will advance
+      }
+    });
+  }
+
+  function tryPlayAudio(item,cb){
+    var audio=new Audio();
+    state.currentAudio=audio;
+    var timeout=setTimeout(function(){
+      // If no progress after 5s, treat as error
+      if(state.currentAudio===audio){
+        audio.src='';audio=null;
+        state.currentAudio=null;
+        if(cb)cb(false);
+      }
+    },5000);
+
+    audio.oncanplaythrough=function(){
+      clearTimeout(timeout);
+    };
+
+    audio.onended=function(){
+      clearTimeout(timeout);
+      state.audioQueue.shift();
+      state.currentAudio=null;
+      if(cb)cb(true);
+      playNext();
+    };
+
+    audio.onerror=function(){
+      clearTimeout(timeout);
+      state.currentAudio=null;
+      if(cb)cb(false);
+    };
+
+    audio.src=item.file;
+    audio.load();
+    var p=audio.play();
+    if(p!==undefined){
+      p.catch(function(){
+        clearTimeout(timeout);
+        state.currentAudio=null;
+        if(cb)cb(false);
+      });
+    }
+  }
+
+  playNext();
 }
 
 function getSlideNarration(s){
@@ -969,16 +1210,29 @@ function renderHome(){
    OPEN / CLOSE STORY
 ═══════════════════════════════════════════════ */
 function openStory(idx){
-  stopTTS();
+  stopAudio();
   state.storyIdx=idx;state.slideIdx=0;state.autoPlay=false;
   document.getElementById('home').style.display='none';
   var v=document.getElementById('viewer');v.classList.add('open');
   buildDots();renderSlide();updatePlayBtn();
   document.getElementById('vBack').onclick=closeViewer;
-  setTimeout(initTTS,400);
+  // Preload first audio files for this story
+  if(state.hasAudio)preloadStoryAudio(idx);
+}
+
+function preloadStoryAudio(idx){
+  var story=STORIES[idx];if(!story)return;
+  var preloadCount=Math.min(3,story.slides.length);
+  for(var i=0;i<preloadCount;i++){
+    var link=document.createElement('link');
+    link.rel='preload';
+    link.as='audio';
+    link.href='assets/audio/'+story.id+'_'+i+'.mp3';
+    document.head.appendChild(link);
+  }
 }
 function closeViewer(){
-  stopTTS();state.storyIdx=-1;
+  stopAudio();state.storyIdx=-1;
   document.getElementById('viewer').classList.remove('open');
   document.getElementById('home').style.display='flex';
 }
@@ -1112,17 +1366,17 @@ function updatePlayBtn(){document.getElementById('vPlay').textContent=state.auto
 function goTo(i){
   var story=STORIES[state.storyIdx];if(!story)return;
   if(i<0||i>=story.slides.length)return;
-  stopTTS();state.slideIdx=i;state.autoPlay=false;updatePlayBtn();renderSlide();
+  stopAudio();state.slideIdx=i;state.autoPlay=false;updatePlayBtn();renderSlide();
 }
 
 document.getElementById('vPrev').addEventListener('click',function(){goTo(state.slideIdx-1)});
 document.getElementById('vNext').addEventListener('click',function(){goTo(state.slideIdx+1)});
 document.getElementById('vPlay').addEventListener('click',function(){
   state.autoPlay=!state.autoPlay;updatePlayBtn();
-  if(state.autoPlay)queueNarration(state.slideIdx);else stopTTS();
+  if(state.autoPlay)queueNarration(state.slideIdx);else stopAudio();
 });
-document.getElementById('vSpeak').addEventListener('click',function(){stopTTS();queueNarration(state.slideIdx)});
-document.getElementById('vTts').addEventListener('click',function(){stopTTS();queueNarration(state.slideIdx)});
+document.getElementById('vSpeak').addEventListener('click',function(){stopAudio();queueNarration(state.slideIdx)});
+document.getElementById('vTts').addEventListener('click',function(){stopAudio();queueNarration(state.slideIdx)});
 
 // Touch swipe
 (function(){
@@ -1150,7 +1404,21 @@ document.addEventListener('keydown',function(e){
 ═══════════════════════════════════════════════ */
 renderHome();
 document.getElementById('loader').style.display='none';
-setTimeout(initTTS,600);
+// Start voice loading immediately, then probe audio files
+if('speechSynthesis' in window){
+  speechSynthesis.getVoices(); // prime the engine
+  speechSynthesis.cancel();
+}
+// Also try loading voices from the home screen with a small delay
+setTimeout(function(){if(!state.selectedVoice)tryLoadVoices();},100);
+setTimeout(function(){if(!state.selectedVoice)tryLoadVoices();},500);
+setTimeout(initAudio,600);
+// Bind a second attempt on first click (browsers often populate voices after interaction)
+if(window.document){document.addEventListener('click',function firstClick(){
+  document.removeEventListener('click',firstClick);
+  setTimeout(tryLoadVoices,50);
+  if(!state.selectedVoice)setTimeout(tryLoadVoices,500);
+},{once:false,passive:true})}
 
 // PWA Service Worker
 if('serviceWorker' in navigator){
