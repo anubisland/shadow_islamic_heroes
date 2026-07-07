@@ -10,11 +10,17 @@
  *   2. Install: pip install edge-tts
  *
  * Usage:
- *   node scripts/generate_audio.js
+ *   node scripts/generate_audio.js              # default: hamed
+ *   node scripts/generate_audio.js hamed         # explicit
+ *   node scripts/generate_audio.js shakir
+ *   node scripts/generate_audio.js salma
  *
- * This reads assets/audio/narration_list.json and generates MP3 files
- * for each narration text using edge-tts.
- * Files are saved to assets/audio/{storyId}_{slideIndex}.mp3
+ * Voice slots (from manifest.json):
+ *   hamed    → ar-SA-HamedNeural
+ *   shakir   → ar-EG-ShakirNeural
+ *   salma    → ar-EG-SalmaNeural
+ *   zariyah  → ar-SA-ZariyahNeural
+ *   abdullah → ar-OM-AbdullahNeural
  */
 
 const fs = require('fs');
@@ -22,7 +28,16 @@ const path = require('path');
 const { execSync } = require('child_process');
 const os = require('os');
 
-const VOICE = 'ar-SA-HamedNeural';  // Microsoft Hamed
+const VOICE_MAP = {
+  hamed:    'ar-SA-HamedNeural',
+  shakir:   'ar-EG-ShakirNeural',
+  salma:    'ar-EG-SalmaNeural',
+  zariyah:  'ar-SA-ZariyahNeural',
+  abdullah: 'ar-OM-AbdullahNeural'
+};
+const SLOT = process.argv[2] || 'hamed';
+const VOICE = VOICE_MAP[SLOT];
+if (!VOICE) { console.error('Unknown voice slot:', SLOT, '\nAvailable:', Object.keys(VOICE_MAP).join(', ')); process.exit(1); }
 const PITCH = '+0Hz';
 const RATE = '+0%';
 
@@ -71,7 +86,9 @@ async function main() {
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
-    const outputFile = path.join(__dirname, '..', item.filename);
+    // Replace voice slot in filename path
+    const fn = item.filename.replace('/hamed/', '/' + SLOT + '/');
+    const outputFile = path.join(__dirname, '..', fn);
 
     // Ensure output directory
     const outDir = path.dirname(outputFile);
@@ -81,19 +98,19 @@ async function main() {
 
     // Skip if already generated
     if (fs.existsSync(outputFile) && fs.statSync(outputFile).size > 1000) {
-      console.log(`[${i + 1}/${items.length}] SKIP (exists): ${item.filename}`);
+      console.log(`[${i + 1}/${items.length}] SKIP (exists): ${fn}`);
       skipped++;
       continue;
     }
 
     const text = item.text;
     if (!text || text.trim().length < 3) {
-      console.log(`[${i + 1}/${items.length}] SKIP (empty): ${item.filename}`);
+      console.log(`[${i + 1}/${items.length}] SKIP (empty): ${fn}`);
       skipped++;
       continue;
     }
 
-    console.log(`[${i + 1}/${items.length}] Generating: ${item.filename} (${text.length} chars)`);
+    console.log(`[${i + 1}/${items.length}] Generating: ${fn} (${text.length} chars)`);
 
     try {
       // Write text to temp file to avoid shell escaping issues
@@ -139,8 +156,10 @@ async function main() {
   if (fs.existsSync(manifestPath)) {
     const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
     for (const storyId in manifest) {
+      if (storyId === 'voices') continue;
       for (const slide of manifest[storyId].slides) {
-        const fp = path.join(__dirname, '..', slide.filename);
+        const sf = slide.filename.replace('/hamed/', '/' + SLOT + '/');
+        const fp = path.join(__dirname, '..', sf);
         if (fs.existsSync(fp)) {
           slide.size = fs.statSync(fp).size;
           slide.duration = Math.ceil((slide.text.length / 4) * 1000);

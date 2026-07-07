@@ -93,9 +93,8 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
 .v-counter{font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;color:var(--accent);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:1px 10px;white-space:nowrap;flex-shrink:0}
 .v-tts{font-size:12px;font-weight:700;background:rgba(168,204,64,.15);border:2px solid rgba(168,204,64,.6);border-radius:20px;padding:4px 12px;cursor:pointer;white-space:nowrap;color:#FFFFFF;-webkit-tap-highlight-color:transparent;transition:border-color .2s,background .2s;touch-action:manipulation;flex-shrink:0}
 .v-tts:hover{border-color:var(--accent)}
-#voiceSelector,#homeVoiceSelector{display:flex;align-items:center;flex-shrink:1;min-width:0;overflow:hidden}
-#voiceSelector select,#homeVoiceSelector select{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;color:#D4E8A0;font-size:11px;padding:3px 8px;font-family:'Cairo',sans-serif;max-width:130px;cursor:pointer;outline:none}
-#voiceSelector select option,#homeVoiceSelector select option{background:#0E1E2E;color:#D4E8A0}
+#viewerVoiceSelect option{background:#0E1E2E;color:#D4E8A0}
+#homeVoiceSelect option{background:#060E1A;color:#D4E8A0}
 .v-tts.speaking{animation:ttsGlow .8s ease-in-out infinite alternate}
 @keyframes ttsGlow{0%{border-color:rgba(168,204,64,.3)}100%{border-color:var(--accent);box-shadow:0 0 8px rgba(168,204,64,.35)}}
 #v-stage{position:relative;flex:1;min-height:0;overflow:hidden;margin:0 10px}
@@ -180,13 +179,8 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">📖 ٨ قِصَصٍ مُصَوَّرَةٍ</span>
       <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">🔊 رِوَايَةٌ صَوْتِيَّةٌ</span>
     </div>
-    <div id="homeVoiceSelector" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;min-height:24px;flex-wrap:wrap">
-      <span style="font-family:'Cairo',sans-serif;font-size:12px;color:rgba(168,204,64,.7);background:rgba(168,204,64,.08);border:1px solid rgba(168,204,64,.2);border-radius:20px;padding:4px 14px">🌐 عَرَبِيٌّ · English</span>
-    </div>
-    <div id="homeVoice" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:4px;min-height:22px;flex-wrap:wrap"></div>
-    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;flex-wrap:wrap">
-      <span id="voiceStatus" style="font-family:'Cairo',sans-serif;font-size:11px;color:rgba(168,204,64,.5)"></span>
-      <button id="reloadVoiceBtn" onclick="tryLoadVoices(true);return false" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:12px;color:var(--accent);font-size:10px;padding:2px 10px;font-family:Cairo,sans-serif;cursor:pointer;display:none">إعادة تحميل</button>
+    <div id="homeVoicePick" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;min-height:24px;flex-wrap:wrap">
+      <select id="homeVoiceSelect" onchange="setVoiceSlot(this.value)" style="background:rgba(168,204,64,.1);border:1px solid rgba(168,204,64,.3);border-radius:14px;color:#D4E8A0;font-size:12px;padding:4px 12px;font-family:'Cairo',sans-serif;cursor:pointer;outline:none;max-width:200px"></select>
     </div>
   </div>
   <div class="home-section-title">🌿 اخْتَرْ قِصَّةً</div>
@@ -200,7 +194,7 @@ body{font-family:'Cairo',sans-serif;background:#060E1A;color:#E8F0C8;min-height:
     <span class="v-series" id="vSeries">🌿 أَبْطَالٌ فِي الظِّلِّ</span>
     <span class="v-counter" id="vCounter">١ / ١</span>
     <span class="v-tts" id="vTts" role="button" tabindex="0">🔊 صَوْت</span>
-    <span id="voiceSelector"></span>
+    <span id="viewerVoiceWrap"><select id="viewerVoiceSelect" onchange="setVoiceSlot(this.value)" style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;color:#D4E8A0;font-size:10px;padding:2px 6px;font-family:'Cairo',sans-serif;cursor:pointer;outline:none;max-width:140px"></select></span>
   </div>
   <div id="v-stage"></div>
   <div class="v-progress" id="vProgress"></div>
@@ -839,121 +833,46 @@ var STORIES = [
 /* ═══════════════════════════════════════════════
    APP STATE & AUDIO ENGINE
 ═══════════════════════════════════════════════ */
-var state = {storyIdx:-1,slideIdx:0,autoPlay:false,speaking:false,gen:0,audioQueue:[],currentAudio:null,hasAudio:false,selectedVoice:null,voices:[],audioEl:null};
+var VOICE_SLOTS=[
+  {id:'hamed',  ar:'ar-SA-HamedNeural',    labelAr:'حامد',   labelEn:'Hamed',   descAr:'ذكر كلاسيكي',  descEn:'Classic male'},
+  {id:'shakir', ar:'ar-EG-ShakirNeural',   labelAr:'شاكر',   labelEn:'Shakir',  descAr:'ذكر مصري',     descEn:'Egyptian male'},
+  {id:'salma',  ar:'ar-EG-SalmaNeural',    labelAr:'سلمى',   labelEn:'Salma',   descAr:'أنثى راوية',   descEn:'Storyteller female'},
+  {id:'zariyah',ar:'ar-SA-ZariyahNeural',  labelAr:'زارية',  labelEn:'Zariyah', descAr:'أنثى لطيفة',   descEn:'Gentle female'},
+  {id:'abdullah',ar:'ar-OM-AbdullahNeural',labelAr:'عبدالله',labelEn:'Abdullah',descAr:'ذكر دافئ',     descEn:'Warm male'}
+];
+var state={storyIdx:-1,slideIdx:0,autoPlay:false,speaking:false,gen:0,audioQueue:[],currentAudio:null,audioEl:null,voiceSlot:'hamed'};
 
 function initAudio(){
-  // Assume MP3 files exist — if playback fails, falls back to TTS
-  state.hasAudio=true;
+  state.voiceSlot=localStorage.getItem('voiceSlot')||'hamed';
+  fillVoiceSelects();
   var chip=document.getElementById('vTts');
   if(chip)chip.textContent='🔊 اضغط للاستماع';
-  if(state.audioEl)state.audioEl.preload='auto';
-
-  // TTS voices — loaded on first user click
-  if(!('speechSynthesis' in window)){
-    document.getElementById('voiceStatus').textContent='';
-    document.getElementById('reloadVoiceBtn').style.display='none';
-  }
 }
 
-function tryLoadVoices(force){
-  if(!('speechSynthesis' in window))return;
-  var got=function(){
-    try{
-      var v=speechSynthesis.getVoices();
-      if(v&&v.length>0)processVoices(v);
-    }catch(e){}
-  };
-  got();
-  if(!speechSynthesis.onvoiceschanged){
-    speechSynthesis.onvoiceschanged=got;
-  }
-  if(!window._voicesPolling||force){
-    window._voicesPolling=true;
-    var pc=0;
-    var pt=setInterval(function(){
-      if(state.voices.length>0||pc>20){clearInterval(pt);window._voicesPolling=false;return;}
-      pc++;
-      got();
-      // After 15 retries, hide loading message silently
-      if(pc===15){
-        var vs=document.getElementById('voiceStatus');
-        if(vs)vs.textContent='';
-        var rb=document.getElementById('reloadVoiceBtn');
-        if(rb)rb.style.display='none';
-      }
-    },500);
-  }
-}
-
-function processVoices(allVoices){
-  if(state.voices.length>0)return;
-  var arabic=allVoices.filter(function(x){return/^ar\b/i.test(x.lang)});
-  // If Arabic voices exist by lang use them; otherwise show ALL voices
-  var usable=arabic.length?arabic:allVoices;
-  state.voices=usable;
-  updateVoiceUI(usable,arabic.length?'🎙️':'🎤');
-  var defaultV=usable.find(function(x){return/hamed|shakir|zariyah|salman|naayf/i.test(x.name)})||usable[0];
-  if(defaultV)state.selectedVoice=defaultV;
-  var vs=document.getElementById('voiceStatus');
-  if(vs){vs.textContent='';vs.style.display='none'}
-  var rb=document.getElementById('reloadVoiceBtn');
-  if(rb)rb.style.display='none';
-}
-
-function updateVoiceUI(voices,label){
-  var selectors=['voiceSelector','homeVoiceSelector','homeVoice'];
-  selectors.forEach(function(id){
-    var cont=document.getElementById(id);
-    if(!cont)return;
-    cont.innerHTML='';
-    if(voices.length===0){
-      cont.innerHTML='<span style="font-size:11px;color:rgba(255,255,255,.4);font-family:Cairo,sans-serif">'+label+'</span>';
-      return;
-    }
-    // Neural voices first
-    var n=voices.filter(function(v){return/(neural|wavenet|premium)/i.test(v.name)});
-    var s=voices.filter(function(v){return!/(neural|wavenet|premium)/i.test(v.name)});
-    var sorted=n.concat(s);
-
-    var sel=document.createElement('select');
-    sel.style.cssText='background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:14px;color:#D4E8A0;font-size:11px;padding:3px 8px;font-family:Cairo,sans-serif;max-width:130px;cursor:pointer;outline:none';
-    sel.innerHTML='<option value="">🎙️ اختر الصوت</option>';
-
-    sorted.forEach(function(v){
+function fillVoiceSelects(){
+  [document.getElementById('homeVoiceSelect'),document.getElementById('viewerVoiceSelect')].forEach(function(sel){
+    if(!sel)return;
+    sel.innerHTML='';
+    VOICE_SLOTS.forEach(function(v){
       var opt=document.createElement('option');
-      opt.value=v.name;
-      var label=v.name.replace(/^Microsoft /,'').replace(/Neural/,'').trim();
-      opt.textContent=label.substring(0,24);
+      opt.value=v.id;
+      opt.textContent=v.labelAr+' / '+v.labelEn;
       sel.appendChild(opt);
     });
-
-    // Auto-select the current voice
-    if(state.selectedVoice)sel.value=state.selectedVoice.name;
-
-    sel.setAttribute('data-id',id);
-    sel.addEventListener('change',function(){
-      if(!sel.value)return;
-      var match=voices.find(function(v){return v.name===sel.value});
-      if(match){
-        state.selectedVoice=match;
-        // Sync all selectors
-        var thisId=sel.getAttribute('data-id');
-        selectors.forEach(function(sid){
-          if(sid===thisId)return;
-          var otherCont=document.getElementById(sid);
-          if(!otherCont)return;
-          var otherSel=otherCont.querySelector('select');
-          if(otherSel)otherSel.value=sel.value;
-        });
-      }
-    });
-
-    var wrapper=document.createElement('span');
-    wrapper.style.cssText='display:flex;align-items:center;gap:4px';
-    wrapper.innerHTML='<span style="font-size:12px;opacity:.7">🎤</span>';
-    wrapper.appendChild(sel);
-    cont.appendChild(wrapper);
+    sel.value=state.voiceSlot;
   });
+}
+
+function setVoiceSlot(id){
+  // Verify slot exists
+  if(!VOICE_SLOTS.find(function(v){return v.id===id}))return;
+  state.voiceSlot=id;
+  localStorage.setItem('voiceSlot',id);
+  // Sync both selectors
+  var h=document.getElementById('homeVoiceSelect');
+  var v=document.getElementById('viewerVoiceSelect');
+  if(h)h.value=id;
+  if(v)v.value=id;
 }
 
 function stopAudio(){
@@ -964,38 +883,16 @@ function stopAudio(){
   if(c)c.classList.remove('speaking');
 }
 
-function speakFallbackTTS(text,cb){
-  if(!('speechSynthesis' in window)){if(cb)cb();return;}
-  var u=new SpeechSynthesisUtterance(text);
-  u.lang='ar-SA';u.rate=0.85;
-  if(state.selectedVoice){u.voice=state.selectedVoice}
-  else{
-    var v=speechSynthesis.getVoices();
-    if(!state.voices.length&&v.length)state.voices=v.filter(function(x){return/^ar/i.test(x.lang)});
-    var av=state.voices.length?state.voices[0]:v.find(function(x){return/^ar/i.test(x.lang)});
-    if(av)u.voice=av;
-  }
-  u.onend=cb;u.onerror=cb;
-  try{speechSynthesis.speak(u)}catch(e){if(cb)cb();}
-}
-
 function queueNarration(fromIdx){
   stopAudio();
   var g=++state.gen;
   var story=STORIES[state.storyIdx];
   if(!story)return;
   var slides=story.slides;
-
-  if(!state.hasAudio){
-    // Fallback: play TTS sequentially
-    playTTSSlide(fromIdx,g);
-    return;
-  }
-
-  // Build queue
+  var base='assets/audio/'+state.voiceSlot+'/';
   var queue=[];
   for(var i=fromIdx;i<slides.length;i++){
-    queue.push({idx:i,file:'assets/audio/'+story.id+'_'+i+'.mp3'});
+    queue.push({idx:i,file:base+story.id+'_'+i+'.mp3'});
   }
   if(!queue.length)return;
   state.audioQueue=queue;
@@ -1011,77 +908,29 @@ function playMP3Slide(g){
   if(item.idx!==state.slideIdx){state.slideIdx=item.idx;renderSlide();}
   state.speaking=true;
   document.getElementById('vTts').classList.add('speaking');
-
   if(!state.audioEl){state.audioEl=new Audio()}
   var audio=state.audioEl;
   audio.pause();
   audio.src='';
   audio.load();
-
   audio.onended=function(){
     state.audioQueue.shift();
-    if(state.audioQueue.length){
-      playMP3Slide(g);
-    }else{
-      state.speaking=false;state.autoPlay=false;updatePlayBtn();
-      document.getElementById('vTts').classList.remove('speaking');
-    }
+    if(state.audioQueue.length){playMP3Slide(g)}
+    else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   };
   audio.onerror=function(){
-    // MP3 failed, fallback to TTS for rest
+    // MP3 missing — skip this slide silently
     state.audioQueue.shift();
-    state.audioQueue=[];
-    document.getElementById('vTts').classList.remove('speaking');
-    playTTSSlide(state.slideIdx,g);
+    if(state.audioQueue.length){playMP3Slide(g)}
+    else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   };
   audio.src=item.file;
   audio.load();
   audio.play().catch(function(){
     audio.src='';state.audioQueue.shift();
-    state.audioQueue=[];
-    document.getElementById('vTts').classList.remove('speaking');
-    playTTSSlide(state.slideIdx,g);
+    if(state.audioQueue.length){playMP3Slide(g)}
+    else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   });
-}
-
-// Fallback when MP3 fails: use TTS sequentially
-function playTTSSlide(fromIdx,g){
-  state.gen=g;
-  var story=STORIES[state.storyIdx];
-  if(!story)return;
-  var slides=story.slides;
-  var i=fromIdx;
-  function next(){
-    if(state.gen!==g||i>=slides.length){
-      state.speaking=false;state.autoPlay=false;updatePlayBtn();
-      document.getElementById('vTts').classList.remove('speaking');return;
-    }
-    if(i!==state.slideIdx){state.slideIdx=i;renderSlide();}
-    state.speaking=true;
-    document.getElementById('vTts').classList.add('speaking');
-    var text=getSlideNarration(slides[i]);
-    i++;
-    if(text){speakFallbackTTS(text,function(){next()})}
-    else{next()}
-  }
-  next();
-}
-
-function getSlideNarration(s){
-  if(!s)return'';
-  var parts=[];
-  if(s.type==='cover'){if(s.title)parts.push(s.title);if(s.sub)parts.push(s.sub);}
-  else if(s.type==='intro'){if(s.lines)s.lines.forEach(function(l){if(l.ar)parts.push(l.ar);});}
-  else if(s.type==='morals'){if(s.items)s.items.forEach(function(m,i){parts.push(String(i+1)+'. '+m.ar);});}
-  else if(s.type==='closing'){if(s.ar)parts.push(s.ar);if(s.quote)parts.push(s.quote);}
-  else{
-    if(s.ar)parts.push(s.ar);
-    if(s.hadith)parts.push(s.hadith);
-    if(s.response&&s.response.length>8)parts.push(s.response);
-  }
-  var text=parts.filter(Boolean).join('. ');
-  text=text.replace(/[«»]/g,'').replace(/ — /g,'، ').replace(/ﷺ/g,'صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ');
-  return text;
 }
 
 /* ═══════════════════════════════════════════════
@@ -1331,14 +1180,7 @@ document.addEventListener('keydown',function(e){
 ═══════════════════════════════════════════════ */
 renderHome();
 document.getElementById('loader').style.display='none';
-// Init audio/voices — deferred, never blocks (Chrome Android freezes on sync getVoices)
 setTimeout(initAudio,300);
-// Also retry on first user tap (some browsers populate voices after interaction)
-document.addEventListener('click',function firstClick(){
-  document.removeEventListener('click',firstClick);
-  setTimeout(tryLoadVoices,100);
-  setTimeout(tryLoadVoices,600);
-},{passive:true});
 
 // PWA Service Worker
 if('serviceWorker' in navigator){
