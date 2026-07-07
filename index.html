@@ -889,10 +889,11 @@ function queueNarration(fromIdx){
   var story=STORIES[state.storyIdx];
   if(!story)return;
   var slides=story.slides;
-  var base='assets/audio/'+state.voiceSlot+'/';
+  var slot=state.voiceSlot;
+  var base='assets/audio/'+slot+'/';
   var queue=[];
   for(var i=fromIdx;i<slides.length;i++){
-    queue.push({idx:i,file:base+story.id+'_'+i+'.mp3'});
+    queue.push({idx:i,file:base+story.id+'_'+i+'.mp3',voice:slot});
   }
   if(!queue.length)return;
   state.audioQueue=queue;
@@ -919,24 +920,20 @@ function playMP3Slide(g){
     else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
   };
   audio.onerror=function(){
-    // MP3 missing — retry with Hamed fallback
-    state.audioQueue=state.audioQueue.map(function(q){
-      if(q.file.indexOf('/hamed/')===-1)q.file=q.file.replace('/'+state.voiceSlot+'/','/hamed/');
-      return q;
-    });
-    if(state.audioQueue.length){playMP3Slide(g)}
-    else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
+    // MP3 missing — switch entire queue to Hamed fallback (once)
+    if(item.voice!=='hamed'){
+      state.audioQueue.forEach(function(q){q.file=q.file.replace('/'+q.voice+'/','/hamed/');q.voice='hamed';});
+      playMP3Slide(g);
+    }else{
+      state.audioQueue.shift();
+      if(state.audioQueue.length){playMP3Slide(g)}
+      else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
+    }
   };
   audio.src=item.file;
   audio.load();
   audio.play().catch(function(){
-    // Retry with Hamed fallback
-    state.audioQueue=state.audioQueue.map(function(q){
-      if(q.file.indexOf('/hamed/')===-1)q.file=q.file.replace('/'+state.voiceSlot+'/','/hamed/');
-      return q;
-    });
-    if(state.audioQueue.length){playMP3Slide(g)}
-    else{state.speaking=false;state.autoPlay=false;updatePlayBtn();document.getElementById('vTts').classList.remove('speaking');}
+    audio.onerror();
   });
 }
 
