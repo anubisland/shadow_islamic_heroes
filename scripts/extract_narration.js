@@ -70,7 +70,7 @@ stories.forEach((story, storyIdx) => {
 
   slides.forEach((slide, slideIdx) => {
     const nar = slide.nar || '';
-    const filename = `assets/audio/${storyId}_${slideIdx}.mp3`;
+    const filename = `assets/audio/hamed/${storyId}_${slideIdx}.mp3`;
     manifest[storyId].slides.push({
       index: slideIdx,
       filename: filename.replace(/\\/g, '/'),
