@@ -3,24 +3,32 @@
  * ======================================================
  *
  * Uses edge-tts (Python) which calls Microsoft Azure Neural TTS for free.
- * Voice: ar-SA-HamedNeural (Microsoft Hamed — Arabic Saudi Arabia, male)
  *
  * Prerequisites:
  *   1. Python 3.8+ installed
  *   2. Install: pip install edge-tts
  *
  * Usage:
- *   node scripts/generate_audio.js              # default: hamed
- *   node scripts/generate_audio.js hamed         # explicit
- *   node scripts/generate_audio.js shakir
- *   node scripts/generate_audio.js salma
+ *   node scripts/generate_audio.js               # default: hamed (Arabic)
+ *   node scripts/generate_audio.js hamed          # Arabic male (Saudi)
+ *   node scripts/generate_audio.js shakir         # Arabic male (Egypt)
+ *   node scripts/generate_audio.js salma          # Arabic female (Egypt)
+ *   node scripts/generate_audio.js zariyah        # Arabic female (Saudi)
+ *   node scripts/generate_audio.js abdullah       # Arabic male (Oman)
+ *   node scripts/generate_audio.js en-guy         # English US male
+ *   node scripts/generate_audio.js en-jenny       # English US female
  *
- * Voice slots (from manifest.json):
- *   hamed    → ar-SA-HamedNeural
- *   shakir   → ar-EG-ShakirNeural
- *   salma    → ar-EG-SalmaNeural
- *   zariyah  → ar-SA-ZariyahNeural
- *   abdullah → ar-OM-AbdullahNeural
+ * Voice slots:
+ *   hamed    → ar-SA-HamedNeural  (Arabic)
+ *   shakir   → ar-EG-ShakirNeural (Arabic)
+ *   salma    → ar-EG-SalmaNeural  (Arabic)
+ *   zariyah  → ar-SA-ZariyahNeural(Arabic)
+ *   abdullah → ar-OM-AbdullahNeural(Arabic)
+ *   en-guy   → en-US-GuyNeural    (English)
+ *   en-jenny → en-US-JennyNeural  (English)
+ *
+ * English voices use narration_list_en.json (narEn fields).
+ * Arabic voices use narration_list.json (nar fields).
  */
 
 const fs = require('fs');
@@ -33,11 +41,14 @@ const VOICE_MAP = {
   shakir:   'ar-EG-ShakirNeural',
   salma:    'ar-EG-SalmaNeural',
   zariyah:  'ar-SA-ZariyahNeural',
-  abdullah: 'ar-OM-AbdullahNeural'
+  abdullah: 'ar-OM-AbdullahNeural',
+  'en-guy':   'en-US-GuyNeural',
+  'en-jenny': 'en-US-JennyNeural'
 };
 const SLOT = process.argv[2] || 'hamed';
 const VOICE = VOICE_MAP[SLOT];
 if (!VOICE) { console.error('Unknown voice slot:', SLOT, '\nAvailable:', Object.keys(VOICE_MAP).join(', ')); process.exit(1); }
+const IS_ENGLISH = SLOT.startsWith('en-');
 const PITCH = '+0Hz';
 const RATE = '+0%';
 
@@ -70,14 +81,15 @@ async function main() {
   console.log(`✓ edge-tts found. Using voice: ${VOICE}\n`);
 
   // 2. Read narration list
-  const listPath = path.join(__dirname, '..', 'assets', 'audio', 'narration_list.json');
+  const listFile = IS_ENGLISH ? 'narration_list_en.json' : 'narration_list.json';
+  const listPath = path.join(__dirname, '..', 'assets', 'audio', listFile);
   if (!fs.existsSync(listPath)) {
-    console.error('narration_list.json not found. Run scripts/extract_narration.js first.');
+    console.error(listFile + ' not found. Run scripts/extract_narration.js first.');
     process.exit(1);
   }
 
   const items = JSON.parse(fs.readFileSync(listPath, 'utf8'));
-  console.log(`Found ${items.length} narration items to generate.\n`);
+  console.log(`Found ${items.length} narration items to generate (${IS_ENGLISH?'English':'Arabic'}).\n`);
 
   const isWin = os.platform() === 'win32';
   let success = 0;
@@ -87,7 +99,8 @@ async function main() {
   for (let i = 0; i < items.length; i++) {
     const item = items[i];
     // Replace voice slot in filename path
-    const fn = item.filename.replace('/hamed/', '/' + SLOT + '/');
+    const defaultSlot = IS_ENGLISH ? 'en-default' : 'hamed';
+    const fn = item.filename.replace('/' + defaultSlot + '/', '/' + SLOT + '/');
     const outputFile = path.join(__dirname, '..', fn);
 
     // Ensure output directory
@@ -155,10 +168,11 @@ async function main() {
   const manifestPath = path.join(__dirname, '..', 'assets', 'audio', 'manifest.json');
   if (fs.existsSync(manifestPath)) {
     const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    const defaultSlot = IS_ENGLISH ? 'en-default' : 'hamed';
     for (const storyId in manifest) {
       if (storyId === 'voices') continue;
       for (const slide of manifest[storyId].slides) {
-        const sf = slide.filename.replace('/hamed/', '/' + SLOT + '/');
+        const sf = slide.filename.replace('/' + defaultSlot + '/', '/' + SLOT + '/');
         const fp = path.join(__dirname, '..', sf);
         if (fs.existsSync(fp)) {
           slide.size = fs.statSync(fp).size;

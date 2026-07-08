@@ -59,6 +59,7 @@ const stories = new Function(`"use strict"; return (${jsonStr})`)();
 // Build manifest
 const manifest = {};
 const allTexts = [];
+const allTextsEn = [];
 
 stories.forEach((story, storyIdx) => {
   const storyId = story.id;
@@ -70,17 +71,27 @@ stories.forEach((story, storyIdx) => {
 
   slides.forEach((slide, slideIdx) => {
     const nar = slide.nar || '';
+    const narEn = slide.narEn || '';
     const filename = `assets/audio/hamed/${storyId}_${slideIdx}.mp3`;
+    const filenameEn = `assets/audio/en-default/${storyId}_${slideIdx}.mp3`;
     manifest[storyId].slides.push({
       index: slideIdx,
       filename: filename.replace(/\\/g, '/'),
-      text: nar
+      text: nar,
+      filenameEn: filenameEn.replace(/\\/g, '/'),
+      textEn: narEn
     });
     allTexts.push({
       storyId,
       slideIdx,
       filename: filename.replace(/\\/g, '/'),
       text: nar
+    });
+    allTextsEn.push({
+      storyId,
+      slideIdx,
+      filename: filenameEn.replace(/\\/g, '/'),
+      text: narEn
     });
   });
 });
@@ -100,6 +111,13 @@ fs.writeFileSync(
 fs.writeFileSync(
   path.join(outDir, 'narration_list.json'),
   JSON.stringify(allTexts, null, 2),
+  'utf8'
+);
+
+// Output English narration list
+fs.writeFileSync(
+  path.join(outDir, 'narration_list_en.json'),
+  JSON.stringify(allTextsEn, null, 2),
   'utf8'
 );
 
@@ -172,6 +190,7 @@ console.log(`Total stories: ${Object.keys(manifest).length}`);
 const totalSlides = allTexts.length;
 console.log(`Total slides with narration: ${totalSlides}`);
 console.log(`Manifest: assets/audio/manifest.json`);
-console.log(`Flat list: assets/audio/narration_list.json`);
+console.log(`Arabic flat list: assets/audio/narration_list.json`);
+console.log(`English flat list: assets/audio/narration_list_en.json`);
 console.log(`Shell script: scripts/generate_audio.sh`);
 console.log(`PowerShell script: scripts/generate_audio.ps1`);

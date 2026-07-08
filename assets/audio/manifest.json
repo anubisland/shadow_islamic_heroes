@@ -6,28 +6,36 @@
         "index": 0,
         "filename": "assets/audio/hamed/intro_0.mp3",
         "text": "أَبْطَالٌ فِي الظِّلِّ. سِيَرُ الجُنُودِ المَجْهُولِينَ مِنْ صَحَابَةِ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ",
-        "size": 40464,
+        "filenameEn": "assets/audio/en-default/intro_0.mp3",
+        "textEn": "Heroes in the Shadows. Stories of the Unknown Soldiers among the Companions of the Messenger of Allah ﷺ",
+        "size": 47952,
         "duration": 30000
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/intro_1.mp3",
         "text": "حِينَ يَلْتَفِتُ التَّارِيخُ لِيُسَجِّلَ أَعْظَمَ التَّحَوُّلَاتِ، تَقْفِزُ إِلَى الأَذْهَانِ أَسْمَاءُ النُّجُومِ الكِبَارِ. لَكِنْ خَلْفَ هَذَا الوَمِيضِ، كَانَ هُنَاكَ جِيلٌ آخَرُ آثَرَ العَطَاءَ بِصَمْتٍ. هَؤُلَاءِ هُمُ الجُنُودُ المَجْهُولُونَ، صَحَابَةٌ كِرَامٌ نُقِشَتْ أَسْمَاؤُهُمْ بِأَحْرُفٍ مِنْ نُورٍ فِي دِيوَانِ السَّمَاءِ.",
-        "size": 108432,
+        "filenameEn": "assets/audio/en-default/intro_1.mp3",
+        "textEn": "When history records its greatest turning points, great names leap to mind immediately… But behind the visible brilliance, there was another generation that gave in silence and lived in the shadow. These are the \"Unknown Soldiers\" — noble companions whose names were inscribed in letters of light in Heaven's register.",
+        "size": 128880,
         "duration": 84250
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/intro_2.mp3",
         "text": "مِنْ دُرُوسِ هَذَا المَشْرُوعِ: العَطَاءُ لِلدِّينِ لَا يَحْتَاجُ إِلَى أَضْوَاءٍ وَلَا إِلَى شُهْرَةٍ. وَاللَّهُ يُحِبُّ العَبْدَ التَّقِيَّ النَّقِيَّ الخَفِيَّ. وَكُلُّ مُسْلِمٍ يَمْلِكُ تَخَصُّصًا يُمْكِنُهُ تَقْدِيمُهُ خِدْمَةً لِدِينِهِ.",
-        "size": 77040,
+        "filenameEn": "assets/audio/en-default/intro_2.mp3",
+        "textEn": "Lessons from this story: Giving to the faith needs no spotlight and no fame. Allah loves the pious, pure, and hidden servant. Every Muslim holds a speciality or gift they can offer in service to their faith.",
+        "size": 92592,
         "duration": 60750
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/intro_3.mp3",
         "text": "هَذِهِ قِصَصُ ثَمَانِيَةٍ مِنَ الجُنُودِ المَجْهُولِينَ. اخْتَرْ بَطَلَكَ وَابْدَأِ الرِّحْلَةَ.",
-        "size": 35712,
+        "filenameEn": "assets/audio/en-default/intro_3.mp3",
+        "textEn": "Flashes from history that illuminate the present path",
+        "size": 41904,
         "duration": 24000
       }
     ]
@@ -39,49 +47,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/hubab_0.mp3",
         "text": "الحُبَابُ بْنُ المُنْذِرِ. مُهَنْدِسُ النَّصْرِ وَمُسْتَشَارُ بَدْرٍ.",
-        "size": 30096,
+        "filenameEn": "assets/audio/en-default/hubab_0.mp3",
+        "textEn": "Al-Hubab ibn Al-Mundhir. Architect of Victory · Strategist of Badr",
+        "size": 34560,
         "duration": 17250
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/hubab_1.mp3",
         "text": "مِنْ سَادَةِ الخَزْرَجِ الأَنْصَارِ، لُقِّبَ بِـذِي الرَّأْيِ لِسَدَادِ رَأْيِهِ وَحُسْنِ تَدْبِيرِهِ. شَهِدَ بَدْرًا وَجَمِيعَ المَشَاهِدِ مَعَ رَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ.",
-        "size": 60336,
+        "filenameEn": "assets/audio/en-default/hubab_1.mp3",
+        "textEn": "A chieftain of the Khazraj, nicknamed \"Al-Khadim\" for his vast knowledge and sound judgment. He witnessed Badr and all battles with the Prophet ﷺ.",
+        "size": 74448,
         "duration": 48750
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/hubab_2.mp3",
         "text": "فِي غَزْوَةِ بَدْرٍ الكُبْرَى عَامَ اثْنَيْنِ مِنَ الهِجْرَةِ، نَزَلَ الجَيْشُ عِنْدَ أَوَّلِ بِئْرٍ. وَنَظَرَ الحُبَابُ بِعَيْنِ الخَبِيرِ فَرَأَى خَطَرًا دَاهِمًا.",
-        "size": 54432,
+        "filenameEn": "assets/audio/en-default/hubab_2.mp3",
+        "textEn": "At the Battle of Badr in year 2 AH, the army camped at the first well of Badr's waters. Al-Hubab looked with an expert's eye and saw imminent danger.",
+        "size": 62064,
         "duration": 41250
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/hubab_3.mp3",
         "text": "تَقَدَّمَ الحُبَابُ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِأَدَبٍ وَسَأَلَ: يَا رَسُولَ اللَّهِ، أَرَأَيْتَ هَذَا المَنْزِلَ؟ أَهُوَ مَنْزِلٌ أَنْزَلَكَهُ اللَّهُ فَلَيْسَ لَنَا أَنْ نَتَقَدَّمَهُ وَلَا نَتَأَخَّرَ عَنْهُ؟ أَمْ هُوَ الرَّأْيُ وَالحَرْبُ وَالمَكِيدَةُ؟ فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: بَلْ هُوَ الرَّأْيُ وَالحَرْبُ وَالمَكِيدَةُ.",
-        "size": 113904,
+        "filenameEn": "assets/audio/en-default/hubab_3.mp3",
+        "textEn": "Al-Hubab respectfully asked: \"O Messenger of Allah, is this position a revelation from Allah or is it strategy and warfare?\" The Prophet said: \"It is strategy and warfare.\"",
+        "size": 136368,
         "duration": 95500
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/hubab_4.mp3",
         "text": "قَالَ الحُبَابُ: نَنْزِلُ أَدْنَى مَاءٍ مِنَ القَوْمِ، وَنُغَوِّرُ مَا وَرَاءَهُ مِنَ الآبَارِ، وَنَبْنِي حَوْضًا فَنَشْرَبُ وَلَا يَشْرَبُونَ! فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: لَقَدْ أَشَرْتَ بِالرَّأْيِ.",
-        "size": 72864,
+        "filenameEn": "assets/audio/en-default/hubab_4.mp3",
+        "textEn": "Al-Hubab said firmly: \"We advance to the nearest water, block all remaining wells, build a reservoir — we drink and they cannot!\" The Prophet ﷺ said: \"You have given sound counsel.\"",
+        "size": 86688,
         "duration": 56500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/hubab_5.mp3",
         "text": "مِنْ دُرُوسِ قِصَّةِ الحُبَابِ: قَدِّمْ تَخَصُّصَكَ لِدِينِكَ، فَالحُبَابُ عَرَفَ الآبَارَ فَقَدَّمَ خِبْرَتَهُ لِلإِسْلَامِ. وَأَدَبُ السُّؤَالِ قَبْلَ الكَلَامِ. وَالشُّورَى الحَقِيقِيَّةُ أَنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ قَبِلَ رَأْيَ جُنْدِيٍّ وَغَيَّرَ خُطَّةَ المَعْرَكَةِ.",
-        "size": 96192,
+        "filenameEn": "assets/audio/en-default/hubab_5.mp3",
+        "textEn": "Lessons from this story: Offer your expertise to your faith: Al-Hubab knew the wells and gave his knowledge to Islam. The etiquette of inquiry: he first asked if it was revelation or judgment, then spoke. True consultation: the Prophet ﷺ accepted a soldier's counsel and changed the battle plan.",
+        "size": 111168,
         "duration": 74250
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/hubab_6.mp3",
         "text": "رَحَلَ الحُبَابُ بْنُ المُنْذِرِ وَلَمْ يَتْرُكْ خَلْفَهُ آلَافَ الأَحَادِيثِ. لَكِنَّهُ تَرَكَ بِئْرًا وَاحِدَةً غَيَّرَتْ مَوَازِينَ بَدْرٍ. فَرَضِيَ اللَّهُ عَنِ الحُبَابِ بْنِ المُنْذِرِ، جُنْدِيٌّ وَاحِدٌ بِرَأْيٍ صَادِقٍ صَنَعَ النَّصْرَ.",
-        "size": 81216,
+        "filenameEn": "assets/audio/en-default/hubab_6.mp3",
+        "textEn": "Al-Hubab left behind a well that changed the balance of Badr — may Allah be pleased with him",
+        "size": 97056,
         "duration": 61000
       }
     ]
@@ -93,49 +115,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/nuaym_0.mp3",
         "text": "نُعَيْمُ بْنُ مَسْعُودٍ. الرَّجُلُ الَّذِي هَزَمَ جُيُوشَ الأَحْزَابِ بِمُفْرَدِهِ.",
-        "size": 33696,
+        "filenameEn": "assets/audio/en-default/nuaym_0.mp3",
+        "textEn": "Nu'aym ibn Mas'ud. The Man Who Defeated the Confederate Armies Alone",
+        "size": 38304,
         "duration": 20750
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/nuaym_1.mp3",
         "text": "كَانَ نُعَيْمُ بْنُ مَسْعُودٍ دَاهِيَةً مِنْ دَوَاهِي العَرَبِ، صَاحِبَ شَبَكَةِ عَلَاقَاتٍ وَاسِعَةٍ. وَأَسْلَمَ أَثْنَاءَ غَزْوَةِ الخَنْدَقِ وَجَاءَ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ سِرًّا.",
-        "size": 63360,
+        "filenameEn": "assets/audio/en-default/nuaym_1.mp3",
+        "textEn": "A master strategist of the Arabs with a vast network of relationships. He embraced Islam secretly at the peak of the Trench siege, year 5 AH.",
+        "size": 78624,
         "duration": 52500
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/nuaym_2.mp3",
         "text": "تَسَلَّلَ نُعَيْمٌ إِلَى المَدِينَةِ سِرًّا وَأَعْلَنَ إِسْلَامَهُ لِلنَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَقَالَ: يَا رَسُولَ اللَّهِ، مُرْنِي بِمَا شِئْتَ.",
-        "size": 48960,
+        "filenameEn": "assets/audio/en-default/nuaym_2.mp3",
+        "textEn": "Nu'aym slipped secretly into Madinah and declared his Islam to the Prophet ﷺ, \"saying\": \"O Messenger of Allah, command me as you wish.\"",
+        "size": 63216,
         "duration": 41250
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/nuaym_3.mp3",
         "text": "قَالَ لَهُ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: إِنَّمَا أَنْتَ فِينَا رَجُلٌ وَاحِدٌ، فَخَذِّلْ عَنَّا إِنِ اسْتَطَعْتَ، فَإِنَّ الحَرْبَ خُدْعَةٌ. فَانْطَلَقَ نُعَيْمٌ يُنَفِّذُ أَعْقَدَ عَمَلِيَّةِ تَفْتِيتٍ نَفْسِيٍّ فِي التَّارِيخِ.",
-        "size": 72432,
+        "filenameEn": "assets/audio/en-default/nuaym_3.mp3",
+        "textEn": "The Prophet ﷺ said: \"You are but one man among us — so work to divide them if you can, for war is deception.\"",
+        "size": 90288,
         "duration": 61500
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/nuaym_4.mp3",
         "text": "ذَهَبَ نُعَيْمٌ إِلَى بَنِي قُرَيْظَةَ فَأَلْقَى فِي قُلُوبِهِمُ الشَّكَّ، ثُمَّ إِلَى قُرَيْشٍ وَغَطَفَانَ فَبَثَّ الرِّيبَةَ بَيْنَهُمَا. فَانْفَرَطَ عِقْدُ التَّحَالُفِ وَانْكَسَرَ الحِصَارُ.",
-        "size": 64080,
+        "filenameEn": "assets/audio/en-default/nuaym_4.mp3",
+        "textEn": "Nu'aym sowed doubt among Banu Qurayza, then among Quraysh and Ghatafan — the alliance shattered and the siege broke!",
+        "size": 73296,
         "duration": 48500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/nuaym_5.mp3",
         "text": "مِنْ دُرُوسِ قِصَّةِ نُعَيْمٍ: قِيمَةُ الفَرْدِ، فَرَجُلٌ وَاحِدٌ مُخْلِصٌ يُمْكِنُهُ تَعْدِيلُ كَفَّةِ الصِّرَاعِ. وَتَوْظِيفُ القُدْرَاتِ، فَالنَّبِيُّ وَجَّهَ نُعَيْمًا بِحَسَبِ مَوْهِبَتِهِ. وَسُرْعَةُ العَطَاءِ بَعْدَ الهِدَايَةِ.",
-        "size": 82368,
+        "filenameEn": "assets/audio/en-default/nuaym_5.mp3",
+        "textEn": "Lessons from this story: The value of one person: a single sincere individual can shift the balance of a struggle. Use your gifts: the Prophet ﷺ directed Nu'aym by his talent, not by the sword. Swift giving after guidance: Nu'aym gave his utmost from the very first hour.",
+        "size": 97488,
         "duration": 58750
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/nuaym_6.mp3",
         "text": "خَرَجَ نُعَيْمٌ رَجُلًا وَاحِدًا وَعَادَ وَقَدْ فَكَّكَ جَيْشًا مِنْ عَشَرَةِ آلَافٍ. فَرَضِيَ اللَّهُ عَنْ نُعَيْمِ بْنِ مَسْعُودٍ.",
-        "size": 45648,
+        "filenameEn": "assets/audio/en-default/nuaym_6.mp3",
+        "textEn": "Nu'aym left as one man and returned having dismantled an army of ten thousand — may Allah be pleased with him",
+        "size": 56736,
         "duration": 33000
       }
     ]
@@ -147,42 +183,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/rabia_0.mp3",
         "text": "رَبِيعَةُ بْنُ كَعْبٍ الأَسْلَمِيُّ. الشَّابُّ الَّذِي اشْتَرَى الفِرْدَوْسَ بِإِنَاءِ وُضُوءٍ.",
-        "size": 36144,
+        "filenameEn": "assets/audio/en-default/rabia_0.mp3",
+        "textEn": "Rabi'a ibn Ka'b al-Aslami. The Young Man Who Bought Paradise with a Vessel of Water",
+        "size": 40896,
         "duration": 23750
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/rabia_1.mp3",
         "text": "فَتًى شَابٌّ مِنَ الصُّفَّةِ، لَا بَيْتَ لَهُ وَلَا مَالَ. نَذَرَ حَيَاتَهُ وَشَبَابَهُ لِيَكُونَ ظِلًّا لِرَسُولِ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ يَخْدُمُهُ فِي حِلِّهِ وَتَرْحَالِهِ.",
-        "size": 62064,
+        "filenameEn": "assets/audio/en-default/rabia_1.mp3",
+        "textEn": "A young man from the Suffa, with no home and no wealth. He devoted his youth to being the shadow of the Messenger of Allah ﷺ, serving him in all circumstances.",
+        "size": 75888,
         "duration": 48500
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/rabia_2.mp3",
         "text": "كَانَ رَبِيعَةُ يُلَازِمُ عَتَبَةَ بَيْتِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ طَوَالَ اللَّيْلِ. فَإِذَا اسْتَيْقَظَ النَّبِيُّ وَجَدَهُ وَاقِفًا بِالمَاءِ يَنْتَظِرُ بِصَمْتٍ وَوَفَاءٍ.",
-        "size": 58608,
+        "filenameEn": "assets/audio/en-default/rabia_2.mp3",
+        "textEn": "Rabi'a would stand at the Prophet's doorstep all night. When the Prophet woke, he found him standing with water, waiting in silent loyalty.",
+        "size": 71280,
         "duration": 48750
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/rabia_3.mp3",
         "text": "قَالَ لَهُ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: سَلْنِي مَا شِئْتَ. فَقَالَ رَبِيعَةُ: أَسْأَلُكَ مُرَافَقَتَكَ فِي الجَنَّةِ! فَقَالَ النَّبِيُّ: فَأَعِنِّي عَلَى نَفْسِكَ بِكَثْرَةِ السُّجُودِ.",
-        "size": 66528,
+        "filenameEn": "assets/audio/en-default/rabia_3.mp3",
+        "textEn": "The Prophet ﷺ said: \"Ask me whatever you wish.\" Rabi'a replied: \"I ask for your companionship in Paradise!\" The Prophet said: \"Then help me by prostrating often.\"",
+        "size": 83664,
         "duration": 51000
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/rabia_4.mp3",
         "text": "مِنْ دُرُوسِ رَبِيعَةَ: الهِمَّةُ لَا تُقَيِّدُهَا الظُّرُوفُ، فَالفَقْرُ لَا يَمْنَعُ الطُّمُوحَ. وَالعَمَلُ مَقْرُونٌ بِالأَمَلِ، فَالأُمْنِيَاتُ تَحْتَاجُ إِلَى سُجُودٍ. وَشَرَفُ الخِدْمَةِ الصَّادِقَةِ.",
-        "size": 74304,
+        "filenameEn": "assets/audio/en-default/rabia_4.mp3",
+        "textEn": "Lessons from this story: Ambition defies circumstance: poverty does not prevent aspiring to the highest ranks in the Hereafter. \"Help me\" — hopes require prostration and action. The honour of service: the companions saw serving the Prophet ﷺ as an unmatched honour.",
+        "size": 87984,
         "duration": 51500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/rabia_5.mp3",
         "text": "مَاتَ رَبِيعَةُ وَلَمْ يَتْرُكْ مَالًا، لَكِنَّهُ تَرَكَ لِكُلِّ سَاجِدٍ أَمَلًا. فَرَضِيَ اللَّهُ عَنْ رَبِيعَةَ بْنِ كَعْبٍ الأَسْلَمِيِّ.",
-        "size": 49536,
+        "filenameEn": "assets/audio/en-default/rabia_5.mp3",
+        "textEn": "Rabi'a died leaving no wealth, but left every prostrating soul a hope — may Allah be pleased with him",
+        "size": 59472,
         "duration": 35000
       }
     ]
@@ -194,49 +242,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/amr_0.mp3",
         "text": "عَمْرُو بْنُ الجَمُوحِ. الأَعْرَجُ الَّذِي طَارَ بِأَجْنِحَةِ الشَّهَادَةِ فِي أُحُدٍ.",
-        "size": 35280,
+        "filenameEn": "assets/audio/en-default/amr_0.mp3",
+        "textEn": "Amr ibn al-Jamuh. The Limping Hero Who Flew on Wings of Martyrdom at Uhud",
+        "size": 41616,
         "duration": 21500
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/amr_1.mp3",
         "text": "سَيِّدٌ مِنْ سَادَاتِ بَنِي سَلِمَةَ، أَسْلَمَ فِي سِنٍّ مُتَأَخِّرَةٍ. كَانَ يُعَانِي مِنْ عَرَجٍ شَدِيدٍ فِي رِجْلِهِ، لَكِنَّ قَلْبَهُ لَمْ يَكُنْ فِيهِ عَرَجٌ قَطُّ.",
-        "size": 56304,
+        "filenameEn": "assets/audio/en-default/amr_1.mp3",
+        "textEn": "A chieftain of Banu Salima, who embraced Islam in his later years. He suffered severe lameness in his leg, but his heart never once faltered.",
+        "size": 66528,
         "duration": 42250
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/amr_2.mp3",
         "text": "لَمَّا نُودِيَ لِغَزْوَةِ أُحُدٍ، مَنَعَهُ أَبْنَاؤُهُ قَائِلِينَ: إِنَّ اللَّهَ قَدْ عَذَرَكَ. فَغَضِبَ الشَّيْخُ وَقَرَّرَ أَنْ يَذْهَبَ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ.",
-        "size": 59040,
+        "filenameEn": "assets/audio/en-default/amr_2.mp3",
+        "textEn": "When the call came for Uhud, his four sons tried to stop him saying: \"Allah has excused you.\" The elder grew angry and decided to go to the Prophet ﷺ.",
+        "size": 75312,
         "duration": 47500
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/amr_3.mp3",
         "text": "قَالَ عَمْرٌو: يَا رَسُولَ اللَّهِ، إِنَّ بَنِيَّ يُرِيدُونَ أَنْ يَحْبِسُونِي، وَاللَّهِ إِنِّي لَأَرْجُو أَنْ أَطَأَ بِعَرْجَتِي هَذِهِ الجَنَّةَ! فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَا عَلَيْكُمْ أَلَّا تَمْنَعُوهُ، لَعَلَّ اللَّهَ أَنْ يَرْزُقَهُ الشَّهَادَةَ.",
-        "size": 82944,
+        "filenameEn": "assets/audio/en-default/amr_3.mp3",
+        "textEn": "\"O Messenger of Allah, by Allah I hope to tread upon Paradise with this limp of mine!\" The Prophet ﷺ said: \"Do not stop him — perhaps Allah will grant him martyrdom.\"",
+        "size": 101808,
         "duration": 70750
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/amr_4.mp3",
         "text": "نَزَلَ عَمْرٌو أَرْضَ المَعْرَكَةِ يُقَاتِلُ قِتَالَ الشَّبَابِ، وَكَانَ يَصِيحُ: وَا شَوْقَاهُ إِلَى الجَنَّةِ! وَا شَوْقَاهُ! حَتَّى اسْتُشْهِدَ رَضِيَ اللَّهُ عَنْهُ. وَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: كَأَنِّي أَنْظُرُ إِلَيْهِ يَطَأُ الجَنَّةَ بِعَرْجَتِهِ صَحِيحًا.",
-        "size": 96624,
+        "filenameEn": "assets/audio/en-default/amr_4.mp3",
+        "textEn": "Amr fought at Uhud like a twenty-year-old, crying \"How I long for Paradise!\" until he was martyred. The Prophet ﷺ said: \"I can see him walking in Paradise, his limp healed.\"",
+        "size": 119520,
         "duration": 72500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/amr_5.mp3",
         "text": "مِنْ دُرُوسِ عَمْرٍو: عُلُوُّ الهِمَّةِ فَالأَعْذَارُ الجَسَدِيَّةُ لَا تُقَيِّدُ القُلُوبَ الحَيَّةَ. وَالتَّعْوِيضُ الإِلَهِيُّ لِمَنْ تَرَكَ شَيْئًا لِلَّهِ. وَالنُّبُوَّةُ تَفْتَحُ بَابَ الأَمَلِ.",
-        "size": 67680,
+        "filenameEn": "assets/audio/en-default/amr_5.mp3",
+        "textEn": "Lessons from this story: High aspiration: physical excuses do not shackle living hearts. Divine compensation: whoever leaves something for Allah, Allah compensates them with something better. Prophethood opens the door of hope: the Prophet ﷺ did not break his heart but prayed for his martyrdom.",
+        "size": 78480,
         "duration": 50000
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/amr_6.mp3",
         "text": "سَقَطَ عَمْرُو بْنُ الجَمُوحِ بِعَرَجِهِ الدُّنْيَوِيِّ لِيَقُومَ بِخُطُوَاتٍ صَحِيحَةٍ فِي الجَنَّةِ. فَرَضِيَ اللَّهُ عَنْ عَمْرِو بْنِ الجَمُوحِ.",
-        "size": 50112,
+        "filenameEn": "assets/audio/en-default/amr_6.mp3",
+        "textEn": "Amr fell with his worldly limp only to rise walking straight in Paradise — may Allah be pleased with him",
+        "size": 58176,
         "duration": 37000
       }
     ]
@@ -248,49 +310,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/dhu_0.mp3",
         "text": "ذُو النِّجَادَيْنِ. الشَّابُّ الَّذِي دَفَنَهُ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِيَدِهِ الشَّرِيفَةِ.",
-        "size": 38160,
+        "filenameEn": "assets/audio/en-default/dhu_0.mp3",
+        "textEn": "Dhu al-Nijadayn. The Young Man Whom the Prophet ﷺ Shrouded with His Own Shirt",
+        "size": 44640,
         "duration": 28500
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/dhu_1.mp3",
         "text": "شَابٌّ يَتِيمٌ مِنْ قَبِيلَةِ مُزَيْنَةَ، نَشَأَ فِي حِجْرِ عَمِّهِ الثَّرِيِّ. لَمَّا أَسْلَمَ، جَرَّدَهُ عَمُّهُ مِنْ كُلِّ شَيْءٍ، حَتَّى مِنَ الثَّوْبِ الَّذِي يَرْتَدِيهِ.",
-        "size": 57456,
+        "filenameEn": "assets/audio/en-default/dhu_1.mp3",
+        "textEn": "An orphan who grew up in the care of his wealthy uncle in the Muzayna tribe. When he embraced Islam, his uncle stripped him of everything — even the garment he wore.",
+        "size": 71424,
         "duration": 44000
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/dhu_2.mp3",
         "text": "قَطَعَتْ أُمُّهُ بِجَادًا غَلِيظًا نِصْفَيْنِ، اتَّزَرَ بِنِصْفٍ وَارْتَدَى الآخَرَ، وَهَرَبَ لَيْلًا إِلَى المَدِينَةِ. فَلَمَّا وَصَلَ سَمَّاهُ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ ذَا النِّجَادَيْنِ.",
-        "size": 66816,
+        "filenameEn": "assets/audio/en-default/dhu_2.mp3",
+        "textEn": "His mother cut a rough cloak in half; he wrapped one half around his waist and wore the other, and fled at night to Madinah. When the Prophet ﷺ saw him, he named him \"Dhu al-Nijadayn\" and honoured him.",
+        "size": 78048,
         "duration": 52500
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/dhu_3.mp3",
         "text": "فِي غَزْوَةِ تَبُوكَ، أَصَابَتِ الحُمَّى ذَا النِّجَادَيْنِ فَمَاتَ. وَرَأَى ابْنُ مَسْعُودٍ فِي جَوْفِ اللَّيْلِ شَعْلَةً، فَإِذَا هُوَ رَسُولُ اللَّهِ وَأَبُو بَكْرٍ وَعُمَرُ يَحْفِرُونَ لَهُ.",
-        "size": 61776,
+        "filenameEn": "assets/audio/en-default/dhu_3.mp3",
+        "textEn": "At the battle of Tabuk, fever struck Dhu al-Nijadayn and he died. Ibn Mas'ud saw a torch in the night — and found the Messenger of Allah ﷺ with Abu Bakr and Umar digging his grave!",
+        "size": 73296,
         "duration": 48500
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/dhu_4.mp3",
         "text": "وَقَفَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي الحُفْرَةِ وَأَوْسَدَهُ بِيَدِهِ الشَّرِيفَةِ. ثُمَّ رَفَعَ يَدَيْهِ دَاعِيًا: اللَّهُمَّ إِنِّي أَمْسَيْتُ رَاضِيًا عَنْهُ فَارْضَ عَنْهُ. فَقَالَ ابْنُ مَسْعُودٍ رَضِيَ اللَّهُ عَنْهُ: يَا لَيْتَنِي كُنْتُ صَاحِبَ القَبْرِ.",
-        "size": 84816,
+        "filenameEn": "assets/audio/en-default/dhu_4.mp3",
+        "textEn": "The Prophet ﷺ stood in the grave and laid him with his noble hands, then raised them in supplication: \"O Allah, I am pleased with him, so be pleased with him.\" Ibn Mas'ud said: \"Would that I were the man in the grave!\"",
+        "size": 105120,
         "duration": 70250
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/dhu_5.mp3",
         "text": "مِنْ دُرُوسِ ذِي النِّجَادَيْنِ: التَّضْحِيَةُ بِالدُّنْيَا تِجَارَةٌ رَابِحَةٌ. وَمِقْيَاسُ التَّفَاضُلِ عِنْدَ اللَّهِ الصِّدْقُ وَالإِخْلَاصُ. وَوَفَاءُ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لِكُلِّ جُنْدِيٍّ مُخْلِصٍ.",
-        "size": 72720,
+        "filenameEn": "assets/audio/en-default/dhu_5.mp3",
+        "textEn": "Lessons from this story: Sacrificing the worldly: he left wealth and clothing fleeing with his faith — a profitable trade. Allah's measure of worth is not wealth or appearance, but sincerity and truthfulness. The Prophet's ﷺ loyalty to every sincere soldier, however poor or unknown.",
+        "size": 88272,
         "duration": 57000
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/dhu_6.mp3",
         "text": "رَحَلَ ذُو النِّجَادَيْنِ بِكِسَائِهِ الخَشِنِ وَدُفِنَ بِدُعَاءِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ. فَرَضِيَ اللَّهُ عَنْهُ.",
-        "size": 45216,
+        "filenameEn": "assets/audio/en-default/dhu_6.mp3",
+        "textEn": "Dhu al-Nijadayn departed in his rough cloak and was buried with the Prophet's prayer — may Allah be pleased with him",
+        "size": 53568,
         "duration": 34000
       }
     ]
@@ -302,42 +378,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/julaybib_0.mp3",
         "text": "جُلَيْبِيبٌ. المَرْفُوعُ عَلَى سَاعِدَيِ النُّبُوَّةِ.",
-        "size": 25488,
+        "filenameEn": "assets/audio/en-default/julaybib_0.mp3",
+        "textEn": "Julaybib. Lifted on the Arms of Prophethood",
+        "size": 29664,
         "duration": 13500
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/julaybib_1.mp3",
         "text": "كَانَ رَجُلًا فَقِيرًا مِنْ أَهْلِ الصُّفَّةِ، دَمِيمَ الخِلْقَةِ يَبْتَعِدُ عَنْهُ النَّاسُ. لَكِنَّ النَّبِيَّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ كَانَ يُحِبُّهُ حُبًّا جَمًّا، وَزَوَّجَهُ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بَعْدَ أَنْ خَطَبَ لَهُ بِنَفْسِهِ الشَّرِيفَةِ.",
-        "size": 82368,
+        "filenameEn": "assets/audio/en-default/julaybib_1.mp3",
+        "textEn": "A poor man of the Suffa, plain in appearance, from whom people kept their distance. Yet the Prophet ﷺ loved him deeply and arranged his marriage through his blessed supplication.",
+        "size": 101664,
         "duration": 70750
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/julaybib_2.mp3",
         "text": "قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: هَلْ تَفْقِدُونَ مِنْ أَحَدٍ؟ فَقَالُوا: نَفْقِدُ فُلَانًا وَفُلَانًا. فَقَالَ: لَكِنِّي أَفْقِدُ جُلَيْبِيبًا فَابْتَغُوهُ. فَوَجَدُوهُ صَرِيعًا وَحَوْلَهُ سَبْعَةٌ قَتَلَهُمْ ثُمَّ قُتِلَ.",
-        "size": 87840,
+        "filenameEn": "assets/audio/en-default/julaybib_2.mp3",
+        "textEn": "\"Do you miss anyone?\" They listed names. He said: \"But I miss Julaybib — go and find him.\" They found him slain, surrounded by seven enemies he had killed before falling.",
+        "size": 108000,
         "duration": 60500
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/julaybib_3.mp3",
         "text": "قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: قَتَلَ سَبْعَةً ثُمَّ قَتَلُوهُ! هَذَا مِنِّي وَأَنَا مِنْهُ! ثُمَّ حَمَلَهُ عَلَى سَاعِدَيْهِ لِيَدْفِنَهُ.",
-        "size": 55152,
+        "filenameEn": "assets/audio/en-default/julaybib_3.mp3",
+        "textEn": "The Prophet ﷺ stood over him and said with a heart full of love: \"He killed seven then they killed him! He is of me and I am of him!\" Then the Prophet ﷺ carried him on his arms to bury him.",
+        "size": 67392,
         "duration": 40000
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/julaybib_4.mp3",
         "text": "مِنْ دُرُوسِ جُلَيْبِيبٍ: اللَّهُ لَا يَنْظُرُ إِلَى الصُّوَرِ بَلْ إِلَى القُلُوبِ. وَرَعَايَةُ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لِكُلِّ فَرْدٍ. وَالحُبُّ النَّبَوِيُّ لَا يُفَرِّقُ.",
-        "size": 62208,
+        "filenameEn": "assets/audio/en-default/julaybib_4.mp3",
+        "textEn": "Lessons from this story: Divine measures: Allah does not look at your forms or wealth, but at your hearts. Leadership care: the Prophet's ﷺ personal naming of Julaybib amidst the army is the jurisprudence of justice. Prophetic love makes no distinction between rich and poor, handsome or otherwise.",
+        "size": 78624,
         "duration": 48750
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/julaybib_5.mp3",
         "text": "رُفِعَ جُلَيْبِيبٌ عَلَى سَاعِدَيِ النُّبُوَّةِ وَنَالَ أَعْظَمَ وَسَامٍ: هَذَا مِنِّي وَأَنَا مِنْهُ. فَرَضِيَ اللَّهُ عَنْ جُلَيْبِيبٍ.",
-        "size": 46800,
+        "filenameEn": "assets/audio/en-default/julaybib_5.mp3",
+        "textEn": "Julaybib was lifted on the arms of Prophethood and earned the greatest honour: \"He is of me and I am of him\" — may Allah be pleased with him",
+        "size": 57312,
         "duration": 34250
       }
     ]
@@ -349,49 +437,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/silah_0.mp3",
         "text": "صِلَةُ بْنُ الحَارِثِ الغِفَارِيُّ. صَاحِبُ مُعْجِزَةِ الصَّحْرَاءِ وَالإِخْلَاصِ الخَفِيِّ.",
-        "size": 36144,
+        "filenameEn": "assets/audio/en-default/silah_0.mp3",
+        "textEn": "Sila ibn Ashyam al-Adawi (Tabi'i). The Devout Follower Whose Prayer Brought Forth Water",
+        "size": 42480,
         "duration": 23000
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/silah_1.mp3",
         "text": "مِنْ كِبَارِ التَّابِعِينَ وَأَوْلِيَاءِ اللَّهِ الصَّالِحِينَ، كَانَ عَابِدًا زَاهِدًا خَرَجَ مُجَاهِدًا فِي سَبِيلِ اللَّهِ.",
-        "size": 38304,
+        "filenameEn": "assets/audio/en-default/silah_1.mp3",
+        "textEn": "A companion from the Ghifar tribe — silent, devout, a quiet fighter in the armies of the Islamic conquests.",
+        "size": 47376,
         "duration": 31500
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/silah_2.mp3",
         "text": "كَانَ صِلَةُ فِي جَيْشِ المُسْلِمِينَ فِي بِلَادِ الشَّامِ. فِي لَيْلَةٍ شَدِيدَةِ الظُّلْمَةِ وَالبَرْدِ، ضَلَّ الجَيْشُ وَنَفِدَ مَاؤُهُمْ وَكَادُوا يَهْلِكُونَ عَطَشًا.",
-        "size": 57744,
+        "filenameEn": "assets/audio/en-default/silah_2.mp3",
+        "textEn": "Silah was with the Muslim army in the Levant. On a night of intense darkness and cold, the army lost its way, their water ran out, and they nearly perished of thirst.",
+        "size": 65664,
         "duration": 42750
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/silah_3.mp3",
         "text": "تَسَلَّلَ صِلَةُ سِرًّا وَابْتَعَدَ عَنِ المُعَسْكَرِ، فَسَجَدَ وَدَعَا اللَّهَ وَبَكَى. فَنَبَعَ المَاءُ مِنْ بَيْنِ يَدَيْهِ وَسْطَ الصَّحْرَاءِ القَاحِلَةِ! فَدَعَا الجَيْشَ فَشَرِبُوا وَسَقَوْا دَوَابَّهُمْ وَمَلَأُوا قِرَبَهُمْ.",
-        "size": 77184,
+        "filenameEn": "assets/audio/en-default/silah_3.mp3",
+        "textEn": "Silah slipped away secretly and prostrated himself in prayer, weeping. Water sprang from beneath his hands in the barren desert! He called the army and they drank, watered their animals, and filled their vessels.",
+        "size": 89136,
         "duration": 58250
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/silah_4.mp3",
         "text": "ثُمَّ عَادَ صِلَةُ إِلَى صُفُوفِ الجَيْشِ صَامِتًا لَمْ يَقُلْ: أَنَا الَّذِي دَعَوْتُ، خَوْفًا مِنَ الرِّيَاءِ أَنْ يُفْسِدَ عَمَلَهُ.",
-        "size": 42192,
+        "filenameEn": "assets/audio/en-default/silah_4.mp3",
+        "textEn": "Then Silah returned silently to the army's ranks, never saying \"I am the one who prayed\" — fearing that showing off might ruin his deed with Allah.",
+        "size": 48528,
         "duration": 33750
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/silah_5.mp3",
         "text": "مِنْ دُرُوسِ قِصَّةِ صِلَةَ: أَوَّلًا، الإِخْلَاصُ الشَّدِيدُ وَالخَوْفُ مِنَ الشُّهْرَةِ، فَقَدْ نَصَرَ الجَيْشَ وَأَخْفَى المَشْهَدَ خَوْفًا مِنَ الرِّيَاءِ. وَثَانِيًا، اسْتِجَابَةُ الدُّعَاءِ لِلْمُضْطَرِّينَ فَالسُّجُودُ بِصِدْقٍ يَفْتَحُ أَبْوَابَ المُعْجِزَاتِ. وَهَذَا هُوَ التَّقِيُّ الخَفِيُّ الَّذِي يُحِبُّهُ اللَّهُ.",
-        "size": 105840,
+        "filenameEn": "assets/audio/en-default/silah_5.mp3",
+        "textEn": "Lessons from this story: Deep sincerity and fear of fame: Silah saved the army and hid the miracle, fearing ostentation. Allah answers the distressed: sincere prostration opens doors to miracles. This is the \"hidden pious one\" whom Allah loves and who is remembered by those who never knew him.",
+        "size": 121536,
         "duration": 82250
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/silah_6.mp3",
         "text": "نَجَا الجَيْشُ بِدُعَاءِ رَجُلٍ لَمْ يَعْرِفْهُ أَحَدٌ. وَاللَّهُ يَعْلَمُ السِّرَّ وَأَخْفَى. فَرَضِيَ اللَّهُ عَنْ صِلَةَ بْنِ الحَارِثِ الغِفَارِيِّ.",
-        "size": 54576,
+        "filenameEn": "assets/audio/en-default/silah_6.mp3",
+        "textEn": "The army was saved by the prayer of a man no one knew — and Allah knows what is hidden and more hidden",
+        "size": 65952,
         "duration": 38000
       }
     ]
@@ -403,49 +505,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/abududahdah_0.mp3",
         "text": "أَبُو الدَّحْدَاحِ. صَاحِبُ أَرْبَحِ بَيْعٍ فِي تَارِيخِ البَشَرِيَّةِ.",
-        "size": 29808,
+        "filenameEn": "assets/audio/en-default/abududahdah_0.mp3",
+        "textEn": "Abu al-Dahdah. The Owner of the Most Profitable Sale in Human History",
+        "size": 34992,
         "duration": 17750
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/abududahdah_1.mp3",
         "text": "ثَابِتُ بْنُ الدَّحْدَاحِ الأَنْصَارِيُّ، كَانَ يَمْلِكُ بُسْتَانًا عَظِيمًا فِي المَدِينَةِ فِيهِ نَخِيلٌ كَثِيرَةٌ وَبِئْرُ مَاءٍ وَقَصْرٌ تَعِيشُ فِيهِ أُسْرَتُهُ.",
-        "size": 49680,
+        "filenameEn": "assets/audio/en-default/abududahdah_1.mp3",
+        "textEn": "Thabit ibn al-Dahdah al-Ansari owned a magnificent garden in Madinah with six hundred palm trees, a water well, and a palace where his family lived.",
+        "size": 61056,
         "duration": 41500
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/abududahdah_2.mp3",
         "text": "لَمَّا نَزَلَتِ الآيَةُ: مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا، مَشَى أَبُو الدَّحْدَاحِ إِلَى النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ وَقَالَ: يَا رَسُولَ اللَّهِ، وَإِنَّ اللَّهَ يُرِيدُ مِنَّا القَرْضَ؟",
-        "size": 63648,
+        "filenameEn": "assets/audio/en-default/abududahdah_2.mp3",
+        "textEn": "When the verse was revealed: \"Who will lend Allah a goodly loan?\", Abu al-Dahdah walked to the Prophet ﷺ and said: \"O Messenger of Allah, does Allah want a loan from us?\"",
+        "size": 78336,
         "duration": 55500
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/abududahdah_3.mp3",
         "text": "قَالَ أَبُو الدَّحْدَاحِ: فَإِنِّي قَدْ أَقْرَضْتُ رَبِّي حَائِطِي. ثُمَّ ذَهَبَ إِلَى زَوْجَتِهِ أُمِّ الدَّحْدَاحِ وَنَادَاهَا: اخْرُجِي مِنَ الحَائِطِ، فَقَدْ بِعْتُهُ لِرَبِّي. فَقَالَتِ الزَّوْجَةُ الصَّالِحَةُ بِفَرَحٍ وَرِضًا: رَبِحَ البَيْعُ، رَبِحَ البَيْعُ. وَأَخْرَجَتِ التَّمْرَ مِنْ أَفْوَاهِ أَطْفَالِهَا.",
-        "size": 111312,
+        "filenameEn": "assets/audio/en-default/abududahdah_3.mp3",
+        "textEn": "\"I have lent my garden to my Lord!\" He went to the garden and called his wife: \"Leave the garden, I have sold it to my Lord!\" She said with joy: \"A profitable sale! A profitable sale!\" and removed the dates from her children's mouths.",
+        "size": 130464,
         "duration": 79750
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/abududahdah_4.mp3",
         "text": "وَلَمَّا مَشَى النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي جَنَازَةِ أَبِي الدَّحْدَاحِ قَالَ: كَمْ مِنْ عِذْقٍ مُعَلَّقٍ لِأَبِي الدَّحْدَاحِ فِي الجَنَّةِ!",
-        "size": 45216,
+        "filenameEn": "assets/audio/en-default/abududahdah_4.mp3",
+        "textEn": "When the Prophet ﷺ walked in Abu al-Dahdah's funeral procession he said with joy: \"How many palm clusters hang for Abu al-Dahdah in Paradise!\"",
+        "size": 54144,
         "duration": 40500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/abududahdah_5.mp3",
         "text": "مِنْ دُرُوسِ أَبِي الدَّحْدَاحِ: الاسْتِجَابَةُ الفَوْرِيَّةُ لِلنَّصِّ الشَّرْعِيِّ. وَالزَّوْجَةُ الصَّالِحَةُ الَّتِي تُعِينُ زَوْجَهَا عَلَى الطَّاعَةِ. وَاليَقِينُ بِوَعْدِ اللَّهِ.",
-        "size": 63792,
+        "filenameEn": "assets/audio/en-default/abududahdah_5.mp3",
+        "textEn": "Lessons from this story: Immediate response to scripture: he did not hesitate or calculate worldly loss. The righteous wife: she did not complain but blessed the deal and supported her husband's obedience. Certainty in Allah's promise: whoever lends to Allah receives more than they gave — in Paradise are endless palms.",
+        "size": 74304,
         "duration": 46500
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/abududahdah_6.mp3",
         "text": "بَاعَ أَبُو الدَّحْدَاحِ بُسْتَانَهُ لِلَّهِ فَاشْتَرَى النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لَهُ نَخِيلَ الجَنَّةِ. رَبِحَ البَيْعُ. فَرَضِيَ اللَّهُ عَنْ أَبِي الدَّحْدَاحِ.",
-        "size": 62208,
+        "filenameEn": "assets/audio/en-default/abududahdah_6.mp3",
+        "textEn": "Abu al-Dahdah sold his garden to Allah and the Prophet ﷺ purchased him the palms of Paradise — may Allah be pleased with him",
+        "size": 72288,
         "duration": 45750
       }
     ]
@@ -457,49 +573,63 @@
         "index": 0,
         "filename": "assets/audio/hamed/khabbab_0.mp3",
         "text": "خَبَّابُ بْنُ الأَرَتِّ. الَّذِي جَعَلَ الجَمْرَ فِرَاشَهُ وَلَمْ يَرْتَدَّ.",
-        "size": 32400,
+        "filenameEn": "assets/audio/en-default/khabbab_0.mp3",
+        "textEn": "Khabbab ibn al-Aratt. Who Made Burning Coals His Bed and Never Renounced His Faith",
+        "size": 35856,
         "duration": 19000
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/khabbab_1.mp3",
         "text": "كَانَ خَبَّابُ بْنُ الأَرَتِّ عَبْدًا مَمْلُوكًا مِنَ السَّابِقِينَ الأَوَّلِينَ إِلَى الإِسْلَامِ. كَانَ حَدَّادًا يَصْنَعُ السُّيُوفَ لِقُرَيْشٍ. فَلَمَّا أَسْلَمَ صَارَ أَشَدَّ النَّاسِ تَعْذِيبًا فِي مَكَّةَ.",
-        "size": 70992,
+        "filenameEn": "assets/audio/en-default/khabbab_1.mp3",
+        "textEn": "Khabbab was an enslaved man and one of the first to embrace Islam. He was a blacksmith who made swords for Quraysh. When he embraced Islam, he became the most severely tortured in Makkah.",
+        "size": 80640,
         "duration": 53000
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/khabbab_2.mp3",
         "text": "كَانَتْ سَيِّدَتُهُ تُوقِدُ النَّارَ وَتُلْصِقُ الجَمْرَ بِظَهْرِهِ حَتَّى يَرْتَدَّ عَنِ الإِسْلَامِ. وَمَا أَطْفَأَهَا إِلَّا دَهَنُ ظَهْرِهِ. وَلَمْ يَرْتَدَّ خَبَّابٌ قَطُّ.",
-        "size": 63216,
+        "filenameEn": "assets/audio/en-default/khabbab_2.mp3",
+        "textEn": "His mistress Umm Anmar would light fire and press burning coals on his back until he renounced Islam. Nothing extinguished it but the fat of his back — yet Khabbab never renounced his faith.",
+        "size": 72720,
         "duration": 44250
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/khabbab_3.mp3",
         "text": "قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ لِخَبَّابٍ: وَاللَّهِ لَيُتِمَّنَّ هَذَا الأَمْرَ حَتَّى يَسِيرَ الرَّاكِبُ مِنْ صَنْعَاءَ إِلَى حَضْرَمَوْتَ لَا يَخَافُ إِلَّا اللَّهَ. وَعَدَهُ بِالنَّصْرِ وَحَثَّهُ عَلَى الصَّبْرِ.",
-        "size": 67824,
+        "filenameEn": "assets/audio/en-default/khabbab_3.mp3",
+        "textEn": "The Prophet said: \"By Allah, this matter will be completed until a rider travels from Sana'a to Hadramawt fearing none but Allah.\" He promised victory and urged patience.",
+        "size": 82656,
         "duration": 59000
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/khabbab_4.mp3",
         "text": "عَاشَ خَبَّابٌ حَتَّى رَأَى النَّصْرَ يَتَحَقَّقُ. وَعِنْدَمَا زَارَهُ الصَّحَابَةُ فِي مَرَضِهِ كَشَفَ لَهُمْ عَنْ ظَهْرِهِ وَقَالَ: انْظُرُوا مَا فَعَلَتِ النَّارُ بِظَهْرِي.",
-        "size": 57024,
+        "filenameEn": "assets/audio/en-default/khabbab_4.mp3",
+        "textEn": "Khabbab lived to see the victory fulfilled. When companions visited him in his illness, he uncovered his back and said: \"Look what fire did to my back\" — it was like the hide of a donkey.",
+        "size": 70416,
         "duration": 44000
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/khabbab_5.mp3",
         "text": "مِنْ دُرُوسِ خَبَّابٍ: الثَّبَاتُ عَلَى الحَقِّ فَقَدِ اخْتَارَ أَلَمَ الجَمْرِ عَلَى لَذَّةِ الرِّدَّةِ. وَوَعْدُ اللَّهِ آتٍ فَقَدْ صَبَرَ وَرَأَى الإِسْلَامَ يَنْتَشِرُ. وَشَرَفُ السَّبْقِ فَكَانَ سَادِسَ مَنْ أَسْلَمَ.",
-        "size": 75024,
+        "filenameEn": "assets/audio/en-default/khabbab_5.mp3",
+        "textEn": "Lessons from this story: Steadfastness in truth: Khabbab chose the pain of coals over the comfort of apostasy. Allah's promise is certain: he endured torture and lived to see Islam spread from Sana'a to Hadramawt. The honour of being first: he was the sixth to embrace Islam and a living witness to the dawn of the mission.",
+        "size": 86544,
         "duration": 55500
       },
       {
         "index": 6,
         "filename": "assets/audio/hamed/khabbab_6.mp3",
         "text": "مَاتَ خَبَّابٌ وَعَلَى ظَهْرِهِ آثَارُ الجَمْرِ، شَوَاهِدُ لَا تَكْذِبُ عَلَى صِدْقٍ لَا يُوصَفُ. فَرَضِيَ اللَّهُ عَنْ خَبَّابِ بْنِ الأَرَتِّ.",
-        "size": 50976,
+        "filenameEn": "assets/audio/en-default/khabbab_6.mp3",
+        "textEn": "Khabbab died with the marks of fire on his back — witnesses that never lie to an indescribable sincerity",
+        "size": 61200,
         "duration": 36000
       }
     ]
@@ -511,42 +641,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/abbad_0.mp3",
         "text": "عَبَّادُ بْنُ بِشْرٍ. الَّذِي كَانَتِ الصَّلَاةُ أَحَبَّ إِلَيْهِ مِنْ حَيَاتِهِ.",
-        "size": 31824,
+        "filenameEn": "assets/audio/en-default/abbad_0.mp3",
+        "textEn": "Abbad ibn Bishr. Who Loved Prayer More Than His Own Life",
+        "size": 37152,
         "duration": 20250
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/abbad_1.mp3",
         "text": "صَحَابِيٌّ أَنْصَارِيٌّ مِنَ الأَوْسِ، آمَنَ مُبَكِّرًا وَأَحَبَّ الصَّلَاةَ حُبًّا لَا يُضَاهِيهِ شَيْءٌ. وُصِفَ بِأَنَّهُ كَانَ إِذَا قَامَ يُصَلِّي تَغَيَّرَ وَجْهُهُ.",
-        "size": 55296,
+        "filenameEn": "assets/audio/en-default/abbad_1.mp3",
+        "textEn": "An Ansari companion from the Aws tribe who believed early and loved prayer in a way nothing could rival. He was described as one whose face changed when he stood in prayer.",
+        "size": 69984,
         "duration": 42500
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/abbad_2.mp3",
         "text": "فِي إِحْدَى سَرَايَا النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، تَنَاوَبَ عَبَّادٌ وَرَفِيقُهُ مِنَ المُهَاجِرِينَ الحِرَاسَةَ لَيْلًا. فَقَامَ عَبَّادٌ يُصَلِّي فَرَمَاهُ الْعَدُوُّ بِسَهْمٍ، فَنَزَعَهُ وَاصْطَبَرَ وَوَاصَلَ صَلَاتَهُ.",
-        "size": 73584,
+        "filenameEn": "assets/audio/en-default/abbad_2.mp3",
+        "textEn": "During one of the Prophet's expeditions, Abbad and Ammar ibn Yasir took turns on guard at night. Abbad stood to pray and the enemy shot him with an arrow. He pulled it out, bore the pain, and continued his prayer.",
+        "size": 91152,
         "duration": 59750
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/abbad_3.mp3",
         "text": "قَالَ عَبَّادٌ: كُنْتُ فِي سُورَةٍ أَقْرَؤُهَا فَلَمْ أُحِبَّ أَنْ أَقْطَعَهَا. وَلَوْلَا أَنْ أُضَيِّعَ ثَغْرًا أَمَرَنِي رَسُولُ اللَّهِ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ بِحِفْظِهِ، لَآثَرْتُ أَنْ أُقْتَلَ دُونَ أَنْ أَقْطَعَهَا.",
-        "size": 70704,
+        "filenameEn": "assets/audio/en-default/abbad_3.mp3",
+        "textEn": "\"I was reciting a surah and did not wish to cut it short until I finished it. Had I not feared neglecting the post the Messenger of Allah entrusted me with, I would have preferred death to interrupting it.\"",
+        "size": 85104,
         "duration": 58000
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/abbad_4.mp3",
         "text": "مِنْ دُرُوسِ عَبَّادٍ: حَلَاوَةُ الصَّلَاةِ الحَقِيقِيَّةِ تَجْعَلُ صَاحِبَهَا يَنْسَى الأَلَمَ. وَالأَمَانَةُ فِي المَهَمَّةِ فَلَمْ يَتْرُكِ الثَّغْرَ. وَمَرَاتِبُ المُحِبِّينَ، مَنْ أَحَبَّ اللَّهَ آثَرَ لِقَاءَهُ عَلَى الحَيَاةِ.",
-        "size": 78192,
+        "filenameEn": "assets/audio/en-default/abbad_4.mp3",
+        "textEn": "Lessons from this story: The sweetness of prayer: true prayer makes its owner forget pain and find comfort with their Lord. Faithfulness in duty: he did not abandon the post until he woke his companion — prayer does not cancel responsibility. The ranks of those who love: whoever truly loves Allah prefers meeting Him over life itself.",
+        "size": 94320,
         "duration": 58250
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/abbad_5.mp3",
         "text": "ثَلَاثَةُ سِهَامٍ فِي جِسَدِهِ وَهُوَ لَا يَزَالُ يَتْلُو. هَذَا هُوَ عَبَّادُ بْنُ بِشْرٍ. فَرَضِيَ اللَّهُ عَنْهُ.",
-        "size": 48240,
+        "filenameEn": "assets/audio/en-default/abbad_5.mp3",
+        "textEn": "Three arrows in his body and he was still reciting — this is Abbad ibn Bishr",
+        "size": 55872,
         "duration": 29000
       }
     ]
@@ -558,42 +700,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/umm_amara_0.mp3",
         "text": "أُمُّ عَمَّارَةَ نُسَيْبَةُ بِنْتُ كَعْبٍ. الْمَرْأَةُ الَّتِي مَدَحَهَا النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ فِي مَيْدَانِ المَعْرَكَةِ.",
-        "size": 44784,
+        "filenameEn": "assets/audio/en-default/umm_amara_0.mp3",
+        "textEn": "Umm Amara Nusayba. The Woman Whom the Prophet Praised on the Battlefield",
+        "size": 53568,
         "duration": 36250
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/umm_amara_1.mp3",
         "text": "أَنْصَارِيَّةٌ مِنَ الخَزْرَجِ، بَايَعَتْ بَيْعَةَ العَقَبَةِ الثَّانِيَةَ. خَرَجَتْ إِلَى غَزْوَةِ أُحُدٍ تَسْقِي الْمُقَاتِلِينَ وَتُدَاوِي الجَرْحَى.",
-        "size": 51984,
+        "filenameEn": "assets/audio/en-default/umm_amara_1.mp3",
+        "textEn": "An Ansari woman from the Khazraj who pledged the Second Pledge of Aqaba. She went to Uhud to give water to the fighters and tend the wounded.",
+        "size": 59472,
         "duration": 38000
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/umm_amara_2.mp3",
         "text": "لَمَّا انْكَشَفَ الْمُسْلِمُونَ يَوْمَ أُحُدٍ تَحَوَّلَتْ أُمُّ عَمَّارَةَ مِنْ مُمَرِّضَةٍ إِلَى مُقَاتِلَةٍ. أَخَذَتِ السَّيْفَ وَالْقَوْسَ وَالتَّرْسَ وَوَقَفَتْ تَذُبُّ عَنِ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ.",
-        "size": 65088,
+        "filenameEn": "assets/audio/en-default/umm_amara_2.mp3",
+        "textEn": "When the Muslims were routed at Uhud, Umm Amara transformed from nurse to warrior. She took up sword, bow, and shield and stood defending the Prophet ﷺ.",
+        "size": 76464,
         "duration": 55750
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/umm_amara_3.mp3",
         "text": "قَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: مَا الْتَفَتُّ يَمِينًا وَلَا شِمَالًا يَوْمَ أُحُدٍ إِلَّا وَأَنَا أَرَاهَا تُقَاتِلُ دُونِي. وَلَمَّا ضَرَبَ ابْنُ قَمِئَةَ عُنُقَهَا ضَرَبَتْهُ حَتَّى أَعْجَزَتْهُ.",
-        "size": 65808,
+        "filenameEn": "assets/audio/en-default/umm_amara_3.mp3",
+        "textEn": "\"I did not look right or left at Uhud except that I saw her fighting in my defence.\" When Ibn Qami'a struck her neck, she struck back and incapacitated him.",
+        "size": 78768,
         "duration": 54750
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/umm_amara_4.mp3",
         "text": "مِنْ دُرُوسِ أُمِّ عَمَّارَةَ: الْمَرْأَةُ فِي الإِسْلَامِ شَرِيكَةُ الْبِنَاءِ لَا مُتَفَرِّجَةً. وَالطَّوَارِئُ تَكْشِفُ مَعَادِنَ النُّفُوسِ، فَقَدْ جَاءَتْ لِتَسْقِيَ وَبَقِيَتْ لِتُقَاتِلَ. وَمَدِيحُ النَّبِيِّ وَسَامٌ لَا يَعْدِلُهُ شَيْءٌ.",
-        "size": 80064,
+        "filenameEn": "assets/audio/en-default/umm_amara_4.mp3",
+        "textEn": "Lessons from this story: Woman in Islam is a partner in building, not a spectator — Umm Amara is an undeniable witness. Emergencies reveal the mettle of souls — she came to give water and stayed to fight. The Prophet's praise on the battlefield is a medal that nothing can match.",
+        "size": 97776,
         "duration": 61500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/umm_amara_5.mp3",
         "text": "اثْنَتَا عَشْرَةَ جُرْحًا وَشَهَادَةُ النَّبِيِّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ. هَذَا مِيرَاثُ نُسَيْبَةَ لِكُلِّ مُسْلِمَةٍ. فَرَضِيَ اللَّهُ عَنْ أُمِّ عَمَّارَةَ.",
-        "size": 58464,
+        "filenameEn": "assets/audio/en-default/umm_amara_5.mp3",
+        "textEn": "Twelve wounds and the Prophet's testimony — this is Nusayba's legacy for every Muslim woman",
+        "size": 69696,
         "duration": 42250
       }
     ]
@@ -605,42 +759,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/abu_aqeel_0.mp3",
         "text": "أَبُو عَقِيلٍ الأَنْصَارِيُّ. الَّذِي أَنْزَلَ اللَّهُ فِيهِ آيَةً تُتْلَى إِلَى يَوْمِ القِيَامَةِ.",
-        "size": 36432,
+        "filenameEn": "assets/audio/en-default/abu_aqeel_0.mp3",
+        "textEn": "Abu Aqeel al-Ansari. For Whom Allah Revealed a Verse Recited Until the Day of Judgment",
+        "size": 43056,
         "duration": 25000
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/abu_aqeel_1.mp3",
         "text": "صَحَابِيٌّ أَنْصَارِيٌّ فَقِيرٌ. لَمَّا نَادَى النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ إِلَى الصَّدَقَةِ لِتَجْهِيزِ جَيْشِ العُسْرَةِ، عَمِلَ لَيْلَتَهُ كُلَّهَا وَأَتَى بِنِصْفِ صَاعٍ هُوَ كُلُّ مَا يَمْلِكُ.",
-        "size": 62640,
+        "filenameEn": "assets/audio/en-default/abu_aqeel_1.mp3",
+        "textEn": "A poor Ansari companion. When the Prophet ﷺ called for charity to equip the Army of Hardship, he hired himself out for a full night for two saa of dates.",
+        "size": 79056,
         "duration": 53750
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/abu_aqeel_2.mp3",
         "text": "جَاءَ أَبُو عَقِيلٍ بِنِصْفِ الصَّاعَيْنِ صَدَقَةً وَاحْتَبَسَ النِّصْفَ الآخَرَ لِأَهْلِهِ. فَسَخِرَ الْمُنَافِقُونَ وَقَالُوا: إِنَّ اللَّهَ لَغَنِيٌّ عَنْ صَدَقَةِ هَذَا.",
-        "size": 57312,
+        "filenameEn": "assets/audio/en-default/abu_aqeel_2.mp3",
+        "textEn": "Abu Aqeel brought half a saa as charity and kept the other half for his family. The hypocrites mocked: \"Allah has no need of this man's charity!\"",
+        "size": 68400,
         "duration": 43250
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/abu_aqeel_3.mp3",
         "text": "نَزَلَ الْقُرْآنُ يَرُدُّ عَلَى الْمُنَافِقِينَ: الَّذِينَ يَلْمِزُونَ الْمُطَّوِّعِينَ مِنَ الْمُؤْمِنِينَ فِي الصَّدَقَاتِ وَالَّذِينَ لَا يَجِدُونَ إِلَّا جُهْدَهُمْ فَيَسْخَرُونَ مِنْهُمْ، سَخِرَ اللَّهُ مِنْهُمْ وَلَهُمْ عَذَابٌ أَلِيمٌ. سُورَةُ التَّوْبَةِ آيَةُ تِسْعَةٍ وَسَبْعِينَ.",
-        "size": 85824,
+        "filenameEn": "assets/audio/en-default/abu_aqeel_3.mp3",
+        "textEn": "\"Those who criticize the believers who give charity voluntarily and those who find nothing but their effort — Allah will ridicule them and for them is a painful punishment.\" (At-Tawbah: 79)",
+        "size": 102816,
         "duration": 72500
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/abu_aqeel_4.mp3",
         "text": "مِنْ دُرُوسِ أَبِي عَقِيلٍ: لَا صَغِيرَةَ فِي مِيزَانِ الإِخْلَاصِ، فَنِصْفُ صَاعٍ بِنِيَّةٍ صَادِقَةٍ يَسْتَحِقُّ آيَةً قُرْآنِيَّةً. وَالسُّخْرِيَةُ مِنَ العَطَاءِ سِلَاحُ الخَائِفِينَ. وَالْفَقِيرُ الْمُعْطِي أَغْنَى مِنَ الغَنِيِّ الشَّاهِدِ.",
-        "size": 84960,
+        "filenameEn": "assets/audio/en-default/abu_aqeel_4.mp3",
+        "textEn": "Lessons from this story: Nothing is small on the scale of sincerity: half a saa with a true intention deserves a Quranic verse. Mocking generosity is the weapon of those afraid of giving — and Allah responds with the Quran. The poor giver is richer than the wealthy spectator — in Allah's scale the effect matters, not the amount.",
+        "size": 101520,
         "duration": 61500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/abu_aqeel_5.mp3",
         "text": "نِصْفُ صَاعٍ تَعِبَ فِيهِ لَيْلَةً صَارَ آيَةً خَالِدَةً فِي كِتَابِ اللَّهِ. فَرَضِيَ اللَّهُ عَنْ أَبِي عَقِيلٍ الأَنْصَارِيِّ.",
-        "size": 46224,
+        "filenameEn": "assets/audio/en-default/abu_aqeel_5.mp3",
+        "textEn": "Half a saa earned through a night of labour became an eternal verse in the Book of Allah",
+        "size": 55728,
         "duration": 32250
       }
     ]
@@ -652,42 +818,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/ubada_0.mp3",
         "text": "عُبَادَةُ بْنُ الصَّامِتِ. أَوَّلُ مَنْ حَمَلَ الْقُرْآنَ إِلَى الشَّامِ.",
-        "size": 30816,
+        "filenameEn": "assets/audio/en-default/ubada_0.mp3",
+        "textEn": "Ubada ibn al-Samit. The First to Carry the Quran to the Levant",
+        "size": 33696,
         "duration": 18250
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/ubada_1.mp3",
         "text": "مِنْ سَادَاتِ الْخَزْرَجِ، كَانَ نَقِيبًا فِي بَيْعَةِ الْعَقَبَةِ الثَّانِيَةِ الَّتِي أَسَّسَتْ لِلْهِجْرَةِ. كَانَ طَوِيلًا أَسْوَدَ جَلِيلَ الْمَنْظَرِ، إِذَا رَآهُ النَّاسُ هَابُوهُ.",
-        "size": 63792,
+        "filenameEn": "assets/audio/en-default/ubada_1.mp3",
+        "textEn": "A chief of the Khazraj and one of the twelve deputies at the Second Pledge of Aqaba that laid the foundation for the Hijra. Tall, dark, and commanding — people stood in awe when they saw him.",
+        "size": 69696,
         "duration": 46750
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/ubada_2.mp3",
         "text": "أَرْسَلَهُ عُمَرُ بْنُ الْخَطَّابِ رَضِيَ اللَّهُ عَنْهُ مُعَلِّمًا إِلَى الشَّامِ. فَانْتَشَرَ عُبَادَةُ فِي الشَّامِ حَتَّى صَارَ كُلُّ مَنْ تَعَلَّمَ الْقُرْآنَ فِيهَا يَعُودُ بِنَسَبِهِ إِلَيْهِ.",
-        "size": 60624,
+        "filenameEn": "assets/audio/en-default/ubada_2.mp3",
+        "textEn": "Umar sent him to the Levant saying: \"Go to the people of Sham and teach them the Quran.\" Ubada spread through the Levant until every Quran student there traced back to him.",
+        "size": 70992,
         "duration": 49750
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/ubada_3.mp3",
         "text": "وَقَفَ عُبَادَةُ أَمَامَ مُعَاوِيَةَ بِلَا مُهَادَنَةٍ حِينَ رَأَى مُنْكَرًا وَقَالَ: لَا أُبَالِي بِسَخَطِكَ إِذَا كُنْتُ فِي رِضَا اللَّهِ.",
-        "size": 42624,
+        "filenameEn": "assets/audio/en-default/ubada_3.mp3",
+        "textEn": "Ubada stood before Muawiyah without compromise when he saw wrongdoing and said: \"I do not care about your anger when I am in Allah's pleasure.\" The character of men shows when the price is high.",
+        "size": 51408,
         "duration": 35250
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/ubada_4.mp3",
         "text": "مِنْ دُرُوسِ عُبَادَةَ: حَامِلُ الْقُرْآنِ رِسَالَتُهُ لَا تَنْتَهِي بِمَوْتِهِ. وَالنَّقِيبُ الْحَقِيقِيُّ يَقُودُ بِالْعِلْمِ فَقَدْ فَتَحَ عُبَادَةُ الشَّامَ بِالْقُرْآنِ. وَالشَّجَاعَةُ كَلِمَةُ حَقٍّ عِنْدَ سُلْطَانٍ جَائِرٍ.",
-        "size": 75168,
+        "filenameEn": "assets/audio/en-default/ubada_4.mp3",
+        "textEn": "Lessons from this story: The Quran carrier's mission does not end with death — every student of his students is in his balance. The true leader leads by knowledge not the sword — Ubada opened the Levant with the Quran. Courage is a word of truth before an unjust ruler — he stood before Muawiyah and said his word.",
+        "size": 91152,
         "duration": 57500
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/ubada_5.mp3",
         "text": "رَحَلَ عُبَادَةُ وَخَلَّفَ أَجْيَالًا مِنْ حُفَّاظِ الشَّامِ. وَهُمْ فِي مِيزَانِهِ إِلَى يَوْمِ الدِّينِ. فَرَضِيَ اللَّهُ عَنْ عُبَادَةَ بْنِ الصَّامِتِ.",
-        "size": 55584,
+        "filenameEn": "assets/audio/en-default/ubada_5.mp3",
+        "textEn": "Ubada departed leaving behind generations of Quran memorisers in the Levant — in his scale until the Day of Judgment",
+        "size": 66960,
         "duration": 38750
       }
     ]
@@ -699,42 +877,54 @@
         "index": 0,
         "filename": "assets/audio/hamed/abu_darda_0.mp3",
         "text": "أَبُو الدَّرْدَاءِ عُوَيْمِرُ بْنُ زَيْدٍ. التَّاجِرُ الَّذِي تَرَكَ السُّوقَ لِيَفْتَحَ مَدَارِسَ الْعِلْمِ.",
-        "size": 39168,
+        "filenameEn": "assets/audio/en-default/abu_darda_0.mp3",
+        "textEn": "Abu al-Darda. The Merchant Who Left the Market to Open Schools of Knowledge",
+        "size": 45216,
         "duration": 27250
       },
       {
         "index": 1,
         "filename": "assets/audio/hamed/abu_darda_1.mp3",
         "text": "أَسْلَمَ أَبُو الدَّرْدَاءِ مُتَأَخِّرًا عَنِ الْبَدْرِيِّينَ وَكَانَ تَاجِرًا مَشْغُولًا. فَلَمَّا أَسْلَمَ رَأَى أَنَّ التِّجَارَةَ وَالْعِلْمَ لَا يَجْتَمِعَانِ فَاخْتَارَ الْعِلْمَ.",
-        "size": 55584,
+        "filenameEn": "assets/audio/en-default/abu_darda_1.mp3",
+        "textEn": "Abu al-Darda embraced Islam later than the Badris and was a busy merchant in the market. When he embraced Islam, he saw that trade and knowledge cannot coexist, so he chose knowledge.",
+        "size": 65664,
         "duration": 46250
       },
       {
         "index": 2,
         "filename": "assets/audio/hamed/abu_darda_2.mp3",
         "text": "قَالَ سَلْمَانُ لِأَبِي الدَّرْدَاءِ: إِنَّ لِرَبِّكَ عَلَيْكَ حَقًّا وَلِنَفْسِكَ عَلَيْكَ حَقًّا وَلِأَهْلِكَ عَلَيْكَ حَقًّا فَأَعْطِ كُلَّ ذِي حَقٍّ حَقَّهُ. فَقَالَ النَّبِيُّ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ: صَدَقَ سَلْمَانُ.",
-        "size": 70128,
+        "filenameEn": "assets/audio/en-default/abu_darda_2.mp3",
+        "textEn": "Salman visited Abu al-Darda and said: \"Your Lord has a right over you, your soul has a right, and your family has a right — give each their due.\" The Prophet confirmed: \"Salman has spoken the truth.\"",
+        "size": 87264,
         "duration": 58250
       },
       {
         "index": 3,
         "filename": "assets/audio/hamed/abu_darda_3.mp3",
         "text": "صَارَ أَبُو الدَّرْدَاءِ قَاضِيَ دِمَشْقَ وَمُعَلِّمَهَا. وَكَانَ يَجْلِسُ إِلَيْهِ جُمُوعٌ كَثِيرَةٌ مِنَ طُلَّابِ القُرْآنِ وَالعِلْمِ. وَكَانَ يَقُولُ: تَعَلَّمُوا الْعِلْمَ قَبْلَ أَنْ يُرْفَعَ.",
-        "size": 68544,
+        "filenameEn": "assets/audio/en-default/abu_darda_3.mp3",
+        "textEn": "Abu al-Darda became the judge and teacher of Damascus. One thousand six hundred students would sit with him. He would say: \"Learn knowledge before it is lifted away.\"",
+        "size": 82224,
         "duration": 49500
       },
       {
         "index": 4,
         "filename": "assets/audio/hamed/abu_darda_4.mp3",
         "text": "مِنْ دُرُوسِ أَبِي الدَّرْدَاءِ: التَّحَوُّلُ الْكَامِلُ لِلَّهِ فَقَدْ تَرَكَ التِّجَارَةَ لِأَنَّ الْعِلْمَ أَعْلَى. وَالتَّوَازُنُ الإِسْلَامِيُّ فَالزُّهْدُ لَا يُلْغِي الْوَاجِبَاتِ. وَأَثَرُ الْعَالِمِ جُمُوعٌ كَثِيرَةٌ مِنَ الطُّلَّابِ يَحْمِلُونَ عِلْمَهُ.",
-        "size": 81792,
+        "filenameEn": "assets/audio/en-default/abu_darda_4.mp3",
+        "textEn": "Lessons from this story: Complete transformation for Allah: he left trade by choice because knowledge is higher. Islamic balance: Salman reminded him of duties to self and family — asceticism does not cancel obligations. The scholar's legacy: 1600 students carry his knowledge and pass it to generations.",
+        "size": 96048,
         "duration": 66000
       },
       {
         "index": 5,
         "filename": "assets/audio/hamed/abu_darda_5.mp3",
         "text": "تَرَكَ أَبُو الدَّرْدَاءِ السُّوقَ وَلَمْ يَنْدَمْ. وَتَرَكَ عِلْمًا يُضِيءُ الشَّامَ حَتَّى الْيَوْمِ. فَرَضِيَ اللَّهُ عَنْ أَبِي الدَّرْدَاءِ.",
-        "size": 53568,
+        "filenameEn": "assets/audio/en-default/abu_darda_5.mp3",
+        "textEn": "He left the market with no regret — and left a knowledge that illuminates the Levant to this day",
+        "size": 60336,
         "duration": 36250
       }
     ]
