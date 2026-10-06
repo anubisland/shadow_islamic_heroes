@@ -1,16 +1,27 @@
 {
-  "name": "أبطال في الظل",
-  "short_name": "أبطال",
-  "description": "سير الجنود المجهولين من صحابة رسول الله",
+  "name": "أبطال في الظل - سِيَرُ الجُنُودِ المَجْهُولِينَ",
+  "short_name": "أبطال في الظل",
   "start_url": "./index.html",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#060E1A",
+  "background_color": "#0d1b2a",
   "theme_color": "#A8CC40",
-  "lang": "ar",
-  "dir": "rtl",
   "icons": [
-    {"src": "assets/intro.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "assets/intro.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "assets/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }
